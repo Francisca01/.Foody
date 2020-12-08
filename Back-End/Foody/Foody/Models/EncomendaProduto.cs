@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace Foody.Models
 {
-    public class Classific
+    public class EncomendaProduto
     {
         [Key]
-        public int cod_prova{ get; set; }
+        public int idEncomendaProduto{ get; set; }
         [Key]
-        public int cod_cavalo { get; set; }
-        public int classific { get; set; }
+        public int idProduto { get; set; }
+        public int quantidade { get; set; }
 
-        public Classific()
+        public EncomendaProduto()
         {
 
         }

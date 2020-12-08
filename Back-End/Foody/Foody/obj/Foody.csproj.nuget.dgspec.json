@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\CPP001\\Desktop\\Projeto de CD e DCS\\Foody\\Foody\\Foody.csproj": {}
+    "C:\\Users\\CPP001\\Desktop\\Projeto de CD e DCS\\Foody\\Back-End\\Foody\\Foody\\Foody.csproj": {}
   },
   "projects": {
-    "C:\\Users\\CPP001\\Desktop\\Projeto de CD e DCS\\Foody\\Foody\\Foody.csproj": {
+    "C:\\Users\\CPP001\\Desktop\\Projeto de CD e DCS\\Foody\\Back-End\\Foody\\Foody\\Foody.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\CPP001\\Desktop\\Projeto de CD e DCS\\Foody\\Foody\\Foody.csproj",
+        "projectUniqueName": "C:\\Users\\CPP001\\Desktop\\Projeto de CD e DCS\\Foody\\Back-End\\Foody\\Foody\\Foody.csproj",
         "projectName": "Foody",
-        "projectPath": "C:\\Users\\CPP001\\Desktop\\Projeto de CD e DCS\\Foody\\Foody\\Foody.csproj",
+        "projectPath": "C:\\Users\\CPP001\\Desktop\\Projeto de CD e DCS\\Foody\\Back-End\\Foody\\Foody\\Foody.csproj",
         "packagesPath": "C:\\Users\\CPP001\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\CPP001\\Desktop\\Projeto de CD e DCS\\Foody\\Foody\\obj\\",
+        "outputPath": "C:\\Users\\CPP001\\Desktop\\Projeto de CD e DCS\\Foody\\Back-End\\Foody\\Foody\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\CPP001\\AppData\\Roaming\\NuGet\\NuGet.Config",
