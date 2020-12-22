@@ -12,10 +12,7 @@ namespace Foody.Models
         public int idCondutor { get; set; }
         [Key]
         public int idUtilizador { get; set; }
-        [Key]
-        public int idMorada{ get; set; }
-        public int numeroCartaConducao { get; set; }
-        public int telemovel { get; set; }
+        public string numeroCartaConducao { get; set; }
 
         public Condutor()
         {

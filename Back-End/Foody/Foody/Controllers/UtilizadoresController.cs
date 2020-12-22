@@ -29,8 +29,8 @@ namespace Foody.Controllers
         }
 
         // GET api/<UtilizadoresController>/5
-        [HttpGet("{id}")]
-        public Utilizador Get(int id)
+        [HttpGet("{idUtilizador}")]
+        public Utilizador Get(int idUtilizador)
         {
 
             using (var db = new DbHelper())
@@ -40,7 +40,7 @@ namespace Foody.Controllers
                 for (int i = 0; i <= utilizadores.Length; i++)
                 {
 
-                    if (utilizadores[i].id == id)
+                    if (utilizadores[i].idUtilizador == idUtilizador)
                     {
                         return utilizadores[i];
                     }
@@ -53,11 +53,11 @@ namespace Foody.Controllers
         //ou
 
         /*
-         public Utilizador Get(int id)
+         public Utilizador Get(int idUtilizador)
         {
             using (var db = new DbHelper())
             {
-                return db.utilizadores.Find(id);
+                return db.utilizadores.Find(idUtilizador);
             }
         }
          */
@@ -73,7 +73,7 @@ namespace Foody.Controllers
                 for (int i = 0; i < utilizadores.Length; i++)
                 {
 
-                    if (novoUtilizador.id == utilizadores[i].id)
+                    if (novoUtilizador.idUtilizador == utilizadores[i].idUtilizador)
                     {
                         return "Já existe";
                     }
@@ -101,12 +101,12 @@ namespace Foody.Controllers
          */
 
         // PUT api/<UtilizadoresController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Utilizador utilizadorUpdate)
+        [HttpPut("{idUtilizador}")]
+        public void Put(int idUtilizador, [FromBody] Utilizador utilizadorUpdate)
         {
             using (var db = new DbHelper())
             {
-                var utilizadorDB = db.utilizadores.Find(id);
+                var utilizadorDB = db.utilizadores.Find(idUtilizador);
 
                 if (utilizadorDB == null)
                 {
@@ -114,7 +114,7 @@ namespace Foody.Controllers
                 }
                 else
                 {
-                    utilizadorDB.id = id;
+                    utilizadorDB.idUtilizador = idUtilizador;
 
                     if (utilizadorUpdate.email != null)
                     {
@@ -126,9 +126,9 @@ namespace Foody.Controllers
                         utilizadorDB.nome = utilizadorUpdate.nome;
                     }
 
-                    if (utilizadorUpdate.palavraPasse != null)
+                    if (utilizadorUpdate.password != null)
                     {
-                        utilizadorDB.palavraPasse = utilizadorUpdate.palavraPasse;
+                        utilizadorDB.password = utilizadorUpdate.password;
                     }
 
                     db.utilizadores.Update(utilizadorDB);
@@ -138,12 +138,12 @@ namespace Foody.Controllers
         }
 
         // DELETE api/<UtilizadoresController>/5
-        [HttpDelete("{id}")]
-        public string Delete(int id)
+        [HttpDelete("{idUtilizador}")]
+        public string Delete(int idUtilizador)
         {
             using (var db = new DbHelper())
             {
-                var utilizadorDB = db.utilizadores.Find(id);
+                var utilizadorDB = db.utilizadores.Find(idUtilizador);
 
                 if (utilizadorDB != null)
                 {
@@ -154,7 +154,7 @@ namespace Foody.Controllers
                 }
                 else
                 {
-                    return "O Utilizador com o id: " + id + " não foi encontrado";
+                    return "O Utilizador com o idUtilizador: " + idUtilizador + " não foi encontrado";
                 }
             }
         }

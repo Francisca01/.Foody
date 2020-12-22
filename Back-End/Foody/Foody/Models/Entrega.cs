@@ -11,11 +11,10 @@ namespace Foody.Models
         [Key]
         public int idEntrega { get; set; }
         [Key]
-        public int idEncomenda { get; set; }
-        [Key]
-        public int idCliente { get; set; }
-        [Key]
         public int idCondutor { get; set; }
+        [Key]
+        public int idEncomenda { get; set; }
+        public string Estado { get; set; }
 
         public Entrega()
         {

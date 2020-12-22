@@ -12,9 +12,6 @@ namespace Foody.Models
         public int idEmpresa { get; set; }
         [Key]
         public int idUtilizador { get; set; }
-        [Key]
-        public int idMorada { get; set; }
-        public int telemovel { get; set; }
         public int nif { get; set; }
         
 

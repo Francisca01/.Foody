@@ -15,9 +15,9 @@ namespace Foody.Controllers
 {
     [Route("api/[controller]")]
     //[ApiController]
-    public class RegisterController : ControllerBase
+    public class RegistosController : ControllerBase
     {
-        // POST api/<RegisterController>
+        // POST api/<RegistosController>
         [HttpPost]
         public string Post([FromBody] Utilizador novoUtilizador)
         {
@@ -37,7 +37,7 @@ namespace Foody.Controllers
 
                     using (SHA256 sha256Hash = SHA256.Create())
                     {
-                        novoUtilizador.palavraPasse = HashPassword.GetHash(sha256Hash, novoUtilizador.palavraPasse);
+                        novoUtilizador.password = HashPassword.GetHash(sha256Hash, novoUtilizador.password);
                     }
 
                     db.utilizadores.Add(novoUtilizador);

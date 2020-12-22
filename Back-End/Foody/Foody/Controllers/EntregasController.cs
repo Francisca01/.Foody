@@ -12,15 +12,15 @@ namespace Foody.Controllers
 {
     [Route("api/[controller]")]
     //[ApiController]
-    public class ProvasController : ControllerBase
+    public class EntregasController : ControllerBase
     {
-        // GET: api/<ProvasController>
+        // GET: api/<EntregasController>
         [HttpGet]
-        public Prova[] Get()
+        public Entrega[] Get()
         {
             using (var db = new DbHelper())
             {
-                return db.provas.ToArray();
+                return db.entregas.ToArray();
             }
 
             //HttpContext.Response.StatusCode = (int)
@@ -28,21 +28,21 @@ namespace Foody.Controllers
             //return null;
         }
 
-        // GET api/<ProvasController>/5
+        // GET api/<EntregasController>/5
         [HttpGet("{id}")]
-        public Prova Get(int id)
+        public Entrega Get(int id)
         {
 
             using (var db = new DbHelper())
             {
-                var provas = db.provas.ToArray();
+                var entregasDB = db.entregas.ToArray();
 
-                for (int i = 0; i <= provas.Length; i++)
+                for (int i = 0; i <= entregasDB.Length; i++)
                 {
 
-                    if (provas[i].cod_prova == id)
+                    if (entregasDB[i].idEntrega == id)
                     {
-                        return provas[i];
+                        return entregasDB[i];
                     }
                 }
 
@@ -53,33 +53,33 @@ namespace Foody.Controllers
         //ou
 
         /*
-         public Prova Get(int id)
+         public Entrega Get(int id)
         {
             using (var db = new DbHelper())
             {
-                return db.provas.Find(id);
+                return db.entregas.Find(id);
             }
         }
          */
 
-        // POST api/<ProvasController>
+        // POST api/<EntregasController>
         [HttpPost]
-        public string Post([FromBody] Prova novaProva)
+        public string Post([FromBody] Entrega novaEntrega)
         {
             using (var db = new DbHelper())
             {
-                var provas = db.provas.ToArray();
+                var entregasDB = db.entregas.ToArray();
 
-                for (int i = 0; i < provas.Length; i++)
+                for (int i = 0; i < entregasDB.Length; i++)
                 {
 
-                    if (novaProva.cod_prova == provas[i].cod_prova)
+                    if (novaEntrega.idEntrega == entregasDB[i].idEntrega)
                     {
                         return "Já existe";
                     }
                 }
 
-                db.provas.Add(novaProva);
+                db.entregas.Add(novaEntrega);
                 db.SaveChanges();
 
                 return "Criado";
@@ -89,67 +89,57 @@ namespace Foody.Controllers
 
         /*
         [HttpPost]
-        public string Post([FromBody] Prova novaProva)
+        public string Post([FromBody] Entrega novaEntrega)
         {
             using (var db = new DbHelper())
             {
                 cavalo.cod_cavaço = new Random().Next();
-                db.provas.Add(novaProva);
+                db.entregas.Add(novaEntrega);
                 db.SaveChanges();
             }
         }
          */
 
-        // PUT api/<ProvasController>/5
+        // PUT api/<EntregasController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Prova provaUpdate)
+        public void Put(int id, [FromBody] Entrega entregaUpdate)
         {
             using (var db = new DbHelper())
             {
-                var provaDB = db.provas.Find(id);
+                var entregasDB = db.entregas.Find(id);
 
-                if (provaDB == null)
+                if (entregasDB == null)
                 {
-                    Post(provaUpdate);
+                    Post(entregaUpdate);
                 }
                 else
                 {
-                    provaDB.cod_prova = id;
+                    entregasDB.idEntrega = id;
 
-                    if (provaUpdate.data != null)
-                    {
-                        provaDB.data = provaUpdate.data;
-                    }
-
-                    if (provaUpdate.nome_prova != null)
-                    {
-                        provaDB.nome_prova = provaUpdate.nome_prova;
-                    }
-
-                    db.provas.Update(provaDB);
+                    db.entregas.Update(entregasDB);
                     db.SaveChanges();
                 }
             }
         }
 
-        // DELETE api/<ProvasController>/5
+        // DELETE api/<EntregasController>/5
         [HttpDelete("{id}")]
         public string Delete(int id)
         {
             using (var db = new DbHelper())
             {
-                var provaDB = db.provas.Find(id);
+                var entregasDB = db.entregas.Find(id);
 
-                if (provaDB != null)
+                if (entregasDB != null)
                 {
-                    db.provas.Remove(provaDB);
+                    db.entregas.Remove(entregasDB);
                     db.SaveChanges();
 
                     return "Eliminado!";
                 }
                 else
                 {
-                    return "A prova com o id: " + id + " não foi encontrada";
+                    return "A entrega com o id: " + id + " não foi encontrada";
                 }
             }
         }

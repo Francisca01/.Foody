@@ -14,7 +14,7 @@ namespace Foody.Controllers
 {
     [Route("api/[controller]")]
     //[ApiController]
-    public class LoginController : ControllerBase
+    public class LoginsController : ControllerBase
     {
         // POST api/<LoginController>
         [HttpPost]
@@ -27,7 +27,7 @@ namespace Foody.Controllers
                 for (int i = 0; i < utilizadores.Length; i++)
                 {
                     if (utilizador.email == utilizadores[i].email &&
-                        HashPassword.VerifyHash(utilizador.palavraPasse, utilizadores[i].palavraPasse))
+                        HashPassword.VerifyHash(utilizador.password, utilizadores[i].password))
                     {
                         Dictionary<string, string> token = new Dictionary<string, string> 
                         {

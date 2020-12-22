@@ -12,15 +12,15 @@ namespace Foody.Controllers
 {
     [Route("api/[controller]")]
     //[ApiController]
-    public class CriadoresController : ControllerBase
+    public class EncomendasController : ControllerBase
     {
-        // GET: api/<CriadoresController>
+        // GET: api/<EncomendasController>
         [HttpGet]
-        public Criador[] Get()
+        public Encomenda[] Get()
         {
             using (var db = new DbHelper())
             {
-                return db.criadores.ToArray();
+                return db.encomendas.ToArray();
             }
 
             //HttpContext.Response.StatusCode = (int)
@@ -28,21 +28,21 @@ namespace Foody.Controllers
             //return null;
         }
 
-        // GET api/<CriadoresController>/5
+        // GET api/<EncomendasController>/5
         [HttpGet("{id}")]
-        public Criador Get(int id)
+        public Encomenda Get(int id)
         {
 
             using (var db = new DbHelper())
             {
-                var criadores = db.criadores.ToArray();
+                var encomendasDB = db.encomendas.ToArray();
 
-                for (int i = 0; i <= criadores.Length; i++)
+                for (int i = 0; i <= encomendasDB.Length; i++)
                 {
 
-                    if (criadores[i].cod_criador == id)
+                    if (encomendasDB[i].idEncomenda == id)
                     {
-                        return criadores[i];
+                        return encomendasDB[i];
                     }
                 }
 
@@ -53,33 +53,33 @@ namespace Foody.Controllers
         //ou
 
         /*
-         public Criador Get(int id)
+         public Encomenda Get(int id)
         {
             using (var db = new DbHelper())
             {
-                return db.criadores.Find(id);
+                return db.encomendas.Find(id);
             }
         }
          */
 
-        // POST api/<CriadoresController>
+        // POST api/<EncomendasController>
         [HttpPost]
-        public string Post([FromBody] Criador novoCriador)
+        public string Post([FromBody] Encomenda novaEncomenda)
         {
             using (var db = new DbHelper())
             {
-                var criadores = db.criadores.ToArray();
+                var encomendasDB = db.encomendas.ToArray();
 
-                for (int i = 0; i < criadores.Length; i++)
+                for (int i = 0; i < encomendasDB.Length; i++)
                 {
 
-                    if (novoCriador.cod_criador == criadores[i].cod_criador)
+                    if (novaEncomenda.idEncomenda == encomendasDB[i].idEncomenda)
                     {
                         return "Já existe";
                     }
                 }
 
-                db.criadores.Add(novoCriador);
+                db.encomendas.Add(novaEncomenda);
                 db.SaveChanges();
 
                 return "Criado";
@@ -89,62 +89,57 @@ namespace Foody.Controllers
 
         /*
         [HttpPost]
-        public string Post([FromBody] Criador novoCriador)
+        public string Post([FromBody] Encomenda novaEncomenda)
         {
             using (var db = new DbHelper())
             {
                 cavalo.cod_cavaço = new Random().Next();
-                db.criadores.Add(novoCriador);
+                db.encomendas.Add(novaEncomenda);
                 db.SaveChanges();
             }
         }
          */
 
-        // PUT api/<CriadoresController>/5
+        // PUT api/<EncomendasController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Criador criadorUpdate)
+        public void Put(int id, [FromBody] Encomenda encomendaUpdate)
         {
             using (var db = new DbHelper())
             {
-                var criadorDB = db.criadores.Find(id);
+                var encomendasDB = db.encomendas.Find(id);
 
-                if (criadorDB == null)
+                if (encomendasDB == null)
                 {
-                    Post(criadorUpdate);
+                    Post(encomendaUpdate);
                 }
                 else
                 {
-                    criadorDB.cod_criador = id;
+                    encomendasDB.idEncomenda = id;
 
-                    if (criadorUpdate.nome != null)
-                    {
-                        criadorDB.nome = criadorUpdate.nome;
-                    }
-
-                    db.criadores.Update(criadorDB);
+                    db.encomendas.Update(encomendasDB);
                     db.SaveChanges();
                 }
             }
         }
 
-        // DELETE api/<CriadoresController>/5
+        // DELETE api/<EncomendasController>/5
         [HttpDelete("{id}")]
         public string Delete(int id)
         {
             using (var db = new DbHelper())
             {
-                var criadorDB = db.criadores.Find(id);
+                var encomendasDB = db.encomendas.Find(id);
 
-                if (criadorDB != null)
+                if (encomendasDB != null)
                 {
-                    db.criadores.Remove(criadorDB);
+                    db.encomendas.Remove(encomendasDB);
                     db.SaveChanges();
 
                     return "Eliminado!";
                 }
                 else
                 {
-                    return "O Criador com o id: " + id + " não foi encontrado";
+                    return "A encomenda com o id: " + id + " não foi encontrada";
                 }
             }
         }

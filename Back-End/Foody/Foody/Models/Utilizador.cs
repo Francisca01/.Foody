@@ -10,9 +10,13 @@ namespace Foody.Models
     {
         [Key]
         public int idUtilizador { get; set; }
+        [Key]
+        public int idMorada { get; set; }
+        public int telemovel { get; set; }
         public string nome { get; set; }
         public string email { get; set; }
         public string password { get; set; }
+        public DateTime dataNascimento { get; set; }
 
         public Utilizador()
         {
