@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Foody</title>
+	<meta charset="UTF-8">
+	<meta name="keywords" content="HTML, CSS, JavaScript">
+	<meta name="description" content="Condutor Register">
+	<meta name="author" content="Francisca Costa, Leonardo Vieira, Tomás Braga">
+
+	<!-- Styles - CSS -->
+	<link rel="stylesheet" href="../css/style.css">
+
+	<!-- Links Externos -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+	<script src="https://kit.fontawesome.com/739a3f8b60.js" crossorigin="anonymous"></script>
+</head>
+
+<body id="body">
+	<div id="mySidenav" class="sidenav">
+		<div>
+			<button onclick="goBack()">Voltar</button>
+		</div>
+		<div>
+			<a href="../index.html"><i class="fas fa-home"></i></a>
+			<a href="#"><i class="fas fa-shopping-cart"></i></a>
+			<a href="#"><i class="fas fa-user selected"></i></a>
+		</div>	
+	</div>
+
+
+
+	<div id="login">
+		<section id="left-main">
+			<div>
+				<h1>Novo por Aqui?</h1>
+				<h5>Clientes</h5>
+			</div>
+		</section>
+
+		<section id="right-main">
+			<form id="">
+				<p>Dados Pessoais</p>
+
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<input type="text" class="form-control" id="inputUser" placeholder="Nome">
+					</div>
+					<div class="form-group col-md-6">						
+						<input type="date" class="form-control" id="inputDate">
+					</div>
+				</div>
+
+				<div class="form-group">					
+					<input type="text" class="form-control" id="inputEmail" placeholder="Email">
+				</div>
+
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<input type="password" class="form-control" id="inputPassword" placeholder="Password">
+					</div>
+					<div class="form-group col-md-6">						
+						<input type="password" class="form-control" id="inputPassword" placeholder="Repetir Password">
+					</div>
+				</div>
+
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<input type="text" class="form-control" id="inputPhoneNumber" placeholder="Telemóvel">
+					</div>
+				</div>
+
+				<button type="submit" class="btn btn-primary">Sign in</button>
+			</form>
+		</section>
+
+	</div>
+</body>
+</html>
+
+<script>
+	function goBack() {
+		window.history.back();
+	}
+</script>
