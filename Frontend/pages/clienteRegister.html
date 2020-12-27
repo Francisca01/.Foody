@@ -4,7 +4,7 @@
 	<title>Foody</title>
 	<meta charset="UTF-8">
 	<meta name="keywords" content="HTML, CSS, JavaScript">
-	<meta name="description" content="Condutor Register">
+	<meta name="description" content="Cliente Register">
 	<meta name="author" content="Francisca Costa, Leonardo Vieira, Tomás Braga">
 
 	<!-- Styles - CSS -->
@@ -16,63 +16,133 @@
 </head>
 
 <body id="body">
-	<div id="mySidenav" class="sidenav">
-		<div>
-			<button onclick="goBack()">Voltar</button>
+	<section id="mySidenav" class="sidenav">
+		<div class="side-top">
+			<!-- <a onclick="goBack()" <i class="fas fa-long-arrow-alt-left"></i></a> --> 	
+			<img src="../images/logo.png">
 		</div>
-		<div>
+		<div class="side-bottom">
 			<a href="../index.html"><i class="fas fa-home"></i></a>
 			<a href="#"><i class="fas fa-shopping-cart"></i></a>
 			<a href="#"><i class="fas fa-user selected"></i></a>
 		</div>	
-	</div>
+	</section>
 
 
 
-	<div id="login">
+	<div id="register">
 		<section id="left-main">
 			<div>
 				<h1>Novo por Aqui?</h1>
-				<h5>Clientes</h5>
+				<h5 style="color: #EE8328 !important;">Clientes</h5>
 			</div>
 		</section>
 
 		<section id="right-main">
-			<form id="">
-				<p>Dados Pessoais</p>
+			<form class="register-form">
+				<div class="row">
+					<h5>Dados Pessoais</h5>
+					<hr>
+				</div>
 
-				<div class="form-row">
-					<div class="form-group col-md-6">
-						<input type="text" class="form-control" id="inputUser" placeholder="Nome">
+				<!-- Nome de Utilizador e Data de Nascimento -->
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<input type="text" class="form-control" id="" placeholder="Nome do Utilizador">
+						</div>
 					</div>
-					<div class="form-group col-md-6">						
-						<input type="date" class="form-control" id="inputDate">
+					<div class="col-md-6">
+						<div class="form-group">
+							<input type="date" class="form-control" id="" placeholder="Data de Nascimento">
+						</div>
 					</div>
 				</div>
 
-				<div class="form-group">					
-					<input type="text" class="form-control" id="inputEmail" placeholder="Email">
-				</div>
-
-				<div class="form-row">
-					<div class="form-group col-md-6">
-						<input type="password" class="form-control" id="inputPassword" placeholder="Password">
-					</div>
-					<div class="form-group col-md-6">						
-						<input type="password" class="form-control" id="inputPassword" placeholder="Repetir Password">
+				<!-- Email -->
+				<div class="row">
+					<div class="col-md-12" style="display: block;">
+						<div class="form-group" style="position: static;">
+							<input type="email" class="form-control" id="" placeholder="Email">
+						</div>
 					</div>
 				</div>
 
-				<div class="form-row">
-					<div class="form-group col-md-6">
-						<input type="text" class="form-control" id="inputPhoneNumber" placeholder="Telemóvel">
+				<!-- Password e Repetir Password -->
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<input type="password" class="form-control" id="" placeholder="Password">
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<input type="password" class="form-control" id="" placeholder="Repetir Password">
+						</div>
 					</div>
 				</div>
 
-				<button type="submit" class="btn btn-primary">Sign in</button>
+				<!-- Telemovel e NIF -->
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<input type="tel" class="form-control" id="" placeholder="Telemóvel">
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<input type="text" class="form-control" id="" placeholder="NIF">
+						</div>
+					</div>
+				</div>
+
+
+				<div class="row">
+					<h5>Morada</h5>
+					<hr>
+				</div>
+
+				<!-- Rua e Nº -->
+				<div class="row">
+					<div class="col-md-9">
+						<div class="form-group">
+							<input type="text" class="form-control" id="" placeholder="Rua">
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<input type="number" class="form-control" id="" placeholder="Nº">
+						</div>
+					</div>
+				</div>
+
+				<!-- Andar, CP e Localidade -->
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+							<input type="text" class="form-control" id="" placeholder="Andar">
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<input type="text" class="form-control" id="" placeholder="Código-Postal">
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<input type="text" class="form-control" id="" placeholder="Localidade">
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<button type="submit" class="btn btn-primary" style="
+					margin-top: 35px;
+					padding: .375rem .75rem !important;
+					">Efetuar Registo</button>
+				</div>
 			</form>
 		</section>
-
 	</div>
 </body>
 </html>

@@ -25,6 +25,10 @@ p, label, input, button, optgroup, select, textarea {
 	font-size: 15px !important;
 }
 
+a{
+	cursor: pointer;
+}
+
 .btn-primary {
 	/*background-color: #A8645E !important; */
 	border: none !important;
@@ -38,6 +42,7 @@ p, label, input, button, optgroup, select, textarea {
 }
 
 
+
 /* SIDENAV */
 .sidenav {
 	height: 100%;
@@ -46,7 +51,8 @@ p, label, input, button, optgroup, select, textarea {
 	z-index: 1;
 	top: 0;
 	left: 0;
-	background-color: #707070;
+	background-color: #fff;
+	box-shadow: 0px 0px 10px 0px #d4d4d4;
 	transition: 0.5s;
 	padding-top: 60px;
 	text-align: center;
@@ -55,21 +61,40 @@ p, label, input, button, optgroup, select, textarea {
 }
 
 .sidenav .selected {
-	color: #555;
+	color: #DE653F;
 	cursor: default;
+}
+
+.sidenav a{
+	color: white !important;
+	text-decoration: none;
+}
+
+.side-top{
+	position: absolute;
+	top: 0;
+	padding: 0 1%;
+	height: fit-content;
+	width: 100%;
+}
+
+.side-top img{
+	height: 65px;
+}
+
+.side-bottom{
+	position: absolute;
+	bottom: 0;
 }
 
 
 /* ICONS */
 .fas {
-	color: white;
+	color: #aaa;
 	font-size: 20px;
 	padding: 20px 10px;
 }
 
-.fa-home {
-
-}
 
 /* CSS de Login e Register (várias páginas)*/
 #login {
@@ -77,7 +102,6 @@ p, label, input, button, optgroup, select, textarea {
 	height: 100%;
 	width: 95%;
 	position: fixed;
-	z-index: 1;
 	top: 0;
 	left: 5%;
 	padding-top: 10px; 
@@ -116,29 +140,65 @@ p, label, input, button, optgroup, select, textarea {
 	height: 100%;
 	width: 45%;
 	position: fixed;
-	z-index: 1;
 	top: 0;
 	left: 5%;
 	padding-top: 10px;
 	display: flex;
 	justify-content: center;
 	align-items: center;1
-
 }
 
 #right-main{
 	height: 100%;
 	width: 50%;
 	position: fixed;
-	z-index: 1;
 	top: 0;
 	left: 50%;
 	padding-top: 10px;
 }
 
+#right-main input{
+	margin: 5px 0;
+
+}
+
+#register{
+	padding: 10px;
+	height: 100%;
+	width: 95%;
+	position: fixed;
+	top: 0;
+	left: 5%;
+	padding-top: 10px; 
+	margin-top: 10%;
+}
+
+.register-form{
+	display: grid;
+	width: 80%;
+	justify-content: center;
+	text-align: center;
+	margin: auto;
+}
+
+.register-form h5{
+	text-align: left;
+	margin-top: 35px;
+}
+
+.register-form hr{
+	margin: 8px 0;
+	border: 1px solid #EE8328;
+	opacity: 100;
+}
+
+.row>*{
+	    padding: 0px 5px !important;
+}
 
 
-/* SIDENAV + MAIN */
+
+/* MAIN */
 .main {
 	height: 100%;
 	width: 65%;
@@ -154,6 +214,8 @@ p, label, input, button, optgroup, select, textarea {
 	margin: 0;
 }
 
+
+/* SHOOPING CART */
 .shoppingCart {
 	padding-top: 20px; 
 	height: 100%;
