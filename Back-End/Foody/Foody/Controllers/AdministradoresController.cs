@@ -20,7 +20,7 @@ namespace Foody.Controllers
         {
             using (var db = new DbHelper())
             {
-                return db.administradores.ToArray();
+                return db.administrador.ToArray();
             }
         }
 
@@ -30,10 +30,9 @@ namespace Foody.Controllers
         {
             using (var db = new DbHelper())
             {
-                return db.administradores.Find(id);
+                return db.administrador.Find(id);
             }
         }
-         
 
         // POST api/<AdministradoresController>
         [HttpPost]
@@ -41,17 +40,17 @@ namespace Foody.Controllers
         {
             using (var db = new DbHelper())
             {
-                var administradores = db.administradores.ToArray();
+                var administrador = db.administrador.ToArray();
 
-                for (int i = 0; i < administradores.Length; i++)
+                for (int i = 0; i < administrador.Length; i++)
                 {
-                    if (novoAdministrador.idAdministrador == administradores[i].idAdministrador)
+                    if (novoAdministrador.idAdministrador == administrador[i].idAdministrador)
                     {
                         return "Já existe";
                     }
                 }
 
-                db.administradores.Add(novoAdministrador);
+                db.administrador.Add(novoAdministrador);
                 db.SaveChanges();
 
                 return "Criado";
@@ -67,7 +66,7 @@ namespace Foody.Controllers
             using (var db = new DbHelper())
             {
                 Administrador.cod_cavaço = new Random().Next();
-                db.administradores.Add(novoAdministrador);
+                db.administrador.Add(novoAdministrador);
                 db.SaveChanges();
             }
         }
@@ -79,7 +78,7 @@ namespace Foody.Controllers
         {
             using (var db = new DbHelper())
             {
-                var administradorDB = db.administradores.Find(idAdministrador);
+                var administradorDB = db.administrador.Find(idAdministrador);
 
                 if (administradorDB == null)
                 {
@@ -90,7 +89,7 @@ namespace Foody.Controllers
                 {
                     administradorDB.idAdministrador = idAdministrador;
 
-                    db.administradores.Update(administradorDB);
+                    db.administrador.Update(administradorDB);
                     db.SaveChanges();
                 }
             }
@@ -103,11 +102,11 @@ namespace Foody.Controllers
         {
             using (var db = new DbHelper())
             {
-                var administradorDB = db.administradores.Find(idAdministrador, idCavalo);
+                var administradorDB = db.administrador.Find(idAdministrador, idCavalo);
 
                 if (administradorDB != null)
                 {
-                    db.administradores.Remove(administradorDB);
+                    db.administrador.Remove(administradorDB);
                     db.SaveChanges();
 
                     return "Eliminado!";

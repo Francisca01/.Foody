@@ -20,7 +20,7 @@ namespace Foody.Controllers
         {
             using (var db = new DbHelper())
             {
-                return db.utilizadores.ToArray();
+                return db.utilizador.ToArray();
             }
 
             //HttpContext.Response.StatusCode = (int)
@@ -35,14 +35,14 @@ namespace Foody.Controllers
 
             using (var db = new DbHelper())
             {
-                var utilizadores = db.utilizadores.ToArray();
+                var utilizador = db.utilizador.ToArray();
 
-                for (int i = 0; i <= utilizadores.Length; i++)
+                for (int i = 0; i <= utilizador.Length; i++)
                 {
 
-                    if (utilizadores[i].idUtilizador == idUtilizador)
+                    if (utilizador[i].idUtilizador == idUtilizador)
                     {
-                        return utilizadores[i];
+                        return utilizador[i];
                     }
                 }
 
@@ -57,7 +57,7 @@ namespace Foody.Controllers
         {
             using (var db = new DbHelper())
             {
-                return db.utilizadores.Find(idUtilizador);
+                return db.utilizador.Find(idUtilizador);
             }
         }
          */
@@ -68,18 +68,18 @@ namespace Foody.Controllers
         {
             using (var db = new DbHelper())
             {
-                var utilizadores = db.utilizadores.ToArray();
+                var utilizador = db.utilizador.ToArray();
 
-                for (int i = 0; i < utilizadores.Length; i++)
+                for (int i = 0; i < utilizador.Length; i++)
                 {
 
-                    if (novoUtilizador.idUtilizador == utilizadores[i].idUtilizador)
+                    if (novoUtilizador.idUtilizador == utilizador[i].idUtilizador)
                     {
                         return "Já existe";
                     }
                 }
 
-                db.utilizadores.Add(novoUtilizador);
+                db.utilizador.Add(novoUtilizador);
                 db.SaveChanges();
 
                 return "Criado";
@@ -94,7 +94,7 @@ namespace Foody.Controllers
             using (var db = new DbHelper())
             {
                 cavalo.cod_cavaço = new Random().Next();
-                db.utilizadores.Add(novoUtilizador);
+                db.utilizador.Add(novoUtilizador);
                 db.SaveChanges();
             }
         }
@@ -106,7 +106,7 @@ namespace Foody.Controllers
         {
             using (var db = new DbHelper())
             {
-                var utilizadorDB = db.utilizadores.Find(idUtilizador);
+                var utilizadorDB = db.utilizador.Find(idUtilizador);
 
                 if (utilizadorDB == null)
                 {
@@ -131,7 +131,7 @@ namespace Foody.Controllers
                         utilizadorDB.password = utilizadorUpdate.password;
                     }
 
-                    db.utilizadores.Update(utilizadorDB);
+                    db.utilizador.Update(utilizadorDB);
                     db.SaveChanges();
                 }
             }
@@ -143,11 +143,11 @@ namespace Foody.Controllers
         {
             using (var db = new DbHelper())
             {
-                var utilizadorDB = db.utilizadores.Find(idUtilizador);
+                var utilizadorDB = db.utilizador.Find(idUtilizador);
 
                 if (utilizadorDB != null)
                 {
-                    db.utilizadores.Remove(utilizadorDB);
+                    db.utilizador.Remove(utilizadorDB);
                     db.SaveChanges();
 
                     return "Eliminado!";

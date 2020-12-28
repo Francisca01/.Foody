@@ -18,20 +18,20 @@ namespace Foody.Controllers
     {
         // POST api/<LoginController>
         [HttpPost]
-        public IDictionary<string, string> Post([FromBody] Utilizador utilizador)
+        public IDictionary<string, string> Post([FromBody] Utilizador novoUtilizador)
         {
             using (var db = new DbHelper())
             {
-                var utilizadores = db.utilizadores.ToArray();
+                var utilizador = db.utilizador.ToArray();
 
-                for (int i = 0; i < utilizadores.Length; i++)
+                for (int i = 0; i < utilizador.Length; i++)
                 {
-                    if (utilizador.email == utilizadores[i].email &&
-                        HashPassword.VerifyHash(utilizador.password, utilizadores[i].password))
+                    if (novoUtilizador.email == utilizador[i].email &&
+                        HashPassword.VerifyHash(novoUtilizador.password, utilizador[i].password))
                     {
                         Dictionary<string, string> token = new Dictionary<string, string> 
                         {
-                            {"Token", TokenManager.GenerateToken(utilizador.email)},
+                            {"Token", TokenManager.GenerateToken(novoUtilizador.email)},
                         };
 
                         return token;
@@ -50,7 +50,7 @@ namespace Foody.Controllers
             using (var db = new DbHelper())
             {
                 cavalo.cod_cavaço = new Random().Next();
-                db.utilizadores.Add(utilizador);
+                db.utilizador.Add(utilizador);
                 db.SaveChanges();
             }
         }

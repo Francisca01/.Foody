@@ -40,7 +40,7 @@ namespace Foody
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            /*app.UseAuthorization();
 
             app.Use(async (context, next) =>
             {
@@ -71,7 +71,7 @@ namespace Foody
                     }
                 }
             }
-           );
+           );*/
 
             app.UseEndpoints(endpoints =>
             {

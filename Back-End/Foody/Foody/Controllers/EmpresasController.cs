@@ -20,7 +20,7 @@ namespace Foody.Controllers
         {
             using (var db = new DbHelper())
             {
-                return db.empresas.ToArray();
+                return db.empresa.ToArray();
             }
 
             //HttpContext.Response.StatusCode = (int)
@@ -32,17 +32,16 @@ namespace Foody.Controllers
         [HttpGet("{id}")]
         public Empresa Get(int id)
         {
-
             using (var db = new DbHelper())
             {
-                var empresas = db.empresas.ToArray();
+                var empresa = db.empresa.ToArray();
 
-                for (int i = 0; i <= empresas.Length; i++)
+                for (int i = 0; i <= empresa.Length; i++)
                 {
 
-                    if (empresas[i].idEmpresa == id)
+                    if (empresa[i].idEmpresa == id)
                     {
-                        return empresas[i];
+                        return empresa[i];
                     }
                 }
 
@@ -57,34 +56,17 @@ namespace Foody.Controllers
         {
             using (var db = new DbHelper())
             {
-                return db.empresas.Find(id);
+                return db.empresa.Find(id);
             }
         }
          */
 
         // POST api/<EmpresasController>
-        [HttpPost]
-        public string Post([FromBody] Empresa novaEmpresa)
-        {
-            using (var db = new DbHelper())
-            {
-                var empresas = db.empresas.ToArray();
+        //[HttpPost]
+        //public string Post([FromBody] Empresa novaEmpresa)
+        //{
 
-                for (int i = 0; i < empresas.Length; i++)
-                {
-
-                    if (novaEmpresa.idEmpresa == empresas[i].idEmpresa)
-                    {
-                        return "Já existe";
-                    }
-                }
-
-                db.empresas.Add(novaEmpresa);
-                db.SaveChanges();
-
-                return "Criado";
-            }
-        }
+        //}
         // ou
 
         /*
@@ -94,54 +76,10 @@ namespace Foody.Controllers
             using (var db = new DbHelper())
             {
                 cavalo.cod_cavaço = new Random().Next();
-                db.empresas.Add(novaEmpresa);
+                db.empresa.Add(novaEmpresa);
                 db.SaveChanges();
             }
         }
          */
-
-        // PUT api/<EmpresasController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Empresa empresaUpdate)
-        {
-            using (var db = new DbHelper())
-            {
-                var criadorDB = db.empresas.Find(id);
-
-                if (criadorDB == null)
-                {
-                    Post(empresaUpdate);
-                }
-                else
-                {
-                    criadorDB.idEmpresa = id;
-
-                    db.empresas.Update(criadorDB);
-                    db.SaveChanges();
-                }
-            }
-        }
-
-        // DELETE api/<EmpresasController>/5
-        [HttpDelete("{id}")]
-        public string Delete(int id)
-        {
-            using (var db = new DbHelper())
-            {
-                var criadorDB = db.empresas.Find(id);
-
-                if (criadorDB != null)
-                {
-                    db.empresas.Remove(criadorDB);
-                    db.SaveChanges();
-
-                    return "Eliminado!";
-                }
-                else
-                {
-                    return "O Empresa com o id: " + id + " não foi encontrado";
-                }
-            }
-        }
     }
 }

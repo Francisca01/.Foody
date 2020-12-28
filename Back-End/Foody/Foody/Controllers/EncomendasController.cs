@@ -20,7 +20,7 @@ namespace Foody.Controllers
         {
             using (var db = new DbHelper())
             {
-                return db.encomendas.ToArray();
+                return db.encomenda.ToArray();
             }
 
             //HttpContext.Response.StatusCode = (int)
@@ -35,7 +35,7 @@ namespace Foody.Controllers
 
             using (var db = new DbHelper())
             {
-                var encomendasDB = db.encomendas.ToArray();
+                var encomendasDB = db.encomenda.ToArray();
 
                 for (int i = 0; i <= encomendasDB.Length; i++)
                 {
@@ -57,7 +57,7 @@ namespace Foody.Controllers
         {
             using (var db = new DbHelper())
             {
-                return db.encomendas.Find(id);
+                return db.encomenda.Find(id);
             }
         }
          */
@@ -68,7 +68,7 @@ namespace Foody.Controllers
         {
             using (var db = new DbHelper())
             {
-                var encomendasDB = db.encomendas.ToArray();
+                var encomendasDB = db.encomenda.ToArray();
 
                 for (int i = 0; i < encomendasDB.Length; i++)
                 {
@@ -79,7 +79,7 @@ namespace Foody.Controllers
                     }
                 }
 
-                db.encomendas.Add(novaEncomenda);
+                db.encomenda.Add(novaEncomenda);
                 db.SaveChanges();
 
                 return "Criado";
@@ -94,7 +94,7 @@ namespace Foody.Controllers
             using (var db = new DbHelper())
             {
                 cavalo.cod_cavaço = new Random().Next();
-                db.encomendas.Add(novaEncomenda);
+                db.encomenda.Add(novaEncomenda);
                 db.SaveChanges();
             }
         }
@@ -106,7 +106,7 @@ namespace Foody.Controllers
         {
             using (var db = new DbHelper())
             {
-                var encomendasDB = db.encomendas.Find(id);
+                var encomendasDB = db.encomenda.Find(id);
 
                 if (encomendasDB == null)
                 {
@@ -116,7 +116,7 @@ namespace Foody.Controllers
                 {
                     encomendasDB.idEncomenda = id;
 
-                    db.encomendas.Update(encomendasDB);
+                    db.encomenda.Update(encomendasDB);
                     db.SaveChanges();
                 }
             }
@@ -128,11 +128,11 @@ namespace Foody.Controllers
         {
             using (var db = new DbHelper())
             {
-                var encomendasDB = db.encomendas.Find(id);
+                var encomendasDB = db.encomenda.Find(id);
 
                 if (encomendasDB != null)
                 {
-                    db.encomendas.Remove(encomendasDB);
+                    db.encomenda.Remove(encomendasDB);
                     db.SaveChanges();
 
                     return "Eliminado!";

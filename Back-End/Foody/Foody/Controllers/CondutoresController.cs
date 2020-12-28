@@ -20,7 +20,7 @@ namespace Foody.Controllers
         {
             using (var db = new DbHelper())
             {
-                return db.condutores.ToArray();
+                return db.condutor.ToArray();
             }
 
             //HttpContext.Response.StatusCode = (int)
@@ -35,14 +35,14 @@ namespace Foody.Controllers
 
             using (var db = new DbHelper())
             {
-                var condutores = db.condutores.ToArray();
+                var condutor = db.condutor.ToArray();
 
-                for (int i = 0; i <= condutores.Length; i++)
+                for (int i = 0; i <= condutor.Length; i++)
                 {
 
-                    if (condutores[i].idCondutor == id)
+                    if (condutor[i].idCondutor == id)
                     {
-                        return condutores[i];
+                        return condutor[i];
                     }
                 }
 
@@ -57,7 +57,7 @@ namespace Foody.Controllers
         {
             using (var db = new DbHelper())
             {
-                return db.condutores.Find(id);
+                return db.condutor.Find(id);
             }
         }
          */
@@ -68,18 +68,18 @@ namespace Foody.Controllers
         {
             using (var db = new DbHelper())
             {
-                var condutores = db.condutores.ToArray();
+                var condutor = db.condutor.ToArray();
 
-                for (int i = 0; i < condutores.Length; i++)
+                for (int i = 0; i < condutor.Length; i++)
                 {
 
-                    if (novoCondutor.idCondutor == condutores[i].idCondutor)
+                    if (novoCondutor.idCondutor == condutor[i].idCondutor)
                     {
                         return "Já existe";
                     }
                 }
 
-                db.condutores.Add(novoCondutor);
+                db.condutor.Add(novoCondutor);
                 db.SaveChanges();
 
                 return "Criado";
@@ -94,7 +94,7 @@ namespace Foody.Controllers
             using (var db = new DbHelper())
             {
                 cavalo.cod_cavaço = new Random().Next();
-                db.condutores.Add(novoCondutor);
+                db.condutor.Add(novoCondutor);
                 db.SaveChanges();
             }
         }
@@ -106,7 +106,7 @@ namespace Foody.Controllers
         {
             using (var db = new DbHelper())
             {
-                var condutorDB = db.condutores.Find(id);
+                var condutorDB = db.condutor.Find(id);
 
                 if (condutorDB == null)
                 {
@@ -116,7 +116,7 @@ namespace Foody.Controllers
                 {
                     condutorDB.idCondutor = id;
 
-                    db.condutores.Update(condutorDB);
+                    db.condutor.Update(condutorDB);
                     db.SaveChanges();
                 }
             }
@@ -128,11 +128,11 @@ namespace Foody.Controllers
         {
             using (var db = new DbHelper())
             {
-                var condutorDB = db.condutores.Find(id);
+                var condutorDB = db.condutor.Find(id);
 
                 if (condutorDB != null)
                 {
-                    db.condutores.Remove(condutorDB);
+                    db.condutor.Remove(condutorDB);
                     db.SaveChanges();
 
                     return "Eliminado!";

@@ -20,7 +20,7 @@ namespace Foody.Controllers
         {
             using (var db = new DbHelper())
             {
-                return db.clientes.ToArray();
+                return db.cliente.ToArray();
             }
 
             //HttpContext.Response.StatusCode = (int)
@@ -35,14 +35,14 @@ namespace Foody.Controllers
 
             using (var db = new DbHelper())
             {
-                var clientes = db.clientes.ToArray();
+                var cliente = db.cliente.ToArray();
 
-                for (int i = 0; i < clientes.Length; i++)
+                for (int i = 0; i < cliente.Length; i++)
                 {
 
-                    if (clientes[i].idCliente == id)
+                    if (cliente[i].idCliente == id)
                     {
-                        return clientes[i];
+                        return cliente[i];
                     }
                 }
 
@@ -57,7 +57,7 @@ namespace Foody.Controllers
         {
             using (var db = new DbHelper())
             {
-                return db.clientes.Find(id);
+                return db.cliente.Find(id);
             }
         }
          */
@@ -68,18 +68,18 @@ namespace Foody.Controllers
         {
             using (var db = new DbHelper())
             {
-                var clientes = db.clientes.ToArray();
+                var cliente = db.cliente.ToArray();
 
-                for (int i = 0; i < clientes.Length; i++)
+                for (int i = 0; i < cliente.Length; i++)
                 {
 
-                    if (novoCliente.idCliente == clientes[i].idCliente)
+                    if (novoCliente.idCliente == cliente[i].idCliente)
                     {
                         return "Já existe";
                     }
                 }
 
-                db.clientes.Add(novoCliente);
+                db.cliente.Add(novoCliente);
                 db.SaveChanges();
 
                 return "Criado";
@@ -94,7 +94,7 @@ namespace Foody.Controllers
             using (var db = new DbHelper())
             {
                 cavalo.cod_cavaço = new Random().Next();
-                db.clientes.Add(novoCliente);
+                db.cliente.Add(novoCliente);
                 db.SaveChanges();
             }
         }
@@ -106,7 +106,7 @@ namespace Foody.Controllers
         {
             using (var db = new DbHelper())
             {
-                var clienteDB = db.clientes.Find(id);
+                var clienteDB = db.cliente.Find(id);
 
                 if (clienteDB == null)
                 {
@@ -116,7 +116,7 @@ namespace Foody.Controllers
                 {
                     clienteDB.idCliente = id;
 
-                    db.clientes.Update(clienteDB);
+                    db.cliente.Update(clienteDB);
                     db.SaveChanges();
                 }
             }
@@ -128,11 +128,11 @@ namespace Foody.Controllers
         {
             using (var db = new DbHelper())
             {
-                var clienteDB = db.clientes.Find(id);
+                var clienteDB = db.cliente.Find(id);
 
                 if (clienteDB != null)
                 {
-                    db.clientes.Remove(clienteDB);
+                    db.cliente.Remove(clienteDB);
                     db.SaveChanges();
 
                     return "Eliminado!";

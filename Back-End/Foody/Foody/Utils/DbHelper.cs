@@ -14,16 +14,16 @@ namespace Foody.Utils
 
         }
 
-        public DbSet<Administrador> administradores { get; set; }
-        public DbSet<Cliente> clientes { get; set; }
-        public DbSet<Empresa> empresas { get; set; }
-        public DbSet<Condutor> condutores{ get; set; }
-        public DbSet<Encomenda> encomendas { get; set; }
-        public DbSet<EncomendaProduto> encomendasProdutos { get; set; }
-        public DbSet<Entrega> entregas { get; set; }
-        public DbSet<Morada> moradas { get; set; }
-        public DbSet<Produto> produtos { get; set; }
-        public DbSet<Utilizador> utilizadores { get; set; }
+        public DbSet<Administrador> administrador { get; set; }
+        public DbSet<Cliente> cliente { get; set; }
+        public DbSet<Empresa> empresa { get; set; }
+        public DbSet<Condutor> condutor{ get; set; }
+        public DbSet<Encomenda> encomenda { get; set; }
+        public DbSet<EncomendaProduto> encomendaProduto { get; set; }
+        public DbSet<Entrega> entrega { get; set; }
+        public DbSet<Morada> morada { get; set; }
+        public DbSet<Produto> produto { get; set; }
+        public DbSet<Utilizador> utilizador { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

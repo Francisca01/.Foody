@@ -20,7 +20,7 @@ namespace Foody.Controllers
         {
             using (var db = new DbHelper())
             {
-                return db.encomendasProdutos.ToArray();
+                return db.encomendaProduto.ToArray();
             }
 
             //HttpContext.Response.StatusCode = (int)
@@ -35,14 +35,14 @@ namespace Foody.Controllers
 
             using (var db = new DbHelper())
             {
-                var encomendasProdutos = db.encomendasProdutos.ToArray();
+                var encomendaProduto = db.encomendaProduto.ToArray();
 
-                for (int i = 0; i <= encomendasProdutos.Length; i++)
+                for (int i = 0; i <= encomendaProduto.Length; i++)
                 {
 
-                    if (encomendasProdutos[i].idEncomendaProduto == id)
+                    if (encomendaProduto[i].idEncomendaProduto == id)
                     {
-                        return encomendasProdutos[i];
+                        return encomendaProduto[i];
                     }
                 }
 
@@ -57,7 +57,7 @@ namespace Foody.Controllers
         {
             using (var db = new DbHelper())
             {
-                return db.encomendasProdutos.Find(id);
+                return db.encomendaProduto.Find(id);
             }
         }
          */
@@ -68,18 +68,18 @@ namespace Foody.Controllers
         {
             using (var db = new DbHelper())
             {
-                var encomendasProdutos = db.encomendasProdutos.ToArray();
+                var encomendaProduto = db.encomendaProduto.ToArray();
 
-                for (int i = 0; i < encomendasProdutos.Length; i++)
+                for (int i = 0; i < encomendaProduto.Length; i++)
                 {
 
-                    if (novaEncomendasProduto.idEncomendaProduto == encomendasProdutos[i].idEncomendaProduto)
+                    if (novaEncomendasProduto.idEncomendaProduto == encomendaProduto[i].idEncomendaProduto)
                     {
                         return "Já existe";
                     }
                 }
 
-                db.encomendasProdutos.Add(novaEncomendasProduto);
+                db.encomendaProduto.Add(novaEncomendasProduto);
                 db.SaveChanges();
 
                 return "Criado";
@@ -94,7 +94,7 @@ namespace Foody.Controllers
             using (var db = new DbHelper())
             {
                 cavalo.cod_cavaço = new Random().Next();
-                db.encomendasProdutos.Add(novaEncomendasProduto);
+                db.encomendaProduto.Add(novaEncomendasProduto);
                 db.SaveChanges();
             }
         }
@@ -106,7 +106,7 @@ namespace Foody.Controllers
         {
             using (var db = new DbHelper())
             {
-                var encomendaProdutoDB = db.encomendasProdutos.Find(id);
+                var encomendaProdutoDB = db.encomendaProduto.Find(id);
 
                 if (encomendaProdutoDB == null)
                 {
@@ -116,7 +116,7 @@ namespace Foody.Controllers
                 {
                     encomendaProdutoDB.idEncomendaProduto = id;
 
-                    db.encomendasProdutos.Update(encomendaProdutoDB);
+                    db.encomendaProduto.Update(encomendaProdutoDB);
                     db.SaveChanges();
                 }
             }
@@ -128,11 +128,11 @@ namespace Foody.Controllers
         {
             using (var db = new DbHelper())
             {
-                var encomendaProdutoDB = db.encomendasProdutos.Find(id);
+                var encomendaProdutoDB = db.encomendaProduto.Find(id);
 
                 if (encomendaProdutoDB != null)
                 {
-                    db.encomendasProdutos.Remove(encomendaProdutoDB);
+                    db.encomendaProduto.Remove(encomendaProdutoDB);
                     db.SaveChanges();
 
                     return "Eliminado!";

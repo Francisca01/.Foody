@@ -16,7 +16,7 @@ namespace Foody.Models
         public string nome { get; set; }
         public string email { get; set; }
         public string password { get; set; }
-        public DateTime dataNascimento { get; set; }
+        public string dataNascimento { get; set; }
 
         public Utilizador()
         {
