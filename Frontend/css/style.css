@@ -5,9 +5,13 @@
 }
 
 h1 {
-	font-size: 38px !important;
+	font-size: 35px !important;
 	font-weight: bold !important;
 	color: #707070 !important;
+}
+
+h2 {
+	font-size: 25px !important;
 }
 
 h3 {
@@ -16,17 +20,28 @@ h3 {
 	color: white !important;
 }
 
+h4{
+	font-size: 17px !important;
+	color: #707070 !important;
+}
+
 h5 {
 	font-size: 15px !important;
 	color: #707070 !important;
 }
 
 p, label, input, button, optgroup, select, textarea {
-	font-size: 15px !important;
+	font-size: 13px !important;
 }
 
 a{
 	cursor: pointer;
+}
+
+hr{
+	margin: 8px 0 !important;
+	border: 1px solid #EE8328 !important;
+	opacity: 100 !important;
 }
 
 .btn-primary {
@@ -184,13 +199,6 @@ a{
 	text-align: left;
 	margin-bottom: 0;
 	margin-top: 50px;
-	font-size: 16px !important;
-}
-
-.register-form hr{
-	margin: 8px 0;
-	border: 1px solid #EE8328;
-	opacity: 100;
 }
 
 .row>*{
@@ -213,6 +221,46 @@ a{
 .main h1 {
 	padding: 30px;
 	margin: 0;
+	text-align: center;
+}
+
+
+
+.itens-group{
+	margin: 30px;
+}
+
+.itens-group-header h5{
+	text-align: left !important;
+}
+
+.itens{
+	/*border: 1px solid #D3D3D3;*/
+	background-color: white;
+	border-radius: 6px;
+	padding: 10px;
+	display: block;
+	justify-content: center;
+	text-align: left !important;
+	--bs-gutter-x: 0 !important;
+}
+
+.itens label{
+	text-align: left;
+	color: #707070 !important;
+	font-weight: 500;
+}
+
+.itens a{
+	margin: auto;
+}
+
+.itens i{
+	font-size: 16px !important;
+	color: #707070 !important;
+	padding: 0;
+	float: right;
+	position: relative;
 }
 
 
