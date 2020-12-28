@@ -48,7 +48,6 @@ a{
 	height: 100%;
 	width: 5%;
 	position: fixed;
-	z-index: 1;
 	top: 0;
 	left: 0;
 	background-color: #fff;
@@ -136,7 +135,7 @@ a{
 }
 
 #left-main{
-	background-color: #FDECDF !important;
+	z-index: 0;
 	height: 100%;
 	width: 45%;
 	position: fixed;
@@ -145,7 +144,7 @@ a{
 	padding-top: 10px;
 	display: flex;
 	justify-content: center;
-	align-items: center;1
+	align-items: center;
 }
 
 #right-main{
@@ -183,7 +182,9 @@ a{
 
 .register-form h5{
 	text-align: left;
-	margin-top: 35px;
+	margin-bottom: 0;
+	margin-top: 50px;
+	font-size: 16px !important;
 }
 
 .register-form hr{
@@ -193,7 +194,7 @@ a{
 }
 
 .row>*{
-	    padding: 0px 5px !important;
+	padding: 0px 5px !important;
 }
 
 
