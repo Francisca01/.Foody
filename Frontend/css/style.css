@@ -44,6 +44,14 @@ hr{
 	opacity: 100 !important;
 }
 
+button:hover{
+	opacity: 80%;
+}
+
+a:hover{
+	opacity: 80%;
+}
+
 .btn-primary {
 	/*background-color: #A8645E !important; */
 	border: none !important;
@@ -74,7 +82,7 @@ hr{
 	padding-top: 30%;
 }
 
-.sidenav .selected {
+.sidenav .selected{
 	color: #DE653F;
 	cursor: default;
 }
@@ -126,7 +134,7 @@ hr{
 	display: grid;
 	justify-content: center;
 	font-size: 15px !important;
-	margin-top: 40px;
+	margin-top: 25px;
 }
 
 #login h1, h5, label {
@@ -139,14 +147,47 @@ hr{
 	font-size: 15px !important;
 }
 
-#flex-form{
+#login button {
+	margin-top: 40px;
+}
+
+.flex-form{
 	display: flex !important;
 	justify-content: center;
 }
 
-#flex-form button{
+.flex-form button{
 	width: 200px !important;
-	height: 100px !important;
+	height: 80px !important;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 10px 20px;
+	font-weight: 500;
+}
+
+.flex-form i{
+	padding: 0;
+	margin: auto;
+	font-size: 25px;
+	color: white;
+}
+
+.flex-form span{
+	padding: 0;
+	margin: auto;
+}
+
+.client{
+	background: #EE8328 !important;
+}
+
+.driver{
+	background: #DE643E !important;
+}
+
+.restaurant{
+	background: #A8645E !important;
 }
 
 #left-main{
@@ -210,7 +251,7 @@ hr{
 /* MAIN */
 .main {
 	height: 100%;
-	width: 65%;
+	width: 70%;
 	position: fixed;
 	z-index: 1;
 	top: 0;

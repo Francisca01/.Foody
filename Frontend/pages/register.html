@@ -28,16 +28,31 @@
 		</div>	
 	</section>
 
-
+<i class="fas fa-utensils"></i>
 
 	<div id="login">
 		<h1>Novo por Aqui?</h1>
 		<h5>Primeiro, diga-nos que tipo de utilizador deseja criar</h5>
 
-		<form id="flex-form">
-			<button type="button" onclick="location.href='../pages/clienteRegister.html';"  class="btn btn-primary" style="background: #EE8328 !important;">Cliente</button>
-			<button type="button" onclick="location.href='../pages/condutorRegister.html';"  class="btn btn-primary" style="background: #DE643E !important;">Condutor</button>
-			<button type="button" onclick="location.href='../pages/restauranteRegister.html';"  class="btn btn-primary" style="background: #A8645E !important;">Restaurante</button>	
+		<form class="flex-form">
+			<button type="button" onclick="location.href='../pages/client_Register.html';"  class="btn btn-primary client">
+				<i class="fas fa-user-alt"></i>
+				<span>Cliente</span>
+			</button>
+
+
+			<button type="button" onclick="location.href='../pages/driver_Register.html';"  class="btn btn-primary driver">
+				<i class="fas fa-car-alt"></i>
+				<span>Condutor</span>
+			</button>
+
+			<button type="button" onclick="location.href='../pages/restaurant_Register.html';"  class="btn btn-primary restaurant">
+				<i class="fas fa-utensils"></i>
+				<span>Restaurante</span>
+			</button>
+
+
+			
 		</form>
 	</div>
 </body>
