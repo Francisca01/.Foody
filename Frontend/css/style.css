@@ -20,7 +20,7 @@ h3 {
 	color: white !important;
 }
 
-h4{
+h4 {
 	font-size: 17px !important;
 	color: #707070 !important;
 }
@@ -34,28 +34,28 @@ p, label, input, button, optgroup, select, textarea {
 	font-size: 13px !important;
 }
 
-a{
+a {
 	cursor: pointer;
 }
 
-hr{
+hr {
 	margin: 8px 0 !important;
 	border: 1px solid #EE8328 !important;
 	opacity: 100 !important;
 }
 
-button:hover{
+button:hover {
 	opacity: 80%;
 }
 
-a:hover{
+a:hover {
 	opacity: 80%;
 }
 
 .btn-primary {
 	/*background-color: #A8645E !important; */
 	border: none !important;
-	background: linear-gradient(128deg, rgba(168,100,94,1) 0%, rgba(188,100,87,1) 25%, rgba(222,100,62,1) 50%, rgba(223,120,64,1) 75%, rgba(238,131,40,1) 100%) !important;
+	background: linear-gradient(128deg, rgba(168, 100, 94, 1) 0%, rgba(188, 100, 87, 1) 25%, rgba(222, 100, 62, 1) 50%, rgba(223, 120, 64, 1) 75%, rgba(238, 131, 40, 1) 100%) !important;
 }
 
 #body {
@@ -64,9 +64,8 @@ a:hover{
 	display: grid;
 }
 
-
-
 /* SIDENAV */
+
 .sidenav {
 	height: 100%;
 	width: 5%;
@@ -82,17 +81,17 @@ a:hover{
 	padding-top: 30%;
 }
 
-.sidenav .selected{
+.sidenav .selected {
 	color: #DE653F;
 	cursor: default;
 }
 
-.sidenav a{
+.sidenav a {
 	color: white !important;
 	text-decoration: none;
 }
 
-.side-top{
+.side-top {
 	position: absolute;
 	top: 0;
 	padding: 0 1%;
@@ -100,25 +99,25 @@ a:hover{
 	width: 100%;
 }
 
-.side-top img{
+.side-top img {
 	height: 65px;
 }
 
-.side-bottom{
+.side-bottom {
 	position: absolute;
 	bottom: 0;
 }
 
-
 /* ICONS */
+
 .fas {
 	color: #aaa;
 	font-size: 20px;
 	padding: 20px 10px;
 }
 
-
 /* CSS de Login e Register (várias páginas)*/
+
 #login {
 	padding: 10px;
 	height: 100%;
@@ -126,7 +125,7 @@ a:hover{
 	position: fixed;
 	top: 0;
 	left: 5%;
-	padding-top: 10px; 
+	padding-top: 10px;
 	margin-top: 10%;
 }
 
@@ -151,12 +150,12 @@ a:hover{
 	margin-top: 40px;
 }
 
-.flex-form{
+.flex-form {
 	display: flex !important;
 	justify-content: center;
 }
 
-.flex-form button{
+.flex-form button {
 	width: 200px !important;
 	height: 80px !important;
 	display: flex;
@@ -166,31 +165,31 @@ a:hover{
 	font-weight: 500;
 }
 
-.flex-form i{
+.flex-form i {
 	padding: 0;
 	margin: auto;
 	font-size: 25px;
 	color: white;
 }
 
-.flex-form span{
+.flex-form span {
 	padding: 0;
 	margin: auto;
 }
 
-.client{
+.client {
 	background: #EE8328 !important;
 }
 
-.driver{
+.driver {
 	background: #DE643E !important;
 }
 
-.restaurant{
+.restaurant {
 	background: #A8645E !important;
 }
 
-#left-main{
+#left-main {
 	z-index: 0;
 	height: 100%;
 	width: 45%;
@@ -203,7 +202,7 @@ a:hover{
 	align-items: center;
 }
 
-#right-main{
+#right-main {
 	height: 100%;
 	width: 50%;
 	position: fixed;
@@ -212,23 +211,22 @@ a:hover{
 	padding-top: 10px;
 }
 
-#right-main input{
+#right-main input {
 	margin: 5px 0;
-
 }
 
-#register{
+#register {
 	padding: 10px;
 	height: 100%;
 	width: 95%;
 	position: fixed;
 	top: 0;
 	left: 5%;
-	padding-top: 10px; 
+	padding-top: 10px;
 	margin-top: 10%;
 }
 
-.register-form{
+.register-form {
 	display: grid;
 	width: 80%;
 	justify-content: center;
@@ -236,19 +234,18 @@ a:hover{
 	margin: auto;
 }
 
-.register-form h5{
+.register-form h5 {
 	text-align: left;
 	margin-bottom: 0;
 	margin-top: 50px;
 }
 
-.row>*{
+.row>* {
 	padding: 0px 5px !important;
 }
 
-
-
 /* MAIN */
+
 .main {
 	height: 100%;
 	width: 70%;
@@ -265,17 +262,35 @@ a:hover{
 	text-align: center;
 }
 
+.products-category-group {
+	display: flex;
+}
+
+.products-category {
+	width: 200px !important;
+    height: 80px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 20px;
+    font-weight: 500; 
+}
+
+.products-category i{
+	margin: 5px;
+	padding: 5px;
+}
 
 
-.itens-group{
+.itens-group {
 	margin: 30px;
 }
 
-.itens-group-header h5{
+.itens-group-header h5 {
 	text-align: left !important;
 }
 
-.itens{
+.itens {
 	/*border: 1px solid #D3D3D3;*/
 	background-color: white;
 	border-radius: 6px;
@@ -286,17 +301,17 @@ a:hover{
 	--bs-gutter-x: 0 !important;
 }
 
-.itens label{
+.itens label {
 	text-align: left;
 	color: #707070 !important;
 	font-weight: 500;
 }
 
-.itens a{
+.itens a {
 	margin: auto;
 }
 
-.itens i{
+.itens i {
 	font-size: 16px !important;
 	color: #707070 !important;
 	padding: 0;
@@ -304,10 +319,10 @@ a:hover{
 	position: relative;
 }
 
-
 /* SHOOPING CART */
+
 .shoppingCart {
-	padding-top: 20px; 
+	padding-top: 20px;
 	height: 100%;
 	width: 25%;
 	position: fixed;
@@ -319,8 +334,13 @@ a:hover{
 	text-align: center;
 }
 
-.shoppingCart h3 {
+.shoppingCart h3 {}
 
+.sc-products-group{
+	padding: 70% 40px;
+	color: white;
+    /* justify-content: center; */
+    display: grid;
 }
 
 /*@media screen and (max-height: 450px) {
