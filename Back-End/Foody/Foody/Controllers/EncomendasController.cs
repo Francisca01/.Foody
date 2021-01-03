@@ -22,24 +22,18 @@ namespace Foody.Controllers
             {
                 return db.encomenda.ToArray();
             }
-
-            //HttpContext.Response.StatusCode = (int)
-
-            //return null;
         }
 
         // GET api/<EncomendasController>/5
-        [HttpGet("{id}")]
+        [HttpGet("{idEncomenda}")]
         public Encomenda Get(int id)
         {
-
             using (var db = new DbHelper())
             {
                 var encomendasDB = db.encomenda.ToArray();
 
                 for (int i = 0; i <= encomendasDB.Length; i++)
                 {
-
                     if (encomendasDB[i].idEncomenda == id)
                     {
                         return encomendasDB[i];
@@ -50,58 +44,39 @@ namespace Foody.Controllers
             }
         }
 
-        //ou
-
-        /*
-         public Encomenda Get(int id)
-        {
-            using (var db = new DbHelper())
-            {
-                return db.encomenda.Find(id);
-            }
-        }
-         */
-
         // POST api/<EncomendasController>
         [HttpPost]
         public string Post([FromBody] Encomenda novaEncomenda)
         {
-            using (var db = new DbHelper())
+            if (novaEncomenda != null)
             {
-                var encomendasDB = db.encomenda.ToArray();
-
-                for (int i = 0; i < encomendasDB.Length; i++)
+                using (var db = new DbHelper())
                 {
+                    var encomendasDB = db.encomenda.ToArray();
 
-                    if (novaEncomenda.idEncomenda == encomendasDB[i].idEncomenda)
+                    for (int i = 0; i < encomendasDB.Length; i++)
                     {
-                        return "Já existe";
+                        if (novaEncomenda.idEncomenda == encomendasDB[i].idEncomenda)
+                        {
+                            return "Já existe";
+                        }
                     }
+
+                    db.encomenda.Add(novaEncomenda);
+                    db.SaveChanges();
+
+                    return "Criado";
                 }
-
-                db.encomenda.Add(novaEncomenda);
-                db.SaveChanges();
-
-                return "Criado";
+            }
+            else
+            {
+                return "Não foi recebido qualquer tipo de dados!";
             }
         }
-        // ou
 
         /*
-        [HttpPost]
-        public string Post([FromBody] Encomenda novaEncomenda)
-        {
-            using (var db = new DbHelper())
-            {
-                cavalo.cod_cavaço = new Random().Next();
-                db.encomenda.Add(novaEncomenda);
-                db.SaveChanges();
-            }
-        }
-         */
-
         // PUT api/<EncomendasController>/5
-        [HttpPut("{id}")]
+        [HttpPut("{idEncomenda}")]
         public void Put(int id, [FromBody] Encomenda encomendaUpdate)
         {
             using (var db = new DbHelper())
@@ -123,7 +98,7 @@ namespace Foody.Controllers
         }
 
         // DELETE api/<EncomendasController>/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{idEncomenda}")]
         public string Delete(int id)
         {
             using (var db = new DbHelper())
@@ -142,6 +117,6 @@ namespace Foody.Controllers
                     return "A encomenda com o id: " + id + " não foi encontrada";
                 }
             }
-        }
+        }*/
     }
 }

@@ -29,7 +29,7 @@ namespace Foody.Controllers
         }
 
         // GET api/<EntregasController>/5
-        [HttpGet("{id}")]
+        [HttpGet("{idEntrega}")]
         public Entrega Get(int id)
         {
 
@@ -50,85 +50,70 @@ namespace Foody.Controllers
             }
         }
 
-        //ou
-
-        /*
-         public Entrega Get(int id)
-        {
-            using (var db = new DbHelper())
-            {
-                return db.entrega.Find(id);
-            }
-        }
-         */
-
         // POST api/<EntregasController>
         [HttpPost]
         public string Post([FromBody] Entrega novaEntrega)
         {
-            using (var db = new DbHelper())
+            if (novaEntrega != null && !string.IsNullOrEmpty(novaEntrega.Estado))
             {
-                var entregasDB = db.entrega.ToArray();
-
-                for (int i = 0; i < entregasDB.Length; i++)
+                using (var db = new DbHelper())
                 {
+                    var entregasDB = db.entrega.ToArray();
 
-                    if (novaEntrega.idEntrega == entregasDB[i].idEntrega)
+                    for (int i = 0; i < entregasDB.Length; i++)
                     {
-                        return "Já existe";
+                        if (novaEntrega.idEntrega == entregasDB[i].idEntrega)
+                        {
+                            return "Já existe";
+                        }
                     }
+
+                    db.entrega.Add(novaEntrega);
+                    db.SaveChanges();
+
+                    return "Criado";
                 }
-
-                db.entrega.Add(novaEntrega);
-                db.SaveChanges();
-
-                return "Criado";
             }
-        }
-        // ou
-
-        /*
-        [HttpPost]
-        public string Post([FromBody] Entrega novaEntrega)
-        {
-            using (var db = new DbHelper())
+            else
             {
-                cavalo.cod_cavaço = new Random().Next();
-                db.entrega.Add(novaEntrega);
-                db.SaveChanges();
+                return "Não foi recebido qualquer tipo de dados!";
             }
         }
-         */
 
         // PUT api/<EntregasController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Entrega entregaUpdate)
+        [HttpPut("{idEntrega}")]
+        public void Put(int idUtilizador, [FromBody] Entrega entregaUpdate)
         {
-            using (var db = new DbHelper())
+            if (entregaUpdate != null && entregaUpdate.idEntrega == idUtilizador)
             {
-                var entregasDB = db.entrega.Find(id);
-
-                if (entregasDB == null)
+                using (var db = new DbHelper())
                 {
-                    Post(entregaUpdate);
-                }
-                else
-                {
-                    entregasDB.idEntrega = id;
+                    var entregasDB = db.entrega.Find(entregaUpdate.idEntrega);
 
-                    db.entrega.Update(entregasDB);
-                    db.SaveChanges();
+                    if (entregasDB == null)
+                    {
+
+                        Post(entregaUpdate);
+                    }
+                    else
+                    {
+                        entregasDB.idEntrega = entregaUpdate.idEntrega;
+
+                        db.entrega.Update(entregasDB);
+                        db.SaveChanges();
+                    }
                 }
             }
         }
 
+        /*
         // DELETE api/<EntregasController>/5
-        [HttpDelete("{id}")]
-        public string Delete(int id)
+        [HttpDelete("{idEntrega}")]
+        public string Delete(int idEntrega)
         {
             using (var db = new DbHelper())
             {
-                var entregasDB = db.entrega.Find(id);
+                var entregasDB = db.entrega.Find(idEntrega);
 
                 if (entregasDB != null)
                 {
@@ -139,9 +124,9 @@ namespace Foody.Controllers
                 }
                 else
                 {
-                    return "A entrega com o id: " + id + " não foi encontrada";
+                    return "A entrega com o id: " + idEntrega + " não foi encontrada";
                 }
             }
-        }
+        }*/
     }
 }

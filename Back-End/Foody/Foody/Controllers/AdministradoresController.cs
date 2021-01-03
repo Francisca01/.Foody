@@ -25,7 +25,7 @@ namespace Foody.Controllers
         }
 
         // GET api/<AdministradoresController>/5
-        [HttpGet("{idAdministrador}/{idCavalo}")]
+        [HttpGet("{idAdministrador}/")]
          public Administrador Get(int id)
         {
             using (var db = new DbHelper())
@@ -73,31 +73,34 @@ namespace Foody.Controllers
          */
 
         // PUT api/<AdministradoresController>/5
-        [HttpPut("{idAdministrador}/{idCavalo}")]
+        [HttpPut("{idAdministrador}/")]
         public void Put(int idAdministrador, [FromBody] Administrador administradorUpdate)
         {
-            using (var db = new DbHelper())
+            if (administradorUpdate.idAdministrador == idAdministrador)
             {
-                var administradorDB = db.administrador.Find(idAdministrador);
-
-                if (administradorDB == null)
+                using (var db = new DbHelper())
                 {
-                    Post(administradorUpdate);
-                }
+                    var administradorDB = db.administrador.Find(idAdministrador);
 
-                else
-                {
-                    administradorDB.idAdministrador = idAdministrador;
+                    if (administradorDB == null)
+                    {
+                        Post(administradorUpdate);
+                    }
+                    else
+                    {
+                        administradorDB.idAdministrador = idAdministrador;
 
-                    db.administrador.Update(administradorDB);
-                    db.SaveChanges();
+                        db.administrador.Update(administradorDB);
+                        db.SaveChanges();
+                    }
                 }
             }
 
         }
 
+        /*
         // DELETE api/<AdministradoresController>/5
-        [HttpDelete("{idAdministrador}/{idCavalo}")]
+        [HttpDelete("{idAdministrador}")]
         public string Delete(int idAdministrador, int idCavalo)
         {
             using (var db = new DbHelper())
@@ -113,10 +116,9 @@ namespace Foody.Controllers
                 }
                 else
                 {
-                    return "O Administrador com o id de prova: " + idAdministrador + 
-                        " e o Cavalo com o id: " + idCavalo + " não foi encontrado";
+                    return "O Administrador com o id de prova: " + idAdministrador + " não foi encontrado";
                 }
             }
-        }
+        }*/
     }
 }

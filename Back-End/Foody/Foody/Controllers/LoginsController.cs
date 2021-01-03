@@ -41,19 +41,5 @@ namespace Foody.Controllers
                 return null;
             }
         }
-        // ou
-
-        /*
-        [HttpPost]
-        public string Post([FromBody] Utilizador utilizador)
-        {
-            using (var db = new DbHelper())
-            {
-                cavalo.cod_cavaço = new Random().Next();
-                db.utilizador.Add(utilizador);
-                db.SaveChanges();
-            }
-        }
-         */
     }
 }

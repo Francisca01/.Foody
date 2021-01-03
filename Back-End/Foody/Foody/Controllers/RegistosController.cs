@@ -10,6 +10,7 @@ using Foody.Utils;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.RegularExpressions;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,16 +22,15 @@ namespace Foody.Controllers
     {
         // POST api/<RegistosController>
         [HttpPost]
-        public string Post([FromBody] Utilizador novoUtilizador, Morada novaMorada, object tipoDeUtilizador)
+        public string Post([FromBody] Utilizador novoUtilizador)
         {
             using (var db = new DbHelper())
             {
-                
                 //vai buscar todos os utilizador a base de dados 
                 var utilizador = db.utilizador.ToArray();
-                //Utilizador novoUtilizador = new Utilizador();
-                //Morada novaMorada = new Morada();
-                
+
+                Morada novaMorada = new Morada();
+
                 //valores aceites para o nome
                 var regexNome = new Regex("^[a-zA-Z ]*$");
 
@@ -71,31 +71,21 @@ namespace Foody.Controllers
                             novoUtilizador.password = HashPassword.GetHash(sha256Hash, novoUtilizador.password);
                         }
 
-                        //verificar o tipo de utilizador
-                        Type cond = typeof(Condutor);
-                        Type emp = typeof(Empresa);
-
                         //cria morada
-                        if (createMorada(db, regexNome, novaMorada) && novoUtilizador.telemovel.ToString().Length >= 9)
+                        if (CreateMorada(db, regexNome, novaMorada) && novoUtilizador.telemovel.ToString().Length >= 9)
                         {
+                            novoUtilizador.idMorada = novaMorada.idMorada;
+
                             //verifica se o utilizador é empresa
-                            if (tipoDeUtilizador.Equals(emp))
+                            if (novoUtilizador.tipoUtilizador == 2)
                             {
-                                Empresa novaEmpresa = (Empresa)tipoDeUtilizador;
-
-                                if (novaEmpresa.nif.ToString().Length == 9)
+                                //verifica o tamanho do nif
+                                if (novoUtilizador.nif.ToString().Length == 9 &&  //empresa tem de ter nif
+                                    string.IsNullOrEmpty(novoUtilizador.tipoVeiculo) && //empresa nao tem tipoVeiculo
+                                    string.IsNullOrEmpty(novoUtilizador.numeroCartaConducao) && //empresa nao tem numeroCartaConducao
+                                    string.IsNullOrEmpty(novoUtilizador.dataNascimento)) //empresa nao tem dataNascimento
                                 {
-                                    if (createUtilizador(db, novoUtilizador, novaMorada))
-                                    {
-                                        novaEmpresa.idUtilizador = novoUtilizador.idUtilizador;
-
-                                        db.empresa.Add(novaEmpresa);
-                                        db.SaveChanges();
-                                    }
-                                    else
-                                    {
-                                        return "Não foi possivel criar o utilizador!";
-                                    }
+                                    CreateUtilizador(db, novoUtilizador, novaMorada);
 
                                     return "Empresa criada!";
                                 }
@@ -105,66 +95,54 @@ namespace Foody.Controllers
                                 }
                             }
 
-                            if (novoUtilizador.dataNascimento != null)
+                            //verifica se o utilizador é condutor
+                            else if (novoUtilizador.tipoUtilizador == 1)
                             {
-                                //verifica se o utilizador é condutor
-                                if (tipoDeUtilizador.Equals(cond))
-                                {
-                                    Condutor novoCondutor = (Condutor)tipoDeUtilizador;
+                                if (!string.IsNullOrEmpty(novoUtilizador.tipoVeiculo) && //condutor tem de ter tipoVeiculo
+                                    !string.IsNullOrEmpty(novoUtilizador.numeroCartaConducao) && //condutor tem de ter numeroCartaConducao
+                                    !string.IsNullOrEmpty(novoUtilizador.dataNascimento) && //condutor tem de ter dataNascimento
+                                    (string.IsNullOrEmpty(novoUtilizador.nif.ToString()) || //condutor nao tem nif
+                                    novoUtilizador.nif.ToString().Length == 0) &&
+                                    novoUtilizador.numeroCartaConducao.Length >= 11) //condutor tem de ter carta de condução com pelo menos
+                                {                                                    //11 caracteres
+                                    CreateUtilizador(db, novoUtilizador, novaMorada);
 
-                                    if (novoCondutor.tipoDeVeiculo != null && novoCondutor.numeroCartaConducao.Length >= 11)
-                                    {
-                                        if (createUtilizador(db, novoUtilizador, novaMorada))
-                                        {
-                                            novoCondutor.idUtilizador = novoUtilizador.idUtilizador;
-
-                                            db.condutor.Add(novoCondutor);
-                                            db.SaveChanges();
-                                        }
-                                        else
-                                        {
-                                            return "Não foi possivel criar o utilizador!";
-                                        }
-
-                                        return "Condutor criado!";
-                                    }
-                                    else
-                                    {
-                                        return "O Tipo de Veiculo ou o número de Carta de condução são inválidos";
-                                    }
+                                    return "Condutor criado!";
                                 }
-
-                                //caso o utilizador não seja nehuma das entidades a cima então é considerada utilizador
                                 else
                                 {
-                                    Cliente novoCliente = (Cliente)tipoDeUtilizador;
-                                    
-                                    if (createUtilizador(db, novoUtilizador, novaMorada))
-                                    {
-                                        novoUtilizador.idMorada = novaMorada.idMorada;
-
-                                        db.utilizador.Add(novoUtilizador);
-                                        db.SaveChanges();
-                                    }
-                                    else
-                                    {
-                                        return "Não foi possivel criar o utilizador!";
-                                    }
-
-                                    novoCliente.idUtilizador = novoUtilizador.idUtilizador;
-
-                                    db.cliente.Add(novoCliente);
-                                    db.SaveChanges();
-
-                                    return "Empresa criada!";
+                                    return "Prencha todos os campos!";
                                 }
                             }
+
+                            
+                            //caso o utilizador não seja nehuma das entidades a cima então é considerada utilizador
+                            else
+                            {
+                                if (string.IsNullOrEmpty(novoUtilizador.tipoVeiculo) && //cliente não tem tipoVeiculo
+                                    string.IsNullOrEmpty(novoUtilizador.numeroCartaConducao) && //cliente não tem numeroCartaConducao
+                                    !string.IsNullOrEmpty(novoUtilizador.dataNascimento) //cliente tem de ter dataNascimento
+                                    )
+                                {
+                                    CreateUtilizador(db, novoUtilizador, novaMorada);
+
+                                    return "Cliente criado!";
+                                }
+                                else
+                                {
+                                    return "Introduza a Data de Nascimento";
+                                }
+                                
+                            }
                         }
-                        return "Utilizador Criado";
+                        else
+                        {
+                            return "Morada ou Número de Telemóvel inválidos";
+                        }
                     }
                     else
                     {
-                        return "Valores inválidos";
+                        return "Palavra passe ou Nome inválido";
                     }
 
                 }
@@ -174,12 +152,12 @@ namespace Foody.Controllers
                 }
             }
         }
-        bool createMorada(DbHelper db, Regex regexNome, Morada novaMorada)
+        bool CreateMorada(DbHelper db, Regex regexNome, Morada novaMorada)
         {
             //verifica a morada
             if (novaMorada != null && novaMorada.codigoPostal != null && novaMorada.localidade != null &&
-                               regexNome.IsMatch(novaMorada.localidade) && novaMorada.nomeRua != null &&
-                               regexNome.IsMatch(novaMorada.nomeRua) && novaMorada.numeroPorta > 0)
+                regexNome.IsMatch(novaMorada.localidade) && novaMorada.nomeRua != null &&
+                regexNome.IsMatch(novaMorada.nomeRua) && novaMorada.numeroPorta > 0)
             {
                 db.morada.Add(novaMorada);
                 db.SaveChanges();
@@ -189,14 +167,11 @@ namespace Foody.Controllers
             return false;
         }
 
-        bool createUtilizador(DbHelper db, Utilizador novoUtilizador, Morada novaMorada)
+        //cria utilizador
+        void CreateUtilizador(DbHelper db, Utilizador novoUtilizador, Morada novaMorada)
         {
-            novoUtilizador.idMorada = novaMorada.idMorada;
             db.utilizador.Add(novoUtilizador);
             db.SaveChanges();
-
-            return true;
         }
-
     }
 }

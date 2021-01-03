@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Foody.Models;
 using Foody.Utils;
@@ -22,10 +23,6 @@ namespace Foody.Controllers
             {
                 return db.empresa.ToArray();
             }
-
-            //HttpContext.Response.StatusCode = (int)
-
-            //return null;
         }
 
         // GET api/<EmpresasController>/5
@@ -49,37 +46,56 @@ namespace Foody.Controllers
             }
         }
 
-        //ou
+        // PUT api/<EmpresasController>/5
+        [HttpPut("{idProduto}")]
+        public void Put(int idEmpresa, [FromBody] Produto editarProduto)
+        {
+            if (editarProduto != null && editarProduto.idEmpresa == idEmpresa)
+            {
+                using (var db = new DbHelper())
+                {
+                    //procura pelo produto na base de dados
+                    var produtoDB = db.produto.Find(editarProduto.idProduto);
 
-        /*
-         public Empresa Get(int id)
+                    if (produtoDB != null)
+                    {
+                        //if (CreateProduct(idEmpresa, editarProduto, true) == "Ok")
+                        //{
+                        //    return "Produto Alterado";
+                        //}
+                        //else
+                        //{
+                        //    return "Não foi possivel criar o produto";
+                        //}
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
+        }
+
+        // DELETE api/<EmpresasController>/5
+        [HttpDelete("{idEmpresa}")]
+        public string Delete(int idEmpresa, int id)
         {
             using (var db = new DbHelper())
             {
-                return db.empresa.Find(id);
+                var produtosDB = db.produto.Find(id);
+
+                if (produtosDB != null && produtosDB.idEmpresa == idEmpresa)
+                {
+                    db.produto.Remove(produtosDB);
+                    db.SaveChanges();
+
+                    return "Eliminado!";
+                }
+                else
+                {
+                    return "O produto com o id: " + id + " não foi encontrada";
+                }
             }
         }
-         */
-
-        // POST api/<EmpresasController>
-        //[HttpPost]
-        //public string Post([FromBody] Empresa novaEmpresa)
-        //{
-
-        //}
-        // ou
-
-        /*
-        [HttpPost]
-        public string Post([FromBody] Empresa novaEmpresa)
-        {
-            using (var db = new DbHelper())
-            {
-                cavalo.cod_cavaço = new Random().Next();
-                db.empresa.Add(novaEmpresa);
-                db.SaveChanges();
-            }
-        }
-         */
     }
 }

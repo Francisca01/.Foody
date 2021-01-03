@@ -29,17 +29,15 @@ namespace Foody.Controllers
         }
 
         // GET api/<EncomendasProdutosController>/5
-        [HttpGet("{id}")]
+        [HttpGet("{idEncomendaProduto}")]
         public EncomendaProduto Get(int id)
         {
-
             using (var db = new DbHelper())
             {
                 var encomendaProduto = db.encomendaProduto.ToArray();
 
                 for (int i = 0; i <= encomendaProduto.Length; i++)
                 {
-
                     if (encomendaProduto[i].idEncomendaProduto == id)
                     {
                         return encomendaProduto[i];
@@ -50,85 +48,49 @@ namespace Foody.Controllers
             }
         }
 
-        //ou
-
-        /*
-         public EncomendaProduto Get(int id)
-        {
-            using (var db = new DbHelper())
-            {
-                return db.encomendaProduto.Find(id);
-            }
-        }
-         */
-
         // POST api/<EncomendasProdutosController>
         [HttpPost]
         public string Post([FromBody] EncomendaProduto novaEncomendasProduto)
         {
-            using (var db = new DbHelper())
+            if (novaEncomendasProduto.quantidade > 0 && string.IsNullOrEmpty(novaEncomendasProduto.idProduto.ToString()))
             {
-                var encomendaProduto = db.encomendaProduto.ToArray();
-
-                for (int i = 0; i < encomendaProduto.Length; i++)
+                using (var db = new DbHelper())
                 {
+                    db.encomendaProduto.Add(novaEncomendasProduto);
+                    db.SaveChanges();
 
-                    if (novaEncomendasProduto.idEncomendaProduto == encomendaProduto[i].idEncomendaProduto)
-                    {
-                        return "Já existe";
-                    }
+                    return "Criado";
                 }
-
-                db.encomendaProduto.Add(novaEncomendasProduto);
-                db.SaveChanges();
-
-                return "Criado";
             }
-        }
-        // ou
-
-        /*
-        [HttpPost]
-        public string Post([FromBody] EncomendaProduto novaEncomendasProduto)
-        {
-            using (var db = new DbHelper())
+            else
             {
-                cavalo.cod_cavaço = new Random().Next();
-                db.encomendaProduto.Add(novaEncomendasProduto);
-                db.SaveChanges();
+                return "Erro: a quatidade do produto tem de ser pelo menos 1";
             }
         }
-         */
 
         // PUT api/<EncomendasProdutosController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] EncomendaProduto encomendaProdutoUpdate)
+        [HttpPut("{idEncomendaProduto}")]
+        public void Put(int idEncomenda, [FromBody] EncomendaProduto encomendaProdutoUpdate)
         {
             using (var db = new DbHelper())
             {
-                var encomendaProdutoDB = db.encomendaProduto.Find(id);
+                var encomendaProdutoDB = db.encomendaProduto.Find(encomendaProdutoUpdate.idEncomendaProduto);
 
-                if (encomendaProdutoDB == null)
+                if (encomendaProdutoDB != null && encomendaProdutoUpdate != null && encomendaProdutoUpdate.quantidade > 0)
                 {
-                    Post(encomendaProdutoUpdate);
-                }
-                else
-                {
-                    encomendaProdutoDB.idEncomendaProduto = id;
-
-                    db.encomendaProduto.Update(encomendaProdutoDB);
+                    db.encomendaProduto.Update(encomendaProdutoUpdate);
                     db.SaveChanges();
                 }
             }
         }
 
         // DELETE api/<EncomendasProdutosController>/5
-        [HttpDelete("{id}")]
-        public string Delete(int id)
+        [HttpDelete("{idEncomendaProduto}")]
+        public string Delete(int idEncomendaProduto)
         {
             using (var db = new DbHelper())
             {
-                var encomendaProdutoDB = db.encomendaProduto.Find(id);
+                var encomendaProdutoDB = db.encomendaProduto.Find(idEncomendaProduto);
 
                 if (encomendaProdutoDB != null)
                 {
@@ -139,7 +101,7 @@ namespace Foody.Controllers
                 }
                 else
                 {
-                    return "A encomendaProduto com o id: " + id + " não foi encontrada";
+                    return "A encomendaProduto com o id: " + idEncomendaProduto + " não foi encontrada";
                 }
             }
         }

@@ -29,10 +29,9 @@ namespace Foody.Controllers
         }
 
         // GET api/<CondutoresController>/5
-        [HttpGet("{id}")]
+        [HttpGet("{idCondutor}")]
         public Condutor Get(int id)
         {
-
             using (var db = new DbHelper())
             {
                 var condutor = db.condutor.ToArray();
@@ -101,34 +100,37 @@ namespace Foody.Controllers
          */
 
         // PUT api/<CondutoresController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Condutor condutorUpdate)
+        [HttpPut("{idCondutor}")]
+        public void Put(int idCondutor, [FromBody] Condutor condutorUpdate)
         {
-            using (var db = new DbHelper())
+            if (condutorUpdate != null && condutorUpdate.idCondutor == idCondutor)
             {
-                var condutorDB = db.condutor.Find(id);
-
-                if (condutorDB == null)
+                using (var db = new DbHelper())
                 {
-                    Post(condutorUpdate);
-                }
-                else
-                {
-                    condutorDB.idCondutor = id;
+                    var condutorDB = db.condutor.Find(idCondutor);
 
-                    db.condutor.Update(condutorDB);
-                    db.SaveChanges();
+                    if (condutorDB == null)
+                    {
+                        Post(condutorUpdate);
+                    }
+                    else
+                    {
+                        condutorDB.idCondutor = idCondutor;
+
+                        db.condutor.Update(condutorDB);
+                        db.SaveChanges();
+                    }
                 }
             }
         }
 
         // DELETE api/<CondutoresController>/5
-        [HttpDelete("{id}")]
-        public string Delete(int id)
+        [HttpDelete("{idCondutor}")]
+        public string Delete(int idCondutor)
         {
             using (var db = new DbHelper())
             {
-                var condutorDB = db.condutor.Find(id);
+                var condutorDB = db.condutor.Find(idCondutor);
 
                 if (condutorDB != null)
                 {
@@ -139,7 +141,7 @@ namespace Foody.Controllers
                 }
                 else
                 {
-                    return "O Condutor com o id: " + id + " não foi encontrado";
+                    return "O Condutor com o id: " + idCondutor + " não foi encontrado";
                 }
             }
         }

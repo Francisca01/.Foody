@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Foody.Models;
 using Foody.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -29,7 +30,7 @@ namespace Foody.Controllers
         }
 
         // GET api/<ClientesController>/5
-        [HttpGet("{id}")]
+        [HttpGet("{idCliente}")]
         public Cliente Get(int id)
         {
 
@@ -50,19 +51,8 @@ namespace Foody.Controllers
             }
         }
 
-        //ou
-
-        /*
-         public Cliente Get(int id)
-        {
-            using (var db = new DbHelper())
-            {
-                return db.cliente.Find(id);
-            }
-        }
-         */
-
         // POST api/<ClientesController>
+        [AllowAnonymous]
         [HttpPost]
         public string Post([FromBody] Cliente novoCliente)
         {
@@ -85,39 +75,28 @@ namespace Foody.Controllers
                 return "Criado";
             }
         }
-        // ou
-
-        /*
-        [HttpPost]
-        public string Post([FromBody] Cliente novoCliente)
-        {
-            using (var db = new DbHelper())
-            {
-                cavalo.cod_cavaço = new Random().Next();
-                db.cliente.Add(novoCliente);
-                db.SaveChanges();
-            }
-        }
-         */
 
         // PUT api/<ClientesController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Cliente clienteUpdate)
+        public void Put(int idCliente, [FromBody] Cliente clienteUpdate)
         {
-            using (var db = new DbHelper())
+            if (clienteUpdate != null && clienteUpdate.idCliente == idCliente)
             {
-                var clienteDB = db.cliente.Find(id);
-
-                if (clienteDB == null)
+                using (var db = new DbHelper())
                 {
-                    Post(clienteUpdate);
-                }
-                else
-                {
-                    clienteDB.idCliente = id;
+                    var clienteDB = db.cliente.Find(idCliente);
 
-                    db.cliente.Update(clienteDB);
-                    db.SaveChanges();
+                    if (clienteDB == null)
+                    {
+                        Post(clienteUpdate);
+                    }
+                    else
+                    {
+                        clienteDB.idCliente = idCliente;
+
+                        db.cliente.Update(clienteDB);
+                        db.SaveChanges();
+                    }
                 }
             }
         }
