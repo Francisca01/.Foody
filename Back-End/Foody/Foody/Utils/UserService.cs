@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Foody.Models;
 
 namespace Foody.Utils
 {
     public class UserService
     {
-        public static string CreateUtilizador(DbHelper db, Utilizador novoUtilizador, bool editar)
+        public static string CriarEditarUtilizador(DbHelper db, Utilizador novoUtilizador, bool editar)
         {
             //vai buscar todos os utilizador a base de dados 
             var utilizador = db.utilizador.ToArray();
@@ -67,10 +65,7 @@ namespace Foody.Utils
                                 string.IsNullOrEmpty(novoUtilizador.numeroCartaConducao) && //empresa nao tem numeroCartaConducao
                                 string.IsNullOrEmpty(novoUtilizador.dataNascimento)) //empresa nao tem dataNascimento
                             {
-                                db.utilizador.Add(novoUtilizador);
-                                db.SaveChanges();
-
-                                return "Empresa criada!";
+                                return CriarEditar(db, novoUtilizador, editar);
                             }
                             else
                             {
@@ -88,10 +83,7 @@ namespace Foody.Utils
                                 novoUtilizador.nif.ToString().Length == 0) &&
                                 novoUtilizador.numeroCartaConducao.Length >= 11) //condutor tem de ter carta de condução com pelo menos
                             {                                                    //11 caracteres
-                                db.utilizador.Add(novoUtilizador);
-                                db.SaveChanges();
-
-                                return "Condutor criado!";
+                                return CriarEditar(db, novoUtilizador, editar);
                             }
                             else
                             {
@@ -108,10 +100,8 @@ namespace Foody.Utils
                                 !string.IsNullOrEmpty(novoUtilizador.dataNascimento) //cliente tem de ter dataNascimento
                                 )
                             {
-                                db.utilizador.Add(novoUtilizador);
-                                db.SaveChanges();
+                                return CriarEditar(db, novoUtilizador, editar);
 
-                                return "Cliente criado!";
                             }
                             else
                             {
@@ -134,6 +124,54 @@ namespace Foody.Utils
             catch (Exception e)
             {
                 throw e;
+            }
+        }
+
+        public static string CriarEditar(DbHelper db, Utilizador novoUtilizador, bool editar)
+        {
+            if (editar == false)
+            {
+                db.utilizador.Add(novoUtilizador);
+                db.SaveChanges();
+
+                if (novoUtilizador.tipoUtilizador == 2)
+                {
+                    return "Empresa criada!";
+                }
+                else if (novoUtilizador.tipoUtilizador == 1)
+                {
+                    return "Condutor criado!";
+                }
+                else
+                {
+                    return "Cliente criado!";
+                }
+            }
+            else
+            {
+                var utilizadorDB = db.utilizador.Find(novoUtilizador.idUtilizador);
+                if (utilizadorDB != null)
+                {
+                    db.utilizador.Add(novoUtilizador);
+                    db.SaveChanges();
+
+                    if (novoUtilizador.tipoUtilizador == 2)
+                    {
+                        return "Empresa editada!";
+                    }
+                    else if (novoUtilizador.tipoUtilizador == 1)
+                    {
+                        return "Condutor editado!";
+                    }
+                    else
+                    {
+                        return "Cliente editado!";
+                    }
+                }
+                else
+                {
+                    return "Cliente inexistente!";
+                }
             }
         }
     }

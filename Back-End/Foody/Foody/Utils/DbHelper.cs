@@ -21,7 +21,6 @@ namespace Foody.Utils
         public DbSet<Encomenda> encomenda { get; set; }
         public DbSet<EncomendaProduto> encomendaProduto { get; set; }
         public DbSet<Entrega> entrega { get; set; }
-        public DbSet<Morada> morada { get; set; }
         public DbSet<Produto> produto { get; set; }
         public DbSet<Utilizador> utilizador { get; set; }
 
@@ -31,7 +30,6 @@ namespace Foody.Utils
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Utilizador>().HasKey(u => new { u.idMorada });
             modelBuilder.Entity<Administrador>().HasKey(a => new { a.idUtilizador });
             modelBuilder.Entity<Cliente>().HasKey(cl => new { cl.idUtilizador });
             modelBuilder.Entity<Condutor>().HasKey(c => new { c.idUtilizador });

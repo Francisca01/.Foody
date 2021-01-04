@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\CPP001\\Desktop\\Projeto de CD e DCS\\Foody\\Back-End\\Foody\\Foody\\Foody.csproj": {}
+    "D:\\IPCA\\DWM 2\\Foody\\Foody\\Back-End\\Foody\\Foody\\Foody.csproj": {}
   },
   "projects": {
-    "C:\\Users\\CPP001\\Desktop\\Projeto de CD e DCS\\Foody\\Back-End\\Foody\\Foody\\Foody.csproj": {
+    "D:\\IPCA\\DWM 2\\Foody\\Foody\\Back-End\\Foody\\Foody\\Foody.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\CPP001\\Desktop\\Projeto de CD e DCS\\Foody\\Back-End\\Foody\\Foody\\Foody.csproj",
+        "projectUniqueName": "D:\\IPCA\\DWM 2\\Foody\\Foody\\Back-End\\Foody\\Foody\\Foody.csproj",
         "projectName": "Foody",
-        "projectPath": "C:\\Users\\CPP001\\Desktop\\Projeto de CD e DCS\\Foody\\Back-End\\Foody\\Foody\\Foody.csproj",
-        "packagesPath": "C:\\Users\\CPP001\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\CPP001\\Desktop\\Projeto de CD e DCS\\Foody\\Back-End\\Foody\\Foody\\obj\\",
+        "projectPath": "D:\\IPCA\\DWM 2\\Foody\\Foody\\Back-End\\Foody\\Foody\\Foody.csproj",
+        "packagesPath": "C:\\Users\\nardo\\.nuget\\packages\\",
+        "outputPath": "D:\\IPCA\\DWM 2\\Foody\\Foody\\Back-End\\Foody\\Foody\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\CPP001\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\nardo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,6 +26,7 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -37,6 +38,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
@@ -75,7 +77,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
