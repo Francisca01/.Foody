@@ -10,8 +10,7 @@ namespace Foody.Models
     {
         [Key]
         public int idUtilizador { get; set; }
-        [Key]
-        public int idMorada { get; set; }
+        public string idMorada { get; set; }
         public int telemovel { get; set; }
         public int tipoUtilizador { get; set; }
         // 0 - cliente 
