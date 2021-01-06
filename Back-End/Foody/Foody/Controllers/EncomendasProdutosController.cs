@@ -18,8 +18,10 @@ namespace Foody.Controllers
         [HttpGet]
         public EncomendaProduto[] Get()
         {
+            // obter dados dos utilizadores na base de dados
             using (var db = new DbHelper())
             {
+                // devolve-os (dados) num array
                 return db.encomendaProduto.ToArray();
             }
 
@@ -32,9 +34,14 @@ namespace Foody.Controllers
         [HttpGet("{idEncomendaProduto}")]
         public EncomendaProduto Get(int id)
         {
+            // obter dados do utilizador na base de dados (por id especifico)
             using (var db = new DbHelper())
             {
-                var encomendaProduto = db.encomendaProduto.ToArray();
+                // maneira mais simples
+                return db.encomendaProduto.Find(id);
+
+                // ou: maneira mais complexa
+                /* var encomendaProduto = db.encomendaProduto.ToArray();
 
                 for (int i = 0; i <= encomendaProduto.Length; i++)
                 {
@@ -44,7 +51,7 @@ namespace Foody.Controllers
                     }
                 }
 
-                return null;
+                return null;  */
             }
         }
 
@@ -52,8 +59,11 @@ namespace Foody.Controllers
         [HttpPost]
         public string Post([FromBody] EncomendaProduto novaEncomendasProduto)
         {
-            if (novaEncomendasProduto.quantidade > 0 && string.IsNullOrEmpty(novaEncomendasProduto.idProduto.ToString()))
+            // verificar se a quantidade de encomendaProduto é maior que 0,
+            // e se idProduto não é recebido nulo ou vazio,
+            if (novaEncomendasProduto.quantidade > 0 && !string.IsNullOrEmpty(novaEncomendasProduto.idProduto.ToString()))
             {
+                // obter dados do utilizador na base de dados (por id especifico)
                 using (var db = new DbHelper())
                 {
                     db.encomendaProduto.Add(novaEncomendasProduto);
@@ -72,10 +82,14 @@ namespace Foody.Controllers
         [HttpPut("{idEncomendaProduto}")]
         public void Put(int idEncomenda, [FromBody] EncomendaProduto encomendaProdutoUpdate)
         {
+            // obter dados do utilizador na base de dados (por id especifico de Produto)
             using (var db = new DbHelper())
             {
                 var encomendaProdutoDB = db.encomendaProduto.Find(encomendaProdutoUpdate.idEncomendaProduto);
 
+                // verificar se os valores da encomendaProduto (DB) não são nulos,
+                // se os valores da encomendaProduto (inseridos para update) não são nulos,
+                // e se quantidade de encomendaProduto (inseridos para update) é maior que 0
                 if (encomendaProdutoDB != null && encomendaProdutoUpdate != null && encomendaProdutoUpdate.quantidade > 0)
                 {
                     db.encomendaProduto.Update(encomendaProdutoUpdate);
@@ -88,10 +102,14 @@ namespace Foody.Controllers
         [HttpDelete("{idEncomendaProduto}")]
         public string Delete(int idEncomendaProduto)
         {
+            // obter dados do utilizador na base de dados (por id especifico)
             using (var db = new DbHelper())
             {
+                // procura o id da encomendaProduto
                 var encomendaProdutoDB = db.encomendaProduto.Find(idEncomendaProduto);
 
+                // se id encontrado (diferente de nulo), 
+                // remove a encomendaProduto associado
                 if (encomendaProdutoDB != null)
                 {
                     db.encomendaProduto.Remove(encomendaProdutoDB);

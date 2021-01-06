@@ -20,12 +20,17 @@ namespace Foody.Controllers
         [HttpPost]
         public IDictionary<string, string> Post([FromBody] Utilizador novoUtilizador)
         {
+            // obter dados dos utilizadores na base de dados
             using (var db = new DbHelper())
             {
+                // devolve-os (dados) num array 
                 var utilizador = db.utilizador.ToArray();
 
+                // percorre todos os id's de utilizadores
                 for (int i = 0; i < utilizador.Length; i++)
                 {
+                    // verificar se email inserido corresposnde ao da BD,
+                    // e se password inserida (encriptada) corresponde à da BD
                     if (novoUtilizador.email == utilizador[i].email &&
                         HashPassword.VerifyHash(novoUtilizador.password, utilizador[i].password))
                     {

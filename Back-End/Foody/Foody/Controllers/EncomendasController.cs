@@ -85,25 +85,31 @@ namespace Foody.Controllers
             }
         }
 
-        /*
         // PUT api/<EncomendasController>/5
         [HttpPut("{idEncomenda}")]
-        public void Put(int id, [FromBody] Encomenda encomendaUpdate)
+        public void Put(int idEncomenda, [FromBody] Encomenda encomendaUpdate)
         {
-            using (var db = new DbHelper())
+            // verificar se encomenda não está nula 
+            if (encomendaUpdate != null && encomendaUpdate.idEncomenda == idEncomenda)
             {
-                var encomendasDB = db.encomenda.Find(id);
-
-                if (encomendasDB == null)
+                // obter dados do utilizador na base de dados (por id especifico)
+                using (var db = new DbHelper())
                 {
-                    Post(encomendaUpdate);
-                }
-                else
-                {
-                    encomendasDB.idEncomenda = id;
+                    var encomendasDB = db.encomenda.Find(idEncomenda);
 
-                    db.encomenda.Update(encomendasDB);
-                    db.SaveChanges();
+                    // se encomenda não existir, criar nova
+                    if (encomendasDB == null)
+                    {
+                        Post(encomendaUpdate);
+                    }
+                    // se encomenda existir, atualizar dados
+                    else
+                    {
+                        encomendasDB.idEncomenda = idEncomenda;
+
+                        db.encomenda.Update(encomendasDB);
+                        db.SaveChanges();
+                    }
                 }
             }
         }
@@ -112,10 +118,14 @@ namespace Foody.Controllers
         [HttpDelete("{idEncomenda}")]
         public string Delete(int id)
         {
+            // obter dados do utilizador na base de dados (por id especifico)
             using (var db = new DbHelper())
             {
+                // procura o id do encomenda
                 var encomendasDB = db.encomenda.Find(id);
 
+                // se id encontrado (diferente de nulo), 
+                // remove o cliente associado
                 if (encomendasDB != null)
                 {
                     db.encomenda.Remove(encomendasDB);
@@ -128,6 +138,6 @@ namespace Foody.Controllers
                     return "A encomenda com o id: " + id + " não foi encontrada";
                 }
             }
-        }*/
+        }
     }
 }
