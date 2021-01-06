@@ -18,8 +18,10 @@ namespace Foody.Controllers
         [HttpGet]
         public Condutor[] Get()
         {
+            // obter dados dos utilizadores na base de dados
             using (var db = new DbHelper())
             {
+                // devolve-os (dados) num array
                 return db.condutor.ToArray();
             }
 
@@ -32,9 +34,14 @@ namespace Foody.Controllers
         [HttpGet("{idCondutor}")]
         public Condutor Get(int id)
         {
+            // obter dados do utilizador na base de dados (por id especifico)
             using (var db = new DbHelper())
             {
-                var condutor = db.condutor.ToArray();
+                // maneira mais simples
+                return db.condutor.Find(id);
+
+                // ou: maneira mais complexa
+                /*  var condutor = db.condutor.ToArray();
 
                 for (int i = 0; i <= condutor.Length; i++)
                 {
@@ -45,30 +52,21 @@ namespace Foody.Controllers
                     }
                 }
 
-                return null;
+                return null;  */
             }
         }
-
-        //ou
-
-        /*
-         public Condutor Get(int id)
-        {
-            using (var db = new DbHelper())
-            {
-                return db.condutor.Find(id);
-            }
-        }
-         */
 
         // POST api/<CondutoresController>
         [HttpPost]
         public string Post([FromBody] Condutor novoCondutor)
         {
+            // obter dados do utilizador na base de dados (por id especifico)
             using (var db = new DbHelper())
             {
+                // converte-os (dados) num array
                 var condutor = db.condutor.ToArray();
 
+                // verifica se id de condutor já existe na BD
                 for (int i = 0; i < condutor.Length; i++)
                 {
 
@@ -78,6 +76,7 @@ namespace Foody.Controllers
                     }
                 }
 
+                // se não existir, adiciona um novo cliente
                 db.condutor.Add(novoCondutor);
                 db.SaveChanges();
 
@@ -103,16 +102,21 @@ namespace Foody.Controllers
         [HttpPut("{idCondutor}")]
         public void Put(int idCondutor, [FromBody] Condutor condutorUpdate)
         {
+            // verificar se utilizado logado é condutor
             if (condutorUpdate != null && condutorUpdate.idCondutor == idCondutor)
             {
+                // obter dados do utilizador na base de dados (por id especifico)
                 using (var db = new DbHelper())
                 {
                     var condutorDB = db.condutor.Find(idCondutor);
 
+                    // se cliente não existir, criar novo
                     if (condutorDB == null)
                     {
                         Post(condutorUpdate);
                     }
+
+                    // se cliente existir, atualizar dados
                     else
                     {
                         condutorDB.idCondutor = idCondutor;
@@ -128,10 +132,14 @@ namespace Foody.Controllers
         [HttpDelete("{idCondutor}")]
         public string Delete(int idCondutor)
         {
+            // obter dados do utilizador na base de dados (por id especifico)
             using (var db = new DbHelper())
             {
+                // procura o id do condutor
                 var condutorDB = db.condutor.Find(idCondutor);
 
+                // se id encontrado (diferente de nulo), 
+                // remove o condutor associado
                 if (condutorDB != null)
                 {
                     db.condutor.Remove(condutorDB);

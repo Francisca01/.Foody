@@ -18,8 +18,10 @@ namespace Foody.Controllers
         [HttpGet]
         public Encomenda[] Get()
         {
+            // obter dados dos utilizadores na base de dados
             using (var db = new DbHelper())
             {
+                // devolve-os (dados) num array
                 return db.encomenda.ToArray();
             }
         }
@@ -28,9 +30,14 @@ namespace Foody.Controllers
         [HttpGet("{idEncomenda}")]
         public Encomenda Get(int id)
         {
+            // obter dados do utilizador na base de dados (por id especifico)
             using (var db = new DbHelper())
             {
-                var encomendasDB = db.encomenda.ToArray();
+                // maneira mais simples
+                return db.encomenda.Find(id);
+
+                // maneira mais complesa 
+                /*  var encomendasDB = db.encomenda.ToArray();
 
                 for (int i = 0; i <= encomendasDB.Length; i++)
                 {
@@ -40,7 +47,7 @@ namespace Foody.Controllers
                     }
                 }
 
-                return null;
+                return null;  */
             }
         }
 
@@ -50,10 +57,13 @@ namespace Foody.Controllers
         {
             if (novaEncomenda != null)
             {
+                // obter dados do utilizador na base de dados (por id especifico)
                 using (var db = new DbHelper())
                 {
+                    // converte-os (dados) num array
                     var encomendasDB = db.encomenda.ToArray();
 
+                    // verifica se id de encomenda já existe na BD
                     for (int i = 0; i < encomendasDB.Length; i++)
                     {
                         if (novaEncomenda.idEncomenda == encomendasDB[i].idEncomenda)
@@ -62,6 +72,7 @@ namespace Foody.Controllers
                         }
                     }
 
+                    // se não existir, adiciona um novo encomenda
                     db.encomenda.Add(novaEncomenda);
                     db.SaveChanges();
 

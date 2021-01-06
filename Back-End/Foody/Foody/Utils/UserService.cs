@@ -10,7 +10,7 @@ namespace Foody.Utils
     {
         public static string CriarEditarUtilizador(DbHelper db, Utilizador novoUtilizador, bool editar)
         {
-            //vai buscar todos os utilizador a base de dados 
+            //vai buscar todos os utilizador à base de dados 
             var utilizador = db.utilizador.ToArray();
 
             //valores aceites para o nome
@@ -129,19 +129,26 @@ namespace Foody.Utils
 
         public static string CriarEditar(DbHelper db, Utilizador novoUtilizador, bool editar)
         {
+            //se os campos não exisitirem, irá criar utilizador
             if (editar == false)
             {
                 db.utilizador.Add(novoUtilizador);
                 db.SaveChanges();
 
+                //verifica o tipo de utilizador:
+                //verifica se é Empresa
                 if (novoUtilizador.tipoUtilizador == 2)
                 {
                     return "Empresa criada!";
                 }
+
+                //verifica se é Condutor
                 else if (novoUtilizador.tipoUtilizador == 1)
                 {
                     return "Condutor criado!";
                 }
+
+                //verifica se é Cliente
                 else
                 {
                     return "Cliente criado!";
@@ -149,20 +156,25 @@ namespace Foody.Utils
             }
             else
             {
+                //se os campos já exisitirem, irá editar utilizador (procura pelo id de utilizador)
                 var utilizadorDB = db.utilizador.Find(novoUtilizador.idUtilizador);
                 if (utilizadorDB != null)
                 {
                     db.utilizador.Add(novoUtilizador);
                     db.SaveChanges();
 
+                    //verifica o tipo de utilizador:
+                    //verifica se é Empresa
                     if (novoUtilizador.tipoUtilizador == 2)
                     {
                         return "Empresa editada!";
                     }
+                    //verifica se é Condutor
                     else if (novoUtilizador.tipoUtilizador == 1)
                     {
                         return "Condutor editado!";
                     }
+                    //verifica se é Cliente
                     else
                     {
                         return "Cliente editado!";

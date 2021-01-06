@@ -19,8 +19,10 @@ namespace Foody.Controllers
         [HttpGet]
         public Cliente[] Get()
         {
+            // obter dados dos utilizadores na base de dados
             using (var db = new DbHelper())
             {
+                // devolve-os (dados) num array
                 return db.cliente.ToArray();
             }
 
@@ -33,10 +35,14 @@ namespace Foody.Controllers
         [HttpGet("{idCliente}")]
         public Cliente Get(int id)
         {
-
+            // obter dados do utilizador na base de dados (por id especifico)
             using (var db = new DbHelper())
             {
-                var cliente = db.cliente.ToArray();
+                // maneira mais simples
+                return db.cliente.Find(id);
+
+                // ou: maneira mais complexa
+                /*  var cliente = db.cliente.ToArray();
 
                 for (int i = 0; i < cliente.Length; i++)
                 {
@@ -47,7 +53,7 @@ namespace Foody.Controllers
                     }
                 }
 
-                return null;
+                return null;  */
             }
         }
 
@@ -56,19 +62,22 @@ namespace Foody.Controllers
         [HttpPost]
         public string Post([FromBody] Cliente novoCliente)
         {
+            // obter dados do utilizador na base de dados (por id especifico)
             using (var db = new DbHelper())
             {
+                // converte-os (dados) num array
                 var cliente = db.cliente.ToArray();
 
+                // verifica se id de cliente já existe na BD
                 for (int i = 0; i < cliente.Length; i++)
                 {
-
                     if (novoCliente.idCliente == cliente[i].idCliente)
                     {
                         return "Já existe";
                     }
                 }
 
+                // se não existir, adiciona um novo cliente
                 db.cliente.Add(novoCliente);
                 db.SaveChanges();
 
@@ -80,16 +89,21 @@ namespace Foody.Controllers
         [HttpPut("{id}")]
         public void Put(int idCliente, [FromBody] Cliente clienteUpdate)
         {
+            // verificar se utilizador logado é cliente
             if (clienteUpdate != null && clienteUpdate.idCliente == idCliente)
             {
+                // obter dados do utilizador na base de dados (por id especifico)
                 using (var db = new DbHelper())
                 {
                     var clienteDB = db.cliente.Find(idCliente);
 
+                    // se cliente não existir, criar novo
                     if (clienteDB == null)
                     {
                         Post(clienteUpdate);
                     }
+
+                    // se cliente existir, atualizar dados
                     else
                     {
                         clienteDB.idCliente = idCliente;
@@ -105,10 +119,14 @@ namespace Foody.Controllers
         [HttpDelete("{id}")]
         public string Delete(int id)
         {
+            // obter dados do utilizador na base de dados (por id especifico)
             using (var db = new DbHelper())
             {
+                // procura o id do cliente
                 var clienteDB = db.cliente.Find(id);
 
+                // se id encontrado (diferente de nulo), 
+                // remove o cliente associado
                 if (clienteDB != null)
                 {
                     db.cliente.Remove(clienteDB);
@@ -118,7 +136,7 @@ namespace Foody.Controllers
                 }
                 else
                 {
-                    return "O cavalo com o id: " + id + " não foi encontrado";
+                    return "O Cliente com o id: " + id + " não foi encontrado";
                 }
             }
         }

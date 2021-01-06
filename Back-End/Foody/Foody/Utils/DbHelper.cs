@@ -7,6 +7,7 @@ using Foody.Models;
 
 namespace Foody.Utils
 {
+    //ficheiro que efetua a ligação entre a base de dados e a API
     public class DbHelper : DbContext
     {
         public DbHelper()
@@ -14,6 +15,7 @@ namespace Foody.Utils
 
         }
 
+        //Definição das Tabelas (BD) / Models (API)
         public DbSet<Administrador> administrador { get; set; }
         public DbSet<Cliente> cliente { get; set; }
         public DbSet<Empresa> empresa { get; set; }
@@ -26,8 +28,11 @@ namespace Foody.Utils
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            //ligação à Base de Dados
             optionsBuilder.UseSqlite("Data Source= db/foodybd.db");
         }
+
+        //configuração das Keys (BD) para chaves primárias das entidades (API)
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Administrador>().HasKey(a => new { a.idUtilizador });

@@ -5,12 +5,16 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace Foody.Utils
 {
+    // Gestor de Tokens: Permite criar tokens para a API
     public class TokenManager
     {
+        // Chave de Encriptação
         private static string Secret = "QjTpBIuht5angEnEWTdy3ZRbFGrYFxUwluKcHoCh4cWSixECorpfQfonQtm1GaCLlojhHiGm";
 
+        // Gera o Token
         public static string GenerateToken(string username)
         {
+            // Converte a chave de encriptação num array de bytes
             byte[] key = Convert.FromBase64String(Secret);
             SymmetricSecurityKey securityKey = new SymmetricSecurityKey(key);
             SecurityTokenDescriptor descriptor = new SecurityTokenDescriptor
@@ -27,6 +31,7 @@ namespace Foody.Utils
             return handler.WriteToken(token);
         }
 
+        // Valida o Token e cria um objeto ClaimsPrincipal
         public static ClaimsPrincipal GetPrincipal(string token)
         {
             try
@@ -54,6 +59,7 @@ namespace Foody.Utils
             }
         }
 
+        // Extrai os dados do objeto "principal"
         public static string ValidateToken(string token)
         {
             string username = null;

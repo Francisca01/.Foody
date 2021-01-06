@@ -1380,19 +1380,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\nardo\\.nuget\\packages\\": {}
+    "C:\\Users\\franc\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\IPCA\\DWM 2\\Foody\\Foody\\Back-End\\Foody\\Foody\\Foody.csproj",
+      "projectUniqueName": "C:\\Users\\franc\\Documents\\GitHub\\Foody\\Back-End\\Foody\\Back-End\\Foody\\Foody\\Foody.csproj",
       "projectName": "Foody",
-      "projectPath": "D:\\IPCA\\DWM 2\\Foody\\Foody\\Back-End\\Foody\\Foody\\Foody.csproj",
-      "packagesPath": "C:\\Users\\nardo\\.nuget\\packages\\",
-      "outputPath": "D:\\IPCA\\DWM 2\\Foody\\Foody\\Back-End\\Foody\\Foody\\obj\\",
+      "projectPath": "C:\\Users\\franc\\Documents\\GitHub\\Foody\\Back-End\\Foody\\Back-End\\Foody\\Foody\\Foody.csproj",
+      "packagesPath": "C:\\Users\\franc\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\franc\\Documents\\GitHub\\Foody\\Back-End\\Foody\\Back-End\\Foody\\Foody\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\nardo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\franc\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1404,7 +1408,6 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "projectReferences": {}
         }
       },
@@ -1416,7 +1419,6 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
-        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Design": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
@@ -1455,7 +1457,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
       }
     }
   }

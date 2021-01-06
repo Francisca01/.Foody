@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Foody.Models
 {
+    // Classe de Encomenda
     public class Encomenda
     {
         [Key]
