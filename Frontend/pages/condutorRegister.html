@@ -39,7 +39,7 @@
 		</section>
 
 		<section id="right-main">
-			<form class="register-form">
+			<form class="register-form" action="processaCondutorRegister.php" method="POST">
 				<div class="row">
 					<h5>Dados Pessoais</h5>
 					<hr style="border-color: #DE643E !important;">
@@ -49,12 +49,12 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group">
-							<input type="text" class="form-control" id="" placeholder="Nome do Utilizador">
+							<input type="text" class="form-control" id="nomeUtilizador" name="nomeUtilizador" placeholder="Nome do Utilizador">
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="form-group" style="position: static;">
-							<input type="date" class="form-control" id="" placeholder="Data de Nascimento">
+							<input type="date" class="form-control" id="dataNascimento" name="dataNascimento" placeholder="Data de Nascimento">
 						</div>
 					</div>
 				</div>
@@ -63,7 +63,7 @@
 				<div class="row">
 					<div class="col-md-12" style="display: block;">
 						<div class="form-group" style="position: static;">
-							<input type="email" class="form-control" id="" placeholder="Email">
+							<input type="email" class="form-control" id="emails" name="emails" placeholder="Email">
 						</div>
 					</div>
 				</div>
@@ -72,12 +72,12 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group">
-							<input type="password" class="form-control" id="" placeholder="Password">
+							<input type="password" class="form-control" id="password1" name="password1" placeholder="Password">
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="form-group" style="position: static;">
-							<input type="password" class="form-control" id="" placeholder="Repetir Password">
+							<input type="password" class="form-control" id="password2" name="password2" placeholder="Repetir Password">
 						</div>
 					</div>
 				</div>
@@ -86,12 +86,12 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group">
-							<input type="tel" class="form-control" id="" placeholder="Telemóvel">
+							<input type="tel" class="form-control" id="telemovel" name="telemovel" placeholder="Telemóvel">
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="form-group" style="position: static;">
-							<input type="text" class="form-control" id="" placeholder="Carta de Condução">
+							<input type="text" class="form-control" id="cartaConducao" name="cartaConducao" placeholder="Carta de Condução">
 						</div>
 					</div>
 				</div>
@@ -106,12 +106,12 @@
 				<div class="row">
 					<div class="col-md-9">
 						<div class="form-group">
-							<input type="text" class="form-control" id="" placeholder="Rua">
+							<input type="text" class="form-control" id="rua" name="rua" placeholder="Rua">
 						</div>
 					</div>
 					<div class="col-md-3">
 						<div class="form-group" style="position: static;">
-							<input type="number" class="form-control" id="" placeholder="Nº">
+							<input type="number" class="form-control" id="numero" name="numero" placeholder="Nº">
 						</div>
 					</div>
 				</div>
@@ -120,17 +120,17 @@
 				<div class="row">
 					<div class="col-md-4">
 						<div class="form-group">
-							<input type="text" class="form-control" id="" placeholder="Andar">
+							<input type="text" class="form-control" id="andar" name="andar" placeholder="Andar">
 						</div>
 					</div>
 					<div class="col-md-4">
 						<div class="form-group">
-							<input type="text" class="form-control" id="" placeholder="Código-Postal">
+							<input type="text" class="form-control" id="codigoPostal" name="codigoPostal" placeholder="Código-Postal">
 						</div>
 					</div>
 					<div class="col-md-4">
 						<div class="form-group">
-							<input type="text" class="form-control" id="" placeholder="Localidade">
+							<input type="text" class="form-control" id="localidade" name="localidade" placeholder="Localidade">
 						</div>
 					</div>
 				</div>
