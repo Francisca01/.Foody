@@ -79,8 +79,8 @@ namespace Foody.Utils
                             if (!string.IsNullOrEmpty(novoUtilizador.tipoVeiculo) && //condutor tem de ter tipoVeiculo
                                 !string.IsNullOrEmpty(novoUtilizador.numeroCartaConducao) && //condutor tem de ter numeroCartaConducao
                                 !string.IsNullOrEmpty(novoUtilizador.dataNascimento) && //condutor tem de ter dataNascimento
-                                (string.IsNullOrEmpty(novoUtilizador.nif.ToString()) || //condutor nao tem nif
-                                novoUtilizador.nif.ToString().Length == 0) &&
+                                 //condutor nao tem nif
+                                novoUtilizador.nif.ToString().Length == 1 &&
                                 novoUtilizador.numeroCartaConducao.Length >= 11) //condutor tem de ter carta de condução com pelo menos
                             {                                                    //11 caracteres
                                 return CriarEditar(db, novoUtilizador, editar);
