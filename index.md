@@ -4,7 +4,12 @@ Temos como principal objetivo, permitir que as pessoas saboreiem do seu prato pr
 
 
 # Tecnologias Usadas
-- **Back-end**: C#/Node.Js
-- **Front-end**: Html | CSS | JavaScript
-- **Base de Dados**: SQLite
-- **Desenvolvimento**: SCRUM | GitHub
+**Back-end** | C# |
+**Front-end** | Html | CSS | JavaScript |
+**Base de Dados** | SQLite  |
+**Desenvolvimento** | SCRUM | GitHub |
+
+
+# Copyright
+Código e Documentação © 2020-2021
+Francisca Costa  Leonardo Vieira  Tomás Braga
