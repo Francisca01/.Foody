@@ -1380,23 +1380,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\franc\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\CPP001\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\franc\\Documents\\GitHub\\Foody\\Back-End\\Foody\\Back-End\\Foody\\Foody\\Foody.csproj",
+      "projectUniqueName": "C:\\Users\\CPP001\\Desktop\\Projeto de CD e DCS\\Foody\\Back-End\\Foody\\Foody\\Foody.csproj",
       "projectName": "Foody",
-      "projectPath": "C:\\Users\\franc\\Documents\\GitHub\\Foody\\Back-End\\Foody\\Back-End\\Foody\\Foody\\Foody.csproj",
-      "packagesPath": "C:\\Users\\franc\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\franc\\Documents\\GitHub\\Foody\\Back-End\\Foody\\Back-End\\Foody\\Foody\\obj\\",
+      "projectPath": "C:\\Users\\CPP001\\Desktop\\Projeto de CD e DCS\\Foody\\Back-End\\Foody\\Foody\\Foody.csproj",
+      "packagesPath": "C:\\Users\\CPP001\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\CPP001\\Desktop\\Projeto de CD e DCS\\Foody\\Back-End\\Foody\\Foody\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\franc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\CPP001\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

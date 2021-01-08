@@ -16,6 +16,7 @@ namespace Foody.Utils
         }
 
         //Definição das Tabelas (BD) / Models (API)
+        public DbSet<Utilizador> utilizador { get; set; }
         public DbSet<Administrador> administrador { get; set; }
         public DbSet<Cliente> cliente { get; set; }
         public DbSet<Empresa> empresa { get; set; }
@@ -24,7 +25,6 @@ namespace Foody.Utils
         public DbSet<EncomendaProduto> encomendaProduto { get; set; }
         public DbSet<Entrega> entrega { get; set; }
         public DbSet<Produto> produto { get; set; }
-        public DbSet<Utilizador> utilizador { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -35,6 +35,7 @@ namespace Foody.Utils
         //configuração das Keys (BD) para chaves primárias das entidades (API)
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Utilizador>().HasKey(u => new { u.idUtilizador });
             modelBuilder.Entity<Administrador>().HasKey(a => new { a.idUtilizador });
             modelBuilder.Entity<Cliente>().HasKey(cl => new { cl.idUtilizador });
             modelBuilder.Entity<Condutor>().HasKey(c => new { c.idUtilizador });

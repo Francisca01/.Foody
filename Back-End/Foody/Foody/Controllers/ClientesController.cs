@@ -11,19 +11,35 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Foody.Controllers
 {
+
     [Route("api/[controller]")]
     //[ApiController]
     public class ClientesController : ControllerBase
     {
         // GET: api/<ClientesController>
         [HttpGet]
-        public Cliente[] Get()
+        public List<Utilizador> Get()
         {
             // obter dados dos utilizadores na base de dados
             using (var db = new DbHelper())
             {
-                // devolve-os (dados) num array
-                return db.cliente.ToArray();
+                // devolve os dados da base de dados num array
+                var clientesDB = db.utilizador.ToArray();
+
+                //array para devolver o resultado
+                List<Utilizador> clientes = new List<Utilizador>();
+
+                //incrementador
+
+                for (int i = 0; i < clientesDB.Length; i++)
+                {
+                    if (clientesDB[i].tipoUtilizador == 0)//verifica se o utilizador é cliente
+                    {
+                        clientes.Add(clientesDB[i]);
+                    }
+                }
+
+                return clientes;
             }
 
             //HttpContext.Response.StatusCode = (int)
@@ -31,87 +47,73 @@ namespace Foody.Controllers
             //return null;
         }
 
+
         // GET api/<ClientesController>/5
-        [HttpGet("{idCliente}")]
-        public Cliente Get(int id)
+        [HttpGet("{idUtilizador}")]
+        public object Get(int idUtilizador)
         {
             // obter dados do utilizador na base de dados (por id especifico)
             using (var db = new DbHelper())
             {
                 // maneira mais simples
-                return db.cliente.Find(id);
+                var cliente = db.utilizador.Find(idUtilizador);
 
-                // ou: maneira mais complexa
-                /*  var cliente = db.cliente.ToArray();
-
-                for (int i = 0; i < cliente.Length; i++)
+                if (cliente != null)
                 {
-
-                    if (cliente[i].idCliente == id)
+                    if (cliente.tipoUtilizador == 0)
                     {
-                        return cliente[i];
+                        return cliente;
+
+                    }
+                    else
+                    {
+                        return MessageService.MessagemSemResultados();
                     }
                 }
-
-                return null;  */
-            }
-        }
-
-        // POST api/<ClientesController>
-        [AllowAnonymous]
-        [HttpPost]
-        public string Post([FromBody] Cliente novoCliente)
-        {
-            // obter dados do utilizador na base de dados (por id especifico)
-            using (var db = new DbHelper())
-            {
-                // converte-os (dados) num array
-                var cliente = db.cliente.ToArray();
-
-                // verifica se id de cliente já existe na BD
-                for (int i = 0; i < cliente.Length; i++)
+                else
                 {
-                    if (novoCliente.idCliente == cliente[i].idCliente)
-                    {
-                        return "Já existe";
-                    }
+                    return MessageService.MessagemSemResultados();
                 }
-
-                // se não existir, adiciona um novo cliente
-                db.cliente.Add(novoCliente);
-                db.SaveChanges();
-
-                return "Criado";
             }
         }
 
         // PUT api/<ClientesController>/5
-        [HttpPut("{id}")]
-        public void Put(int idCliente, [FromBody] Cliente clienteUpdate)
+        [HttpPut("{idUtilizador}")]
+        public object Put(int idUtilizador, [FromBody] Utilizador clienteUpdate)//testar
         {
             // verificar se utilizador logado é cliente
-            if (clienteUpdate != null && clienteUpdate.idCliente == idCliente)
+            if (clienteUpdate != null)
             {
-                // obter dados do utilizador na base de dados (por id especifico)
-                using (var db = new DbHelper())
+                if (clienteUpdate.idUtilizador == idUtilizador)
                 {
-                    var clienteDB = db.cliente.Find(idCliente);
-
-                    // se cliente não existir, criar novo
-                    if (clienteDB == null)
+                    // obter dados do utilizador na base de dados (por id especifico)
+                    using (var db = new DbHelper())
                     {
-                        Post(clienteUpdate);
-                    }
+                        var clienteDB = db.utilizador.Find(idUtilizador);
 
-                    // se cliente existir, atualizar dados
-                    else
-                    {
-                        clienteDB.idCliente = idCliente;
+                        // se cliente não existir, criar novo
+                        if (clienteDB == null)
+                        {
+                            return MessageService.MessagemSemResultados();
+                        }
 
-                        db.cliente.Update(clienteDB);
-                        db.SaveChanges();
+                        // se cliente existir, atualizar dados
+                        else
+                        {
+                            UserService.CriarEditarUtilizador(db, clienteUpdate, true);
+                            return MessageService.MessagemCustomizada("Cliente Atualizado!");
+
+                        }
                     }
                 }
+                else
+                {
+                    return MessageService.MessagemCustomizada("Não tem permissão para editar o cliente!"); ;
+                }
+            }
+            else
+            {
+                return MessageService.MessagemSemResultados();
             }
         }
 
