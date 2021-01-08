@@ -21,7 +21,7 @@
 				die("<p>É obrigatório indicar o email</p><p><a href='login.html'>Voltar<a/></p>");
 			}
 			if($_POST['exampleInputPassword1']==null){
-				die("<p>É obrigatório indicar a password</p><p><a href='login.html'>Voltar<a/></p>");
+				die("<p>É obrigatório indicar a palavra-passe</p><p><a href='login.html'>Voltar<a/></p>");
 			}
 		?>
 		<script>
