@@ -16,6 +16,7 @@ namespace Foody.Models
         public string nome { get; set; }
         public float precoUnitario { get; set; }
         public string ingredientes { get; set; }
+        public int categoria { get; set; }
 
         public Produto()
         {
