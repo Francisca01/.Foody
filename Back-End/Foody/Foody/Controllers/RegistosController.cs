@@ -14,10 +14,7 @@ namespace Foody.Controllers
         [HttpPost]
         public string Post([FromBody] Utilizador novoUtilizador)
         {
-            using (var db = new DbHelper())
-            {
-                return UserService.CriarEditarUtilizador(db, novoUtilizador, false);
-;           }
+            return UserService.ValidateUser(novoUtilizador, false);
         }
     }
 }

@@ -8,19 +8,27 @@ namespace Foody.Utils
 {
     public class UserService
     {
-        public static string CriarEditarUtilizador(DbHelper db, Utilizador novoUtilizador, bool editar)
+        public static string ValidateUser(Utilizador novoUtilizador, bool editar)
         {
             //vai buscar todos os utilizador à base de dados 
+            DbHelper db = new DbHelper();
             var utilizador = db.utilizador.ToArray();
 
             //valores aceites para o nome
             var regexNome = new Regex("^[a-zA-Z ]*$");
 
             //valida o email
-            System.Net.Mail.MailAddress email = new System.Net.Mail.MailAddress(novoUtilizador.email);
+            try
+            {
+                System.Net.Mail.MailAddress email = new System.Net.Mail.MailAddress(novoUtilizador.email);
+            }
+            catch (Exception)
+            {
+
+                return MessageService.CustomMessage("Formato de Email inválido").text;
+            }
 
             //valida a password
-
             //valida se tem pelo menos um numero
             var numero = new Regex(@"[0-9]+");
 
@@ -35,8 +43,7 @@ namespace Foody.Utils
                 //validação de campos do utilizador geral
                 if (novoUtilizador != null && regexNome.IsMatch(novoUtilizador.nome) &&
                     numero.IsMatch(novoUtilizador.password) && letraMaiuscula.IsMatch(novoUtilizador.password) &&
-                    tamanho.IsMatch(novoUtilizador.password)
-                    )
+                    tamanho.IsMatch(novoUtilizador.password))
                 {
                     //verifica se o email já está associado
                     for (int i = 0; i < utilizador.Length; i++)
@@ -44,6 +51,20 @@ namespace Foody.Utils
                         if (novoUtilizador.email == utilizador[i].email)
                         {
                             return "O utilizador com o email: " + novoUtilizador.email + " já está associado";
+                        }
+                    }
+
+                    int j = 0;
+                    //verifica se o telemovel ja está atribuido a mais do que 2 utilizadores
+                    for (int i = 0; i < utilizador.Length; i++)
+                    {
+                        if (novoUtilizador.telemovel == utilizador[i].telemovel)
+                        {
+                            j++;
+                            if (j > 1)
+                            {
+                                return "O utilizador com o telemovel: " + novoUtilizador.telemovel + " já está associado";
+                            }
                         }
                     }
 
@@ -56,6 +77,11 @@ namespace Foody.Utils
                     //cria morada
                     if (novoUtilizador.telemovel.ToString().Length >= 9)
                     {
+                        //se de alguma forma criarem outro tipo de utilizador diferente dos possiveis ele é automaticamente tornado em cliente
+                        if (novoUtilizador.tipoUtilizador > 2 || novoUtilizador.tipoUtilizador < 0)
+                        {
+                            novoUtilizador.tipoUtilizador = 0;
+                        }
                         //verifica se o utilizador é empresa
                         if (novoUtilizador.tipoUtilizador == 2)
                         {
@@ -65,7 +91,7 @@ namespace Foody.Utils
                                 string.IsNullOrEmpty(novoUtilizador.numeroCartaConducao) && //empresa nao tem numeroCartaConducao
                                 string.IsNullOrEmpty(novoUtilizador.dataNascimento)) //empresa nao tem dataNascimento
                             {
-                                return CriarEditar(db, novoUtilizador, editar);
+                                return CreateUpdate(novoUtilizador, editar);
                             }
                             else
                             {
@@ -79,11 +105,11 @@ namespace Foody.Utils
                             if (!string.IsNullOrEmpty(novoUtilizador.tipoVeiculo) && //condutor tem de ter tipoVeiculo
                                 !string.IsNullOrEmpty(novoUtilizador.numeroCartaConducao) && //condutor tem de ter numeroCartaConducao
                                 !string.IsNullOrEmpty(novoUtilizador.dataNascimento) && //condutor tem de ter dataNascimento
-                                 //condutor nao tem nif
+                                                                                        //condutor nao tem nif
                                 novoUtilizador.nif.ToString().Length == 1 &&
                                 novoUtilizador.numeroCartaConducao.Length >= 11) //condutor tem de ter carta de condução com pelo menos
                             {                                                    //11 caracteres
-                                return CriarEditar(db, novoUtilizador, editar);
+                                return CreateUpdate(novoUtilizador, editar);
                             }
                             else
                             {
@@ -97,10 +123,9 @@ namespace Foody.Utils
                         {
                             if (string.IsNullOrEmpty(novoUtilizador.tipoVeiculo) && //cliente não tem tipoVeiculo
                                 string.IsNullOrEmpty(novoUtilizador.numeroCartaConducao) && //cliente não tem numeroCartaConducao
-                                !string.IsNullOrEmpty(novoUtilizador.dataNascimento) //cliente tem de ter dataNascimento
-                                )
+                                !string.IsNullOrEmpty(novoUtilizador.dataNascimento)) //cliente tem de ter dataNascimento
                             {
-                                return CriarEditar(db, novoUtilizador, editar);
+                                return CreateUpdate(novoUtilizador, editar);
 
                             }
                             else
@@ -127,8 +152,9 @@ namespace Foody.Utils
             }
         }
 
-        public static string CriarEditar(DbHelper db, Utilizador novoUtilizador, bool editar)
+        public static string CreateUpdate(Utilizador novoUtilizador, bool editar)
         {
+            DbHelper db = new DbHelper();
             //se os campos não exisitirem, irá criar utilizador
             if (editar == false)
             {
@@ -160,7 +186,7 @@ namespace Foody.Utils
                 var utilizadorDB = db.utilizador.Find(novoUtilizador.idUtilizador);
                 if (utilizadorDB != null)
                 {
-                    db.utilizador.Add(novoUtilizador);
+                    db.utilizador.Update(novoUtilizador);
                     db.SaveChanges();
 
                     //verifica o tipo de utilizador:
@@ -184,6 +210,37 @@ namespace Foody.Utils
                 {
                     return "Cliente inexistente!";
                 }
+            }
+        }
+
+        public static bool VerifyUser(string token, int accessUserId)
+        {
+            if (int.TryParse(TokenManager.GetPrincipal(token).Claims.ToArray()[0].Value, out var idUtilizadorLogado) &&
+                int.TryParse(TokenManager.GetPrincipal(token).Claims.ToArray()[1].Value, out var tipoUtilizadorLogado))
+            {
+                DbHelper db = new DbHelper();
+                var user = db.utilizador.Find(accessUserId);
+
+                if (idUtilizadorLogado == accessUserId)
+                {
+                    return true;
+                }
+                else if (user.tipoUtilizador == 2 && tipoUtilizadorLogado == 3)
+                {
+                    return true;
+                }
+                else if (user.tipoUtilizador == 1 && tipoUtilizadorLogado == 3)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
             }
         }
     }

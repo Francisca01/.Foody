@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Foody.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,15 +8,25 @@ namespace Foody.Utils
 {
     public class MessageService
     {
-        public static object MessagemSemResultados()
+        public static Message WithoutResultsMessage()
         {
-            object message = new { message = "Não foi encontrado nenhum resultado!" };
+            Message message = new Message();
+            message.text = "Não foi encontrado nenhum resultado!";
 
             return message;
         }
-        public static object MessagemCustomizada(string msg)
+        public static Message AccessDeniedMessage()
         {
-            object message = new { message = msg };
+            Message message = new Message();
+            message.text = "Não tem permissões para aceder!";
+
+            return message;
+        }
+
+        public static Message CustomMessage(string msg)
+        {
+            Message message = new Message();
+            message.text = msg;
 
             return message;
         }

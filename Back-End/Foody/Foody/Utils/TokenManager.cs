@@ -12,7 +12,7 @@ namespace Foody.Utils
         private static string Secret = "QjTpBIuht5angEnEWTdy3ZRbFGrYFxUwluKcHoCh4cWSixECorpfQfonQtm1GaCLlojhHiGm";
 
         // Gera o Token
-        public static string GenerateToken(string username)
+        public static string GenerateToken(string email, int tipo, int id)
         {
             // Converte a chave de encriptação num array de bytes
             byte[] key = Convert.FromBase64String(Secret);
@@ -20,7 +20,9 @@ namespace Foody.Utils
             SecurityTokenDescriptor descriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[] {
-                      new Claim(ClaimTypes.Name, username)}),
+                      new Claim("Id", id.ToString()),
+                      new Claim("Tipo", tipo.ToString())
+                }),
                 Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(securityKey,
                 SecurityAlgorithms.HmacSha256Signature)
@@ -62,7 +64,7 @@ namespace Foody.Utils
         // Extrai os dados do objeto "principal"
         public static string ValidateToken(string token)
         {
-            string username = null;
+            string id = null;
             ClaimsPrincipal principal = GetPrincipal(token);
             if (principal == null)
                 return null;
@@ -75,9 +77,9 @@ namespace Foody.Utils
             {
                 return null;
             }
-            Claim usernameClaim = identity.FindFirst(ClaimTypes.Name);
-            username = usernameClaim.Value;
-            return username;
+            Claim idClaim = identity.FindFirst("Id");
+            id = idClaim.Value;
+            return id;
         }
 
         public TokenManager()

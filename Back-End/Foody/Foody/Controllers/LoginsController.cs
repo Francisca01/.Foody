@@ -26,6 +26,19 @@ namespace Foody.Controllers
                 // devolve-os (dados) num array 
                 var utilizador = db.utilizador.ToArray();
 
+                Dictionary<string, string> token = new Dictionary<string, string>
+                {
+                    {"Message", MessageService.CustomMessage("Dados inválidos").text},
+                };
+
+                //valida o email
+                System.Net.Mail.MailAddress email = new System.Net.Mail.MailAddress(novoUtilizador.email);
+
+                //if (novoUtilizador.em)
+                //{
+
+                //}
+
                 // percorre todos os id's de utilizadores
                 for (int i = 0; i < utilizador.Length; i++)
                 {
@@ -34,16 +47,13 @@ namespace Foody.Controllers
                     if (novoUtilizador.email == utilizador[i].email &&
                         HashPassword.VerifyHash(novoUtilizador.password, utilizador[i].password))
                     {
-                        Dictionary<string, string> token = new Dictionary<string, string> 
+                        token = new Dictionary<string, string>
                         {
-                            {"Token", TokenManager.GenerateToken(novoUtilizador.email)},
+                            {"Token", TokenManager.GenerateToken(utilizador[i].email, utilizador[i].tipoUtilizador, utilizador[i].idUtilizador)},
                         };
-
-                        return token;
                     }
                 }
-
-                return null;
+                return token;
             }
         }
     }

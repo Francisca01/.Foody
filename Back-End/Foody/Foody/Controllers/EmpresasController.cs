@@ -17,35 +17,35 @@ namespace Foody.Controllers
     {
         // GET: api/<EmpresasController>
         [HttpGet]
-        public Empresa[] Get()
+        public Utilizador[] Get()
         {
             // obter dados dos utilizadores na base de dados
             using (var db = new DbHelper())
             {
                 // devolve-os (dados) num array
-                return db.empresa.ToArray();
+                return db.utilizador.ToArray();
             }
         }
 
         // GET api/<EmpresasController>/5
         [HttpGet("{id}")]
-        public Empresa Get(int id)
+        public Utilizador Get(int id)
         {
             // obter dados do utilizador na base de dados (por id especifico)
             using (var db = new DbHelper())
             {
                 // maneira mais simples
-                return db.empresa.Find(id);
+                return db.utilizador.Find(id);
 
                 //ou: maneira mais complexa
-                /*  var empresa = db.empresa.ToArray();
+                /*  var utilizador = db.utilizador.ToArray();
 
-                for (int i = 0; i <= empresa.Length; i++)
+                for (int i = 0; i <= utilizador.Length; i++)
                 {
 
-                    if (empresa[i].idEmpresa == id)
+                    if (utilizador[i].idUtilizador == id)
                     {
-                        return empresa[i];
+                        return utilizador[i];
                     }
                 }
 
@@ -55,25 +55,25 @@ namespace Foody.Controllers
 
         // POST api/<EmpresasController>
         [HttpPost]
-        public string Post([FromBody] Empresa novaEmpresa)
+        public string Post([FromBody] Utilizador novaEmpresa)
         {
             // obter dados do utilizador na base de dados (por id especifico)
             using (var db = new DbHelper())
             {
                 // converte-os (dados) num array
-                var empresa = db.empresa.ToArray();
+                var utilizador = db.utilizador.ToArray();
 
-                // verifica se id de empresa já existe na BD
-                for (int i = 0; i < empresa.Length; i++)
+                // verifica se id de utilizador já existe na BD
+                for (int i = 0; i < utilizador.Length; i++)
                 {
-                    if (novaEmpresa.idEmpresa == empresa[i].idEmpresa)
+                    if (novaEmpresa.idUtilizador == utilizador[i].idUtilizador)
                     {
                         return "Já existe!";
                     }
                 }
 
                 // se não existir, adiciona um novo cliente
-                db.empresa.Add(novaEmpresa);
+                db.utilizador.Add(novaEmpresa);
                 db.SaveChanges();
 
                 return "Criado!";
@@ -82,28 +82,28 @@ namespace Foody.Controllers
 
         // PUT api/<EmpresasController>/5
         [HttpPut("{id}")]
-        public void Put(int idEmpresa, [FromBody] Empresa empresaUpdate)
+        public void Put(int idUtilizador, [FromBody] Utilizador empresaUpdate)
         {
-            // verificar se utilizado logado é empresa
-            if (empresaUpdate != null && empresaUpdate.idEmpresa == idEmpresa)
+            // verificar se utilizado logado é utilizador
+            if (empresaUpdate != null && empresaUpdate.idUtilizador == idUtilizador)
             {
                 // obter dados do utilizador na base de dados (por id especifico)
                 using (var db = new DbHelper())
                 {
-                    var empresaDB = db.empresa.Find(idEmpresa);
+                    var empresaDB = db.utilizador.Find(idUtilizador);
 
-                    // se empresa não existir, cria uma nova
+                    // se utilizador não existir, cria uma nova
                     if (empresaDB == null)
                     {
                         Post(empresaUpdate);
                     }
 
-                    // se empresa existir, atualizar os dados
+                    // se utilizador existir, atualizar os dados
                     else
                     {
-                        empresaDB.idEmpresa = idEmpresa;
+                        empresaDB.idUtilizador = idUtilizador;
 
-                        db.empresa.Update(empresaDB);
+                        db.utilizador.Update(empresaDB);
                         db.SaveChanges();
                     }
                 }
@@ -112,9 +112,9 @@ namespace Foody.Controllers
 
         /*  // PUT api/<EmpresasController>/5
         [HttpPut("{idProduto}")]
-        public void Put(int idEmpresa, [FromBody] Produto editarProduto)
+        public void Put(int idUtilizador, [FromBody] Produto editarProduto)
         {
-            if (editarProduto != null && editarProduto.idEmpresa == idEmpresa)
+            if (editarProduto != null && editarProduto.idUtilizador == idUtilizador)
             {
                 using (var db = new DbHelper())
                 {
@@ -123,7 +123,7 @@ namespace Foody.Controllers
 
                     if (produtoDB != null)
                     {
-                        //if (CreateProduct(idEmpresa, editarProduto, true) == "Ok")
+                        //if (CreateProduct(idUtilizador, editarProduto, true) == "Ok")
                         //{
                         //    return "Produto Alterado";
                         //}
@@ -141,20 +141,20 @@ namespace Foody.Controllers
         }   */
 
         // DELETE api/<EmpresasController>/5
-        [HttpDelete("{idEmpresa}")]
-        public string Delete(int idEmpresa, int id)
+        [HttpDelete("{idUtilizador}")]
+        public string Delete(int idUtilizador, int id)
         {
             // obter dados do utilizador na base de dados (por id especifico)
             using (var db = new DbHelper())
             {
-                // procura o id da empresa
-                var empresaDB = db.empresa.Find(id);
+                // procura o id da utilizador
+                var empresaDB = db.utilizador.Find(id);
 
                 // se id encontrado (diferente de nulo), 
-                // remove o empresa associada
+                // remove o utilizador associada
                 if (empresaDB != null)
                 {
-                    // os produtos associados à empresa tem de ser eliminados
+                    // os produtos associados à utilizador tem de ser eliminados
                     // adiciona os dados dos produtos a um array
                     var produto = db.produto.ToArray();
 
@@ -164,8 +164,8 @@ namespace Foody.Controllers
                         // procura o id dos produtos
                         var produtosDB = db.produto.Find(id);
 
-                        // verifica se produto está associado à empresa
-                        if (produtosDB != null && produtosDB.idEmpresa == idEmpresa)
+                        // verifica se produto está associado à utilizador
+                        if (produtosDB != null && produtosDB.idEmpresa == idUtilizador)
                         {
                             db.produto.Remove(produtosDB);
                             db.SaveChanges();
@@ -178,14 +178,14 @@ namespace Foody.Controllers
                         }
                     }
 
-                    db.empresa.Remove(empresaDB);
+                    db.utilizador.Remove(empresaDB);
                     db.SaveChanges();
 
                     return "Eliminado!";
                 }
                 else
                 {
-                    return "A empresa com o id: " + id + " não foi encontrado";
+                    return "A utilizador com o id: " + id + " não foi encontrado";
                 }
             }
         }

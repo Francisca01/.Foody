@@ -16,13 +16,13 @@ namespace Foody.Controllers
     {
         // GET: api/<CondutoresController>
         [HttpGet]
-        public Condutor[] Get()
+        public Utilizador[] Get()
         {
             // obter dados dos utilizadores na base de dados
             using (var db = new DbHelper())
             {
                 // devolve-os (dados) num array
-                return db.condutor.ToArray();
+                return db.utilizador.ToArray();
             }
 
             //HttpContext.Response.StatusCode = (int)
@@ -31,24 +31,24 @@ namespace Foody.Controllers
         }
 
         // GET api/<CondutoresController>/5
-        [HttpGet("{idCondutor}")]
-        public Condutor Get(int id)
+        [HttpGet("{idUtilizador}")]
+        public Utilizador Get(int id)
         {
             // obter dados do utilizador na base de dados (por id especifico)
             using (var db = new DbHelper())
             {
                 // maneira mais simples
-                return db.condutor.Find(id);
+                return db.utilizador.Find(id);
 
                 // ou: maneira mais complexa
-                /*  var condutor = db.condutor.ToArray();
+                /*  var utilizador = db.utilizador.ToArray();
 
-                for (int i = 0; i <= condutor.Length; i++)
+                for (int i = 0; i <= utilizador.Length; i++)
                 {
 
-                    if (condutor[i].idCondutor == id)
+                    if (utilizador[i].idUtilizador == id)
                     {
-                        return condutor[i];
+                        return utilizador[i];
                     }
                 }
 
@@ -58,26 +58,26 @@ namespace Foody.Controllers
 
         // POST api/<CondutoresController>
         [HttpPost]
-        public string Post([FromBody] Condutor novoCondutor)
+        public string Post([FromBody] Utilizador novoCondutor)
         {
             // obter dados do utilizador na base de dados (por id especifico)
             using (var db = new DbHelper())
             {
                 // converte-os (dados) num array
-                var condutor = db.condutor.ToArray();
+                var utilizador = db.utilizador.ToArray();
 
-                // verifica se id de condutor já existe na BD
-                for (int i = 0; i < condutor.Length; i++)
+                // verifica se id de utilizador já existe na BD
+                for (int i = 0; i < utilizador.Length; i++)
                 {
 
-                    if (novoCondutor.idCondutor == condutor[i].idCondutor)
+                    if (novoCondutor.idUtilizador == utilizador[i].idUtilizador)
                     {
                         return "Já existe";
                     }
                 }
 
                 // se não existir, adiciona um novo cliente
-                db.condutor.Add(novoCondutor);
+                db.utilizador.Add(novoCondutor);
                 db.SaveChanges();
 
                 return "Criado";
@@ -87,28 +87,28 @@ namespace Foody.Controllers
 
         /*
         [HttpPost]
-        public string Post([FromBody] Condutor novoCondutor)
+        public string Post([FromBody] Utilizador novoCondutor)
         {
             using (var db = new DbHelper())
             {
                 cavalo.cod_cavaço = new Random().Next();
-                db.condutor.Add(novoCondutor);
+                db.utilizador.Add(novoCondutor);
                 db.SaveChanges();
             }
         }
          */
 
         // PUT api/<CondutoresController>/5
-        [HttpPut("{idCondutor}")]
-        public void Put(int idCondutor, [FromBody] Condutor condutorUpdate)
+        [HttpPut("{idUtilizador}")]
+        public void Put(int idUtilizador, [FromBody] Utilizador condutorUpdate)
         {
-            // verificar se utilizado logado é condutor
-            if (condutorUpdate != null && condutorUpdate.idCondutor == idCondutor)
+            // verificar se utilizado logado é utilizador
+            if (condutorUpdate != null && condutorUpdate.idUtilizador == idUtilizador)
             {
                 // obter dados do utilizador na base de dados (por id especifico)
                 using (var db = new DbHelper())
                 {
-                    var condutorDB = db.condutor.Find(idCondutor);
+                    var condutorDB = db.utilizador.Find(idUtilizador);
 
                     // se cliente não existir, criar novo
                     if (condutorDB == null)
@@ -119,9 +119,9 @@ namespace Foody.Controllers
                     // se cliente existir, atualizar dados
                     else
                     {
-                        condutorDB.idCondutor = idCondutor;
+                        condutorDB.idUtilizador = idUtilizador;
 
-                        db.condutor.Update(condutorDB);
+                        db.utilizador.Update(condutorDB);
                         db.SaveChanges();
                     }
                 }
@@ -129,27 +129,27 @@ namespace Foody.Controllers
         }
 
         // DELETE api/<CondutoresController>/5
-        [HttpDelete("{idCondutor}")]
-        public string Delete(int idCondutor)
+        [HttpDelete("{idUtilizador}")]
+        public string Delete(int idUtilizador)
         {
             // obter dados do utilizador na base de dados (por id especifico)
             using (var db = new DbHelper())
             {
-                // procura o id do condutor
-                var condutorDB = db.condutor.Find(idCondutor);
+                // procura o id do utilizador
+                var condutorDB = db.utilizador.Find(idUtilizador);
 
                 // se id encontrado (diferente de nulo), 
-                // remove o condutor associado
+                // remove o utilizador associado
                 if (condutorDB != null)
                 {
-                    db.condutor.Remove(condutorDB);
+                    db.utilizador.Remove(condutorDB);
                     db.SaveChanges();
 
                     return "Eliminado!";
                 }
                 else
                 {
-                    return "O Condutor com o id: " + idCondutor + " não foi encontrado";
+                    return "O Utilizador com o id: " + idUtilizador + " não foi encontrado";
                 }
             }
         }
