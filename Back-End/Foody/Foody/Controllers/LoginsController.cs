@@ -18,38 +18,62 @@ namespace Foody.Controllers
     {
         // POST api/<LoginController>
         [HttpPost]
-        public IDictionary<string, string> Post([FromBody] Utilizador novoUtilizador)
+        public IDictionary<string, string> Post([FromBody] Utilizador utilizador)
         {
             // obter dados dos utilizadores na base de dados
             using (var db = new DbHelper())
             {
                 // devolve-os (dados) num array 
-                var utilizador = db.utilizador.ToArray();
+                var utilizadorDB = db.utilizador.ToArray();
 
                 Dictionary<string, string> token = new Dictionary<string, string>
                 {
                     {"Message", MessageService.CustomMessage("Dados inválidos").text},
                 };
 
+                if (utilizador.telemovel != 0)
+                {
+                    for (int i = 0; i < utilizadorDB.Length; i++)
+                    {
+                        // verificar se email inserido corresposnde ao da BD,
+                        // e se password inserida (encriptada) corresponde à da BD
+                        if (utilizador.telemovel == utilizadorDB[i].telemovel && utilizador.tipoUtilizador == utilizadorDB[i].tipoUtilizador &&
+                            HashPassword.VerifyHash(utilizador.password, utilizadorDB[i].password))
+                        {
+                            token = new Dictionary<string, string>
+                            {
+                                {"Token", TokenManager.GenerateToken(utilizadorDB[i].email, utilizadorDB[i].tipoUtilizador, utilizadorDB[i].idUtilizador)},
+                            };
+                            return token;
+                        }
+                    }
+                }
+
                 //valida o email
-                System.Net.Mail.MailAddress email = new System.Net.Mail.MailAddress(novoUtilizador.email);
-
-                //if (novoUtilizador.em)
-                //{
-
-                //}
+                try
+                {
+                    System.Net.Mail.MailAddress email = new System.Net.Mail.MailAddress(utilizador.email);
+                }
+                catch (Exception)
+                {
+                    Dictionary<string, string> msg = new Dictionary<string, string>
+                        {
+                            {"Message", MessageService.CustomMessage("Formato de Email inválido").text},
+                        };
+                    return msg;
+                }
 
                 // percorre todos os id's de utilizadores
-                for (int i = 0; i < utilizador.Length; i++)
+                for (int i = 0; i < utilizadorDB.Length; i++)
                 {
                     // verificar se email inserido corresposnde ao da BD,
                     // e se password inserida (encriptada) corresponde à da BD
-                    if (novoUtilizador.email == utilizador[i].email &&
-                        HashPassword.VerifyHash(novoUtilizador.password, utilizador[i].password))
+                    if (utilizador.email == utilizadorDB[i].email &&
+                        HashPassword.VerifyHash(utilizador.password, utilizadorDB[i].password))
                     {
                         token = new Dictionary<string, string>
                         {
-                            {"Token", TokenManager.GenerateToken(utilizador[i].email, utilizador[i].tipoUtilizador, utilizador[i].idUtilizador)},
+                            {"Token", TokenManager.GenerateToken(utilizadorDB[i].email, utilizadorDB[i].tipoUtilizador, utilizadorDB[i].idUtilizador)},
                         };
                     }
                 }

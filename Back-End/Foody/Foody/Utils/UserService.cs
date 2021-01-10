@@ -13,9 +13,20 @@ namespace Foody.Utils
             //vai buscar todos os utilizador à base de dados 
             DbHelper db = new DbHelper();
             var utilizador = db.utilizador.ToArray();
+            int j = 0;
 
             //valores aceites para o nome
             var regexNome = new Regex("^[a-zA-Z ]*$");
+
+            //valida a password
+            //valida se tem pelo menos um numero
+            var numero = new Regex(@"[0-9]+");
+
+            //valida se tem pelo menos uma letra Maiuscula
+            var letraMaiuscula = new Regex(@"[A-Z]+");
+
+            //valida se tem o tamanho minimo
+            var tamanho = new Regex(@".{8,}");
 
             //valida o email
             try
@@ -27,16 +38,6 @@ namespace Foody.Utils
 
                 return MessageService.CustomMessage("Formato de Email inválido").text;
             }
-
-            //valida a password
-            //valida se tem pelo menos um numero
-            var numero = new Regex(@"[0-9]+");
-
-            //valida se tem pelo menos uma letra Maiuscula
-            var letraMaiuscula = new Regex(@"[A-Z]+");
-
-            //valida se tem o tamanho minimo
-            var tamanho = new Regex(@".{8,}");
 
             try
             {
@@ -50,23 +51,33 @@ namespace Foody.Utils
                     {
                         if (novoUtilizador.email == utilizador[i].email)
                         {
-                            return "O utilizador com o email: " + novoUtilizador.email + " já está associado";
+                            return MessageService.CustomMessage("O utilizador com o email: " + novoUtilizador.email + " já está associado").text;
                         }
                     }
 
-                    int j = 0;
-                    //verifica se o telemovel ja está atribuido a mais do que 2 utilizadores
+                    //verifica se o número de telemóvel já está associado
                     for (int i = 0; i < utilizador.Length; i++)
                     {
                         if (novoUtilizador.telemovel == utilizador[i].telemovel)
                         {
+                            //se o utilizador for uma empresa, não pode associar mais do que um número
+                            if (novoUtilizador.tipoUtilizador == 2)
+                            {
+                                return MessageService.CustomMessage("A Empresa com o número de telemóvel: "
+                                    + novoUtilizador.telemovel + " já está associado").text;
+                            }
+
                             j++;
+
+                            //verifica se o telemóvel ja está atribuido a mais do que 2 utilizadores
                             if (j > 1)
                             {
-                                return "O utilizador com o telemovel: " + novoUtilizador.telemovel + " já está associado";
+                                return MessageService.CustomMessage("O Utilizador com o telemóvel: " + novoUtilizador.telemovel + " já está associado").text;
                             }
                         }
                     }
+
+                    j = 0;
 
                     //encripta a password
                     using (SHA256 sha256Hash = SHA256.Create())
@@ -77,6 +88,19 @@ namespace Foody.Utils
                     //cria morada
                     if (novoUtilizador.telemovel.ToString().Length >= 9)
                     {
+                        //valida se o número de tlm está atribuido a mais de 2 contas
+                        for (int i = 0; i < utilizador.Length; i++)
+                        {
+                            if (utilizador[i].telemovel == novoUtilizador.telemovel)
+                            {
+                                j++;
+                                if (j == 2)
+                                {
+                                    return MessageService.CustomMessage("O número de telemóvel já se encontra atribuido a 2 contas!").text;
+                                }
+                            }
+                        }
+
                         //se de alguma forma criarem outro tipo de utilizador diferente dos possiveis ele é automaticamente tornado em cliente
                         if (novoUtilizador.tipoUtilizador > 2 || novoUtilizador.tipoUtilizador < 0)
                         {
