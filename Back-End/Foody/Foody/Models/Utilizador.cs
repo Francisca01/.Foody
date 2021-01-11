@@ -18,7 +18,7 @@ namespace Foody.Models
         // 1 - condutor 
         // 2 - empresa
         public string tipoVeiculo { get; set; }
-        public int nif { get; set; }
+        public string nif { get; set; }
         public string numeroCartaConducao { get; set; }
         public string nome { get; set; }
         public string email { get; set; }

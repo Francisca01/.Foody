@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
@@ -12,7 +13,7 @@ namespace Foody.Utils
         {
             //vai buscar todos os utilizador à base de dados 
             DbHelper db = new DbHelper();
-            var utilizador = db.utilizador.ToArray();
+            var utilizadorDB = db.utilizador.ToArray();
             int j = 0;
 
             //valores aceites para o nome
@@ -35,7 +36,6 @@ namespace Foody.Utils
             }
             catch (Exception)
             {
-
                 return MessageService.CustomMessage("Formato de Email inválido").text;
             }
 
@@ -47,18 +47,18 @@ namespace Foody.Utils
                     tamanho.IsMatch(novoUtilizador.password))
                 {
                     //verifica se o email já está associado
-                    for (int i = 0; i < utilizador.Length; i++)
+                    for (int i = 0; i < utilizadorDB.Length; i++)
                     {
-                        if (novoUtilizador.email == utilizador[i].email)
+                        if (novoUtilizador.email == utilizadorDB[i].email)
                         {
                             return MessageService.CustomMessage("O utilizador com o email: " + novoUtilizador.email + " já está associado").text;
                         }
                     }
 
                     //verifica se o número de telemóvel já está associado
-                    for (int i = 0; i < utilizador.Length; i++)
+                    for (int i = 0; i < utilizadorDB.Length; i++)
                     {
-                        if (novoUtilizador.telemovel == utilizador[i].telemovel)
+                        if (novoUtilizador.telemovel == utilizadorDB[i].telemovel)
                         {
                             //se o utilizador for uma empresa, não pode associar mais do que um número
                             if (novoUtilizador.tipoUtilizador == 2)
@@ -89,9 +89,9 @@ namespace Foody.Utils
                     if (novoUtilizador.telemovel.ToString().Length >= 9)
                     {
                         //valida se o número de tlm está atribuido a mais de 2 contas
-                        for (int i = 0; i < utilizador.Length; i++)
+                        for (int i = 0; i < utilizadorDB.Length; i++)
                         {
-                            if (utilizador[i].telemovel == novoUtilizador.telemovel)
+                            if (utilizadorDB[i].telemovel == novoUtilizador.telemovel)
                             {
                                 j++;
                                 if (j == 2)
@@ -106,11 +106,12 @@ namespace Foody.Utils
                         {
                             novoUtilizador.tipoUtilizador = 0;
                         }
+
                         //verifica se o utilizador é empresa
                         if (novoUtilizador.tipoUtilizador == 2)
                         {
                             //verifica o tamanho do nif
-                            if (novoUtilizador.nif.ToString().Length == 9 &&  //empresa tem de ter nif
+                            if (novoUtilizador.nif.Length == 9 &&  //empresa tem de ter nif
                                 string.IsNullOrEmpty(novoUtilizador.tipoVeiculo) && //empresa nao tem tipoVeiculo
                                 string.IsNullOrEmpty(novoUtilizador.numeroCartaConducao) && //empresa nao tem numeroCartaConducao
                                 string.IsNullOrEmpty(novoUtilizador.dataNascimento)) //empresa nao tem dataNascimento
@@ -130,7 +131,7 @@ namespace Foody.Utils
                                 !string.IsNullOrEmpty(novoUtilizador.numeroCartaConducao) && //condutor tem de ter numeroCartaConducao
                                 !string.IsNullOrEmpty(novoUtilizador.dataNascimento) && //condutor tem de ter dataNascimento
                                                                                         //condutor nao tem nif
-                                novoUtilizador.nif.ToString().Length == 1 &&
+                                novoUtilizador.nif.Length == 1 &&
                                 novoUtilizador.numeroCartaConducao.Length >= 11) //condutor tem de ter carta de condução com pelo menos
                             {                                                    //11 caracteres
                                 return CreateUpdate(novoUtilizador, editar);
@@ -178,78 +179,80 @@ namespace Foody.Utils
 
         public static string CreateUpdate(Utilizador novoUtilizador, bool editar)
         {
-            DbHelper db = new DbHelper();
-            //se os campos não exisitirem, irá criar utilizador
-            if (editar == false)
+            using (DbHelper db = new DbHelper())
             {
-                db.utilizador.Add(novoUtilizador);
-                db.SaveChanges();
-
-                //verifica o tipo de utilizador:
-                //verifica se é Empresa
-                if (novoUtilizador.tipoUtilizador == 2)
+                //criar utilizador
+                if (editar == false)
                 {
-                    return "Empresa criada!";
-                }
-
-                //verifica se é Condutor
-                else if (novoUtilizador.tipoUtilizador == 1)
-                {
-                    return "Condutor criado!";
-                }
-
-                //verifica se é Cliente
-                else
-                {
-                    return "Cliente criado!";
-                }
-            }
-            else
-            {
-                //se os campos já exisitirem, irá editar utilizador (procura pelo id de utilizador)
-                var utilizadorDB = db.utilizador.Find(novoUtilizador.idUtilizador);
-                if (utilizadorDB != null)
-                {
-                    utilizadorDB.dataNascimento = novoUtilizador.dataNascimento;
-                    utilizadorDB.email = novoUtilizador.email;
-                    utilizadorDB.idUtilizador = novoUtilizador.idUtilizador;
-                    utilizadorDB.morada = novoUtilizador.morada;
-                    utilizadorDB.nif = novoUtilizador.nif;
-                    utilizadorDB.nome = novoUtilizador.nome;
-                    utilizadorDB.numeroCartaConducao = novoUtilizador.numeroCartaConducao;
-                    utilizadorDB.password = novoUtilizador.password;
-                    utilizadorDB.telemovel = novoUtilizador.telemovel;
-                    utilizadorDB.tipoUtilizador = novoUtilizador.tipoUtilizador;
-                    utilizadorDB.tipoVeiculo = novoUtilizador.tipoVeiculo;
-
-                    db.utilizador.Update(utilizadorDB);
+                    db.utilizador.Add(novoUtilizador);
                     db.SaveChanges();
 
                     //verifica o tipo de utilizador:
                     //verifica se é Empresa
                     if (novoUtilizador.tipoUtilizador == 2)
                     {
-                        return "Empresa editada!";
+                        return "Empresa criada!";
                     }
+
                     //verifica se é Condutor
                     else if (novoUtilizador.tipoUtilizador == 1)
                     {
-                        return "Condutor editado!";
+                        return "Condutor criado!";
                     }
+
                     //verifica se é Cliente
                     else
                     {
-                        return "Cliente editado!";
+                        return "Cliente criado!";
                     }
                 }
-                else
+                else //caso contrário edita o utilizador
                 {
-                    return "Cliente inexistente!";
+                    //se os campos já exisitirem, irá editar utilizador (procura pelo id de utilizador)
+                    var utilizadorDB = db.utilizador.Find(novoUtilizador.idUtilizador);
+                    if (utilizadorDB != null)
+                    {
+                        utilizadorDB.dataNascimento = novoUtilizador.dataNascimento;
+                        utilizadorDB.email = novoUtilizador.email;
+                        utilizadorDB.idUtilizador = novoUtilizador.idUtilizador;
+                        utilizadorDB.morada = novoUtilizador.morada;
+                        utilizadorDB.nif = novoUtilizador.nif;
+                        utilizadorDB.nome = novoUtilizador.nome;
+                        utilizadorDB.numeroCartaConducao = novoUtilizador.numeroCartaConducao;
+                        utilizadorDB.password = novoUtilizador.password;
+                        utilizadorDB.telemovel = novoUtilizador.telemovel;
+                        utilizadorDB.tipoUtilizador = novoUtilizador.tipoUtilizador;
+                        utilizadorDB.tipoVeiculo = novoUtilizador.tipoVeiculo;
+
+                        db.utilizador.Update(utilizadorDB);
+                        db.SaveChanges();
+
+                        //verifica o tipo de utilizador:
+                        //verifica se é Empresa
+                        if (novoUtilizador.tipoUtilizador == 2)
+                        {
+                            return "Empresa editada!";
+                        }
+                        //verifica se é Condutor
+                        else if (novoUtilizador.tipoUtilizador == 1)
+                        {
+                            return "Condutor editado!";
+                        }
+                        //verifica se é Cliente
+                        else
+                        {
+                            return "Cliente editado!";
+                        }
+                    }
+                    else
+                    {
+                        return "Cliente inexistente!";
+                    }
                 }
             }
         }
 
-        public static bool VerifyUser(string token, int accessUserId)
+        public static bool VerifyUserAccess(string token, int accessUserId)
         {
             try
             {
@@ -286,5 +289,148 @@ namespace Foody.Utils
                 return false;
             }
         }
+
+        #region Get User
+        public static List<object> GetUser(string token, int userType)
+        {
+            //verifica se utilizador Logado pode aceder
+            bool canAccess = VerifyUserAccess(token, 3);
+
+            if (canAccess)
+            {
+                // obter dados dos utilizadores na base de dados
+                using (DbHelper db = new DbHelper())
+                {
+                    // devolve os dados da base de dados num array
+                    var utilizadoresDB = db.utilizador.ToArray();
+
+                    //array para devolver o resultado
+                    List<Utilizador> clientes = new List<Utilizador>();
+
+                    //incrementador
+                    for (int i = 0; i < utilizadoresDB.Length; i++)
+                    {
+                        if (utilizadoresDB[i].tipoUtilizador == userType)//verifica se o utilizador é cliente
+                        {
+                            clientes.Add(utilizadoresDB[i]);
+                        }
+                    }
+
+                    List<object> cls = new List<object>() { clientes };
+                    return cls;
+                }
+            }
+            else
+            {
+                List<object> msg = new List<object>() { MessageService.AccessDeniedMessage() };
+                return msg;
+            }
+
+            //HttpContext.Response.StatusCode = (int);
+
+        }
+        #endregion
+
+        #region Get User Id
+        public static object GetUserId(string token, int idUtilizador)
+        {
+            //verifica se utilizador com a Sessão iniciada pode aceder
+            if (VerifyUserAccess(token, idUtilizador))
+            {
+                // obter dados do utilizador na base de dados (por id especifico)
+                using (DbHelper db = new DbHelper())
+                {
+                    var utilizadorDB = db.utilizador.Find(idUtilizador);
+
+                    //verifica se o utilizador com o id existe
+                    if (db.utilizador.Find(idUtilizador) != null)
+                    {
+                        return utilizadorDB;
+                    }
+                    else
+                    {
+                        return MessageService.WithoutResultsMessage();
+                    }
+                }
+            }
+            else
+            {
+                return MessageService.AccessDeniedMessage();
+            }
+        }
+        #endregion
+
+        #region Put User
+        public static object PutUser(string token, Utilizador utilizadorUpdate, int accessUserId)
+        {
+            if (utilizadorUpdate != null)
+            {
+                //verifica se utilizador com a Sessão iniciada pode aceder
+                if (VerifyUserAccess(token, accessUserId))
+                {
+                    //obter dados do utilizador na base de dados (por id especifico)
+                    using (DbHelper db = new DbHelper())
+                    {
+                        var userDB = db.utilizador.Find(accessUserId);
+
+                        //se cliente não existir, diz que não foram encontrados resultados
+                        if (userDB != null)
+                        {
+                            string msg = ValidateUser(utilizadorUpdate, true);
+                            return MessageService.CustomMessage(msg);
+                        }
+
+                        //se cliente existir, atualizar dados
+                        else
+                        {
+                            return MessageService.WithoutResultsMessage();
+                        }
+                    }
+                }
+                else
+                {
+                    return MessageService.AccessDeniedMessage();
+                }
+            }
+            else
+            {
+                return MessageService.WithoutResultsMessage();
+            }
+        }
+        #endregion
+
+        #region Delete User
+        public static object DeleteUser(string token, int idUtilizador)
+        {
+            //verifica se utilizador com a Sessão iniciada pode aceder
+            bool canAccess = VerifyUserAccess(token, idUtilizador);
+
+            if (canAccess)
+            {
+                //obter dados do utilizador na base de dados (por id especifico)
+                using (DbHelper db = new DbHelper())
+                {
+                    var userDB = db.utilizador.Find(idUtilizador);
+
+                    //verifica se o utilizador com o id existe
+                    if (db.utilizador.Find(idUtilizador) != null)
+                    {
+                        db.utilizador.Remove(userDB);
+                        db.SaveChanges();
+
+                        return MessageService.CustomMessage("Eliminado!");
+                    }
+                    else
+                    {
+                        return MessageService.WithoutResultsMessage();
+                    }
+                }
+            }
+            else
+            {
+                return MessageService.AccessDeniedMessage();
+            }
+        }
+        #endregion
     }
 }

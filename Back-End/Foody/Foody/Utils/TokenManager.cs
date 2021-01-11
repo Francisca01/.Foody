@@ -55,7 +55,7 @@ namespace Foody.Utils
                       parameters, out securityToken);
                 return principal;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }
