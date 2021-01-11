@@ -210,7 +210,19 @@ namespace Foody.Utils
                 var utilizadorDB = db.utilizador.Find(novoUtilizador.idUtilizador);
                 if (utilizadorDB != null)
                 {
-                    db.utilizador.Update(novoUtilizador);
+                    utilizadorDB.dataNascimento = novoUtilizador.dataNascimento;
+                    utilizadorDB.email = novoUtilizador.email;
+                    utilizadorDB.idUtilizador = novoUtilizador.idUtilizador;
+                    utilizadorDB.morada = novoUtilizador.morada;
+                    utilizadorDB.nif = novoUtilizador.nif;
+                    utilizadorDB.nome = novoUtilizador.nome;
+                    utilizadorDB.numeroCartaConducao = novoUtilizador.numeroCartaConducao;
+                    utilizadorDB.password = novoUtilizador.password;
+                    utilizadorDB.telemovel = novoUtilizador.telemovel;
+                    utilizadorDB.tipoUtilizador = novoUtilizador.tipoUtilizador;
+                    utilizadorDB.tipoVeiculo = novoUtilizador.tipoVeiculo;
+
+                    db.utilizador.Update(utilizadorDB);
                     db.SaveChanges();
 
                     //verifica o tipo de utilizador:
@@ -239,30 +251,37 @@ namespace Foody.Utils
 
         public static bool VerifyUser(string token, int accessUserId)
         {
-            if (int.TryParse(TokenManager.GetPrincipal(token).Claims.ToArray()[0].Value, out var idUtilizadorLogado) &&
-                int.TryParse(TokenManager.GetPrincipal(token).Claims.ToArray()[1].Value, out var tipoUtilizadorLogado))
+            try
             {
-                DbHelper db = new DbHelper();
-                var user = db.utilizador.Find(accessUserId);
+                if (int.TryParse(TokenManager.GetPrincipal(token).Claims.ToArray()[0].Value, out var idUtilizadorLogado) &&
+                int.TryParse(TokenManager.GetPrincipal(token).Claims.ToArray()[1].Value, out var tipoUtilizadorLogado))
+                {
+                    DbHelper db = new DbHelper();
+                    var user = db.utilizador.Find(accessUserId);
 
-                if (idUtilizadorLogado == accessUserId)
-                {
-                    return true;
-                }
-                else if (user.tipoUtilizador == 2 && tipoUtilizadorLogado == 3)
-                {
-                    return true;
-                }
-                else if (user.tipoUtilizador == 1 && tipoUtilizadorLogado == 3)
-                {
-                    return true;
+                    if (idUtilizadorLogado == accessUserId)
+                    {
+                        return true;
+                    }
+                    else if (user.tipoUtilizador == 2 && tipoUtilizadorLogado == 3)
+                    {
+                        return true;
+                    }
+                    else if (user.tipoUtilizador == 1 && tipoUtilizadorLogado == 3)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
                     return false;
                 }
             }
-            else
+            catch (Exception)
             {
                 return false;
             }
