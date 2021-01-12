@@ -29,6 +29,13 @@
 			if($_POST['password1']!=$_POST['password2']){
 				die("<p>As palavra-passe devem ser iguais</p><p><a href='clienteRegister.html'>Voltar<a/></p>");
 			}
+			$hash = '$2y$07$BCryptRequires22Chrcte/VlQH0piJtjXl.0t1XkA8pw9dMXTpOq';
+			if(password_verify('password1'), $hash){
+				die("<p>A palavra-passe é segura</p>");
+			}
+			else{
+				die("<p>A palavra-passe não é segura</p>");
+			}
 			$telemovels = $_POST['telemovel'];
 			if(strlen($telemovels)!=9){
 				die("<p>O número de telemóvel é constituído por 9 dígitos. Por favor, indique um número de telemóvel válido</p>
