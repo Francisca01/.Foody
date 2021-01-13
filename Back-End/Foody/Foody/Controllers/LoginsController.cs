@@ -57,9 +57,9 @@ namespace Foody.Controllers
                 catch (Exception)
                 {
                     Dictionary<string, string> msg = new Dictionary<string, string>
-                        {
-                            {"Message", MessageService.CustomMessage("Formato de Email inválido").text},
-                        };
+                    {
+                        {"Message", MessageService.CustomMessage("Formato de Email inválido").text},
+                    };
                     return msg;
                 }
 

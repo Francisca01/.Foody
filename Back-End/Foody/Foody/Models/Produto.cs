@@ -12,7 +12,7 @@ namespace Foody.Models
         [Key]
         public int idProduto{ get; set; }
         [Key]
-        public int idEmpresa { get; set; }
+        public int idUtilizador { get; set; }
         public string nome { get; set; }
         public float precoUnitario { get; set; }
         public string ingredientes { get; set; }

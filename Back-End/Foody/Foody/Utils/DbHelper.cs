@@ -35,7 +35,7 @@ namespace Foody.Utils
             modelBuilder.Entity<Encomenda>().HasKey(e => new { e.idCliente, e.idEncomendaProduto });
             modelBuilder.Entity<EncomendaProduto>().HasKey(ep => new { ep.idProduto });
             modelBuilder.Entity<Entrega>().HasKey(ent => new { ent.idCondutor, ent.idEncomenda });
-            modelBuilder.Entity<Produto>().HasKey(p => new { p.idEmpresa });
+            modelBuilder.Entity<Produto>().HasKey(p => new { p.idUtilizador });
         }
     }
 }
