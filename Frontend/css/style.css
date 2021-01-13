@@ -31,8 +31,13 @@ h5 {
 	font-weight: 550 !important;
 }
 
-p, label, input, button, optgroup, select, textarea {
+p, label, span, input, button, optgroup, select, textarea {
 	font-size: 13px !important;
+}
+
+span{
+	font-size: 13px !important;
+	color: #707070;
 }
 
 a {
@@ -41,8 +46,9 @@ a {
 
 hr {
 	margin: 8px 0 !important;
+	background-color: #EE8328 !important;
 	border: 1px solid #EE8328 !important;
-	opacity: 100 !important;
+	margin-bottom: 20px !important;
 }
 
 button:hover {
@@ -54,8 +60,8 @@ a:hover {
 }
 
 .btn {
-	/*background-color: #A8645E !important; */
 	border: none !important;
+	color: #fff !important;
 	background: linear-gradient(128deg, rgba(168, 100, 94, 1) 0%, rgba(188, 100, 87, 1) 25%, rgba(222, 100, 62, 1) 50%, rgba(223, 120, 64, 1) 75%, rgba(238, 131, 40, 1) 100%) !important;
 }
 
@@ -75,32 +81,30 @@ a:hover {
 	padding-top: 30%;
 }
 
-.sidenav .selected {
+.nav-wrapper .selected {
 	color: #DE653F;
 	cursor: default;
 }
 
-.sidenav a {
-	color: white !important;
+.nav-wrapper a {
+	color: #707070 !important;
 	text-decoration: none;
 }
 
-.side-top {
+.side-top img {
 	position: absolute;
 	top: 0;
-	padding: 0 1%;
-	height: fit-content;
-	/* width: 100%; */
-}
-
-.side-top img {
 	height: 65px;
 }
 
 .side-bottom {
 	position: absolute;
 	bottom: 0;
-	margin: 10px;
+}
+
+.side-bottom li {
+	text-align: center;
+	margin: 10px 22px;
 }
 
 /* CSS de Login e Register (várias páginas)*/
@@ -108,11 +112,6 @@ a:hover {
 #login {
 	padding: 10px;
 	height: 100%;
-	width: 95%;
-	position: fixed;
-	top: 0;
-	left: 5%;
-	padding-top: 10px;
 	margin-top: 10%;
 }
 
@@ -127,41 +126,32 @@ a:hover {
 	text-align: center;
 }
 
-#login .form-group, #login .form-check, #login button {
-	margin: 10px;
-	width: 400px;
-	font-size: 15px !important;
-}
-
 #login button {
 	margin-top: 40px;
+	margin: 10px;
+	width: 400px;
 }
 
 .flex-form {
-	display: flex !important;
+	
 	justify-content: center;
 }
 
-.flex-form button {
-	width: 200px !important;
-	height: 80px !important;
+.flex-form a {
+	font-size: 12px !important;
+	color: #fff !important;
+	margin: 15px 5px;
+	height: 55px !important;
 	display: flex;
-	flex-direction: column;
 	align-items: center;
-	padding: 10px 20px;
-	font-weight: 500;
+	font-weight: bold;
 }
 
-.flex-form i {
-	padding: 0;
-	margin: auto;
-	font-size: 25px;
-	color: white;
-}
-
-.flex-form span {
-	padding: 0;
-	margin: auto;
+.flex-form i{
+	font-size: 25px !important;
+	color: #fff !important;
+	padding-bottom: 0px;
+	margin-bottom: 0px;
 }
 
 .client {
@@ -170,10 +160,14 @@ a:hover {
 
 .driver {
 	background: #DE643E !important;
+	font-size: 15px !important;
+	color: #fff !important;
 }
 
 .restaurant {
 	background: #A8645E !important;
+	font-size: 15px !important;
+	color: #fff !important;
 }
 
 #left-main {
@@ -187,6 +181,14 @@ a:hover {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+.left-image {
+	background-image: url('../images/background1.jpg');
+	background-repeat: no-repeat;
+	background-size: 100%;
+	background-position: bottom;
+	opacity: 100%;
 }
 
 #right-main {
@@ -235,11 +237,11 @@ a:hover {
 
 .main {
 	height: 100%;
-	width: 70%;
+	width: 66%;
 	position: fixed;
 	z-index: 1;
-	top: 0;
-	left: 5%;
+	top: 0px;
+	left: 7%;
 	padding-top: 10px;
 }
 
@@ -255,19 +257,18 @@ a:hover {
 
 .products-category {
 	width: 200px !important;
-    height: 80px !important;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px 20px;
-    font-weight: 500; 
+	height: 80px !important;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 10px 20px;
+	font-weight: 500;
 }
 
-.products-category i{
+.products-category i {
 	margin: 5px;
 	padding: 5px;
 }
-
 
 .itens-group {
 	margin: 30px;
@@ -323,11 +324,11 @@ a:hover {
 
 .shoppingCart h3 {}
 
-.sc-products-group{
+.sc-products-group {
 	padding: 70% 40px;
 	color: white;
-    /* justify-content: center; */
-    display: grid;
+	/* justify-content: center; */
+	display: grid;
 }
 
 /*@media screen and (max-height: 450px) {
