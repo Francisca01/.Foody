@@ -28,6 +28,8 @@ namespace Foody
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            //services.AddSingleton(ISingleton, Singleton);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,29 +43,32 @@ namespace Foody
             app.UseRouting();
 
             app.UseAuthorization();
-
+            /*
             app.Use(async (context, next) =>
             {
-                var aaa = context.Request.RouteValues["controller"];
-                var lcfçhjçgklh = context.Request.RouteValues;
-                if (context.Request.RouteValues["controller"].Equals("Login") || context.Request.RouteValues["controller"].Equals("Register"))
+                var requestRouteValues = context.Request.RouteValues["controller"];
+                //var lcfçhjçgklh = context.Request.RouteValues;
+
+                if (requestRouteValues.Equals("Login") || requestRouteValues.Equals("Register"))
                 {
                     await next.Invoke();
                 }
                 else
                 {
-                    string token = context.Request.Headers.ContainsKey("token") ?
-                                    context.Request.Headers["token"].ToString() : "nada";
+                    var requestHeaders = context.Request.Headers;
 
+                    string token = requestHeaders.ContainsKey("token") ?
+                                    requestHeaders["token"].ToString() : "nada";
 
                     var isValid = TokenManager.ValidateToken(token);
 
                     if (isValid == null)
                     {
+                        var response = context.Response;
                         //Not Valid
-                        context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                        context.Response.ContentType = "text/plain";
-                        await context.Response.WriteAsync($"Status Code: {context.Response.StatusCode}");
+                        response.StatusCode = (int)HttpStatusCode.BadRequest;
+                        response.ContentType = "text/plain";
+                        await response.WriteAsync($"Status Code: {response.StatusCode}");
                     }
                     else
                     {
@@ -71,7 +76,7 @@ namespace Foody
                     }
                 }
             }
-           );
+           );*/
 
             app.UseEndpoints(endpoints =>
             {

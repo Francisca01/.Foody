@@ -7,6 +7,7 @@ using Foody.Models;
 
 namespace Foody.Utils
 {
+    //ficheiro que efetua a ligação entre a base de dados e a API
     public class DbHelper : DbContext
     {
         public DbHelper()
@@ -14,20 +15,27 @@ namespace Foody.Utils
 
         }
 
-        public DbSet<Cavalo> cavalos { get; set; }
-        public DbSet<Classific> classifics { get; set; }
-        public DbSet<Coudelaria> coudelarias { get; set; }
-        public DbSet<Criador> criadores { get; set; }
-        public DbSet<Prova> provas{ get; set; }
-        public DbSet<Utilizador> utilizadores { get; set; }
+        //Definição das Tabelas (BD) / Models (API)
+        public DbSet<Utilizador> utilizador { get; set; }
+        public DbSet<Encomenda> encomenda { get; set; }
+        public DbSet<EncomendaProduto> encomendaProduto { get; set; }
+        public DbSet<Entrega> entrega { get; set; }
+        public DbSet<Produto> produto { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source= coudelaria_dwm.db");
+            //ligação à Base de Dados
+            optionsBuilder.UseSqlite("Data Source= db/foodybd.db");
         }
+
+        //configuração das Keys (BD) para chaves primárias das entidades (API)
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Classific>().HasKey(c => new { c.cod_prova, c.cod_cavalo});
+            modelBuilder.Entity<Utilizador>().HasKey(u => new { u.idUtilizador });
+            modelBuilder.Entity<Encomenda>().HasKey(e => new { e.idCliente, e.idEncomendaProduto });
+            modelBuilder.Entity<EncomendaProduto>().HasKey(ep => new { ep.idProduto });
+            modelBuilder.Entity<Entrega>().HasKey(ent => new { ent.idCondutor, ent.idEncomenda });
+            modelBuilder.Entity<Produto>().HasKey(p => new { p.idUtilizador });
         }
     }
 }

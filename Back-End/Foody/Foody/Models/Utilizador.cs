@@ -6,13 +6,24 @@ using System.Threading.Tasks;
 
 namespace Foody.Models
 {
+    // Classe do Utilizador
     public class Utilizador
     {
         [Key]
-        public int id{ get; set; }
+        public int idUtilizador { get; set; }
+        public string morada { get; set; }
+        public int telemovel { get; set; }
+        public int tipoUtilizador { get; set; }
+        // 0 - cliente 
+        // 1 - condutor 
+        // 2 - empresa
+        public string tipoVeiculo { get; set; }
+        public string nif { get; set; }
+        public string numeroCartaConducao { get; set; }
         public string nome { get; set; }
         public string email { get; set; }
-        public string palavraPasse { get; set; }
+        public string password { get; set; }
+        public string dataNascimento { get; set; }
 
         public Utilizador()
         {
