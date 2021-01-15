@@ -13,22 +13,21 @@ namespace Foody.Utils
         {
             if (userLogin != null && userLogin[1] == 2)
             {
-                using (var db = new DbHelper())
+                produto.idUtilizador = userLogin[0];
+
+                //valida os campos de produto
+                if (produto != null && !string.IsNullOrEmpty(produto.nome) && 
+                    produto.precoUnitario > 0.00)
                 {
-                    //valores aceites para o nome
-                    var regexNome = new Regex("^[a-zA-Z ]*$");
+                    //lista para guardar o nome de todos os produtos da empresa
+                    List<string> nomeProdutos = new List<string>();
 
-                    //array de produtos da base de dados
-                    var produtos = db.produto.ToArray();
+                    int j = 0;
 
-                    //valida os campos de produto
-                    if (produto != null && !string.IsNullOrEmpty(produto.nome) && regexNome.IsMatch(produto.nome) && 
-                        produto.precoUnitario > 0.00)
+                    using (var db = new DbHelper())
                     {
-                        //lista para guardar o nome de todos os produtos da empresa
-                        List<string> nomeProdutos = new List<string>();
-
-                        int j = 0;
+                        //array de produtos da base de dados
+                        var produtos = db.produto.ToArray();
 
                         //criação do array dos produtos da empresa
                         for (int i = 0; i < produtos.Length; i++)
@@ -48,28 +47,29 @@ namespace Foody.Utils
                                 return MessageService.CustomMessage("O Produto com o nome: " + produto.nome + " já existe na sua empresa!");
                             }
                         }
+                    }
 
+                    using (var db = new DbHelper())
+                    {
                         if (editar == true)
                         {
                             db.produto.Update(produto);
                             db.SaveChanges();
-                            
+
                             return MessageService.CustomMessage("Produto Editado!");
                         }
                         else
                         {
-                            produto.idUtilizador = userLogin[0];
-
                             db.produto.Add(produto);
                             db.SaveChanges();
 
                             return MessageService.CustomMessage("Produto Criado!");
                         }
                     }
-                    else
-                    {
-                        return MessageService.CustomMessage("Os campos obrigatórios não foram preenchidos");
-                    }
+                }
+                else
+                {
+                    return MessageService.CustomMessage("Os campos obrigatórios não foram preenchidos ou são inválidos");
                 }
             }
             else
@@ -78,7 +78,7 @@ namespace Foody.Utils
             }
         }
 
-        public static int[] VerifyProductAccess(string token, int userIdAccess)
+        public static int[] VerifyProductAccess(string token)
         {
             try
             {

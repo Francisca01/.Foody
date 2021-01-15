@@ -94,11 +94,11 @@ namespace Foody.Controllers
         // POST api/<ProdutosController>
         [HttpPost]
         public object Post([FromBody] Produto produto)
-        {
+        { 
             //token do user logado
             string token = Request.Headers["token"][0];
 
-            int[] userLogin = ProductService.VerifyProductAccess(token, 2);
+            int[] userLogin = ProductService.VerifyProductAccess(token);
             //userLogin[0] = Id
             //userLogin[1] = UserType
 
