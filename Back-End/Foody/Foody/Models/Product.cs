@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Foody.Models
 {
-    // Classe do Produto
-    public class Produto
+    // Classe do Product
+    public class Product
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -20,7 +20,7 @@ namespace Foody.Models
         public string ingredientes { get; set; }
         public int categoria { get; set; }
 
-        public Produto()
+        public Product()
         {
 
         }

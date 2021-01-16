@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Foody.Models
 {
-    // Classe do Utilizador
-    public class Utilizador
+    // Classe do User
+    public class User
     {
         [Key]
         public int idUtilizador { get; set; }
@@ -25,7 +25,7 @@ namespace Foody.Models
         public string password { get; set; }
         public string dataNascimento { get; set; }
 
-        public Utilizador()
+        public User()
         {
 
         }

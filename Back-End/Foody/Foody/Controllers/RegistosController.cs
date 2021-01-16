@@ -12,9 +12,9 @@ namespace Foody.Controllers
     {
         // POST api/<RegistosController>
         [HttpPost]
-        public string Post([FromBody] Utilizador novoUtilizador)
+        public string Post([FromBody] User newUser)
         {
-            return UserService.ValidateUser(novoUtilizador, false);
+            return UserService.ValidateUser(newUser, false);
         }
     }
 }

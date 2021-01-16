@@ -12,32 +12,32 @@ namespace Foody.Controllers
 {
     [Route("api/[controller]")]
     //[ApiController]
-    public class EncomendasController : ControllerBase
+    public class OrdersController : ControllerBase
     {
-        // GET: api/<EncomendasController>
+        // GET: api/<OrdersController>
         [HttpGet]
-        public Encomenda[] Get()
+        public Order[] Get()
         {
             // obter dados dos utilizadores na base de dados
             using (var db = new DbHelper())
             {
                 // devolve-os (dados) num array
-                return db.encomenda.ToArray();
+                return db.order.ToArray();
             }
         }
 
-        // GET api/<EncomendasController>/5
+        // GET api/<OrdersController>/5
         [HttpGet("{idEncomenda}")]
-        public Encomenda Get(int id)
+        public Order Get(int id)
         {
             // obter dados do utilizador na base de dados (por id especifico)
             using (var db = new DbHelper())
             {
                 // maneira mais simples
-                return db.encomenda.Find(id);
+                return db.order.Find(id);
 
                 // maneira mais complesa 
-                /*  var encomendasDB = db.encomenda.ToArray();
+                /*  var encomendasDB = db.order.ToArray();
 
                 for (int i = 0; i <= encomendasDB.Length; i++)
                 {
@@ -51,9 +51,9 @@ namespace Foody.Controllers
             }
         }
 
-        // POST api/<EncomendasController>
+        // POST api/<OrdersController>
         [HttpPost]
-        public string Post([FromBody] Encomenda novaEncomenda)
+        public string Post([FromBody] Order novaEncomenda)
         {
             if (novaEncomenda != null)
             {
@@ -61,9 +61,9 @@ namespace Foody.Controllers
                 using (var db = new DbHelper())
                 {
                     // converte-os (dados) num array
-                    var encomendasDB = db.encomenda.ToArray();
+                    var encomendasDB = db.order.ToArray();
 
-                    // verifica se id de encomenda já existe na BD
+                    // verifica se id de order já existe na BD
                     for (int i = 0; i < encomendasDB.Length; i++)
                     {
                         if (novaEncomenda.idEncomenda == encomendasDB[i].idEncomenda)
@@ -72,8 +72,8 @@ namespace Foody.Controllers
                         }
                     }
 
-                    // se não existir, adiciona um novo encomenda
-                    db.encomenda.Add(novaEncomenda);
+                    // se não existir, adiciona um novo order
+                    db.order.Add(novaEncomenda);
                     db.SaveChanges();
 
                     return "Criado";
@@ -85,57 +85,57 @@ namespace Foody.Controllers
             }
         }
 
-        // PUT api/<EncomendasController>/5
+        // PUT api/<OrdersController>/5
         [HttpPut("{idEncomenda}")]
-        public void Put(int idEncomenda, [FromBody] Encomenda encomendaUpdate)
+        public void Put(int idEncomenda, [FromBody] Order encomendaUpdate)
         {
-            // verificar se encomenda não está nula 
+            // verificar se order não está nula 
             if (encomendaUpdate != null && encomendaUpdate.idEncomenda == idEncomenda)
             {
                 // obter dados do utilizador na base de dados (por id especifico)
                 using (var db = new DbHelper())
                 {
-                    var encomendasDB = db.encomenda.Find(idEncomenda);
+                    var encomendasDB = db.order.Find(idEncomenda);
 
-                    // se encomenda não existir, criar nova
+                    // se order não existir, criar nova
                     if (encomendasDB == null)
                     {
                         Post(encomendaUpdate);
                     }
-                    // se encomenda existir, atualizar dados
+                    // se order existir, atualizar dados
                     else
                     {
                         encomendasDB.idEncomenda = idEncomenda;
 
-                        db.encomenda.Update(encomendasDB);
+                        db.order.Update(encomendasDB);
                         db.SaveChanges();
                     }
                 }
             }
         }
 
-        // DELETE api/<EncomendasController>/5
+        // DELETE api/<OrdersController>/5
         [HttpDelete("{idEncomenda}")]
         public string Delete(int id)
         {
             // obter dados do utilizador na base de dados (por id especifico)
             using (var db = new DbHelper())
             {
-                // procura o id do encomenda
-                var encomendasDB = db.encomenda.Find(id);
+                // procura o id do order
+                var encomendasDB = db.order.Find(id);
 
                 // se id encontrado (diferente de nulo), 
                 // remove o cliente associado
                 if (encomendasDB != null)
                 {
-                    db.encomenda.Remove(encomendasDB);
+                    db.order.Remove(encomendasDB);
                     db.SaveChanges();
 
                     return "Eliminado!";
                 }
                 else
                 {
-                    return "A encomenda com o id: " + id + " não foi encontrada";
+                    return "A order com o id: " + id + " não foi encontrada";
                 }
             }
         }

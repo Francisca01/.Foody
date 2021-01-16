@@ -9,15 +9,15 @@ namespace Foody.Utils
 {
     public class OrderProductService
     {
-        public static object VerifyOrderProduct(int[] userLogin, Produto produto, bool editar)
+        public static object VerifyOrderProduct(int[] userLogin, Product product, bool editar)
         {
             if (userLogin != null && userLogin[1] == 2)
             {
-                produto.idUtilizador = userLogin[0];
+                product.idUtilizador = userLogin[0];
 
-                //valida os campos de produto
-                if (produto != null && !string.IsNullOrEmpty(produto.nome) &&
-                    produto.precoUnitario > 0.00)
+                //valida os campos de product
+                if (product != null && !string.IsNullOrEmpty(product.nome) &&
+                    product.precoUnitario > 0.00)
                 {
                     //lista para guardar o nome de todos os produtos da empresa
                     List<string> nomeProdutos = new List<string>();
@@ -27,7 +27,7 @@ namespace Foody.Utils
                     using (var db = new DbHelper())
                     {
                         //array de produtos da base de dados
-                        var produtos = db.produto.ToArray();
+                        var produtos = db.product.ToArray();
 
                         //criação do array dos produtos da empresa
                         for (int i = 0; i < produtos.Length; i++)
@@ -39,12 +39,12 @@ namespace Foody.Utils
                             }
                         }
 
-                        //valida se o nome do produto introduzido já exista na empresa
+                        //valida se o nome do product introduzido já exista na empresa
                         for (int i = 0; i < nomeProdutos.Count; i++)
                         {
-                            if (nomeProdutos[i] == produto.nome)
+                            if (nomeProdutos[i] == product.nome)
                             {
-                                return MessageService.CustomMessage("O Produto com o nome: " + produto.nome + " já existe na sua empresa!");
+                                return MessageService.Custom("O Product com o nome: " + product.nome + " já existe na sua empresa!");
                             }
                         }
                     }
@@ -53,28 +53,28 @@ namespace Foody.Utils
                     {
                         if (editar == true)
                         {
-                            db.produto.Update(produto);
+                            db.product.Update(product);
                             db.SaveChanges();
 
-                            return MessageService.CustomMessage("Produto Editado!");
+                            return MessageService.Custom("Product Editado!");
                         }
                         else
                         {
-                            db.produto.Add(produto);
+                            db.product.Add(product);
                             db.SaveChanges();
 
-                            return MessageService.CustomMessage("Produto Criado!");
+                            return MessageService.Custom("Product Criado!");
                         }
                     }
                 }
                 else
                 {
-                    return MessageService.CustomMessage("Os campos obrigatórios não foram preenchidos ou são inválidos");
+                    return MessageService.Custom("Os campos obrigatórios não foram preenchidos ou são inválidos");
                 }
             }
             else
             {
-                return MessageService.AccessDeniedMessage();
+                return MessageService.AccessDenied();
             }
         }
 
@@ -84,11 +84,11 @@ namespace Foody.Utils
             {
                 using (DbHelper db = new DbHelper())
                 {
-                    var orderProduct = db.encomendaProduto.Find(accessOrderProductId);
+                    var orderProduct = db.orderProduct.Find(accessOrderProductId);
 
                     if (orderProduct != null)
                     {
-                        foreach (var product in db.produto.ToArray())
+                        foreach (var product in db.product.ToArray())
                         {
                             if (product.idProduto == orderProduct.idProduto)
                             {

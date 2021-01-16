@@ -18,31 +18,31 @@ namespace Foody.Controllers
     {
         // POST api/<LoginController>
         [HttpPost]
-        public IDictionary<string, string> Post([FromBody] Utilizador utilizador)
+        public IDictionary<string, string> Post([FromBody] User user)
         {
             // obter dados dos utilizadores na base de dados
             using (var db = new DbHelper())
             {
                 // devolve-os (dados) num array 
-                var utilizadorDB = db.utilizador.ToArray();
+                var userDB = db.user.ToArray();
 
                 Dictionary<string, string> token = new Dictionary<string, string>
                 {
-                    {"Message", MessageService.CustomMessage("Dados inválidos").text},
+                    {"Message", MessageService.Custom("Dados inválidos").text},
                 };
 
-                if (utilizador.telemovel != 0)
+                if (user.telemovel != 0)
                 {
-                    for (int i = 0; i < utilizadorDB.Length; i++)
+                    for (int i = 0; i < userDB.Length; i++)
                     {
                         // verificar se email inserido corresposnde ao da BD,
                         // e se password inserida (encriptada) corresponde à da BD
-                        if (utilizador.telemovel == utilizadorDB[i].telemovel && utilizador.tipoUtilizador == utilizadorDB[i].tipoUtilizador &&
-                            HashPassword.VerifyHash(utilizador.password, utilizadorDB[i].password))
+                        if (user.telemovel == userDB[i].telemovel && user.tipoUtilizador == userDB[i].tipoUtilizador &&
+                            HashPassword.VerifyHash(user.password, userDB[i].password))
                         {
                             token = new Dictionary<string, string>
                             {
-                                {"Token", TokenManager.GenerateToken(utilizadorDB[i].email, utilizadorDB[i].tipoUtilizador, utilizadorDB[i].idUtilizador)},
+                                {"Token", TokenManager.GenerateToken(userDB[i].email, userDB[i].tipoUtilizador, userDB[i].idUtilizador)},
                             };
                             return token;
                         }
@@ -52,28 +52,28 @@ namespace Foody.Controllers
                 //valida o email
                 try
                 {
-                    System.Net.Mail.MailAddress email = new System.Net.Mail.MailAddress(utilizador.email);
+                    System.Net.Mail.MailAddress email = new System.Net.Mail.MailAddress(user.email);
                 }
                 catch (Exception)
                 {
                     Dictionary<string, string> msg = new Dictionary<string, string>
                     {
-                        {"Message", MessageService.CustomMessage("Formato de Email inválido").text},
+                        {"Message", MessageService.Custom("Formato de Email inválido").text},
                     };
                     return msg;
                 }
 
                 // percorre todos os id's de utilizadores
-                for (int i = 0; i < utilizadorDB.Length; i++)
+                for (int i = 0; i < userDB.Length; i++)
                 {
                     // verificar se email inserido corresposnde ao da BD,
                     // e se password inserida (encriptada) corresponde à da BD
-                    if (utilizador.email == utilizadorDB[i].email &&
-                        HashPassword.VerifyHash(utilizador.password, utilizadorDB[i].password))
+                    if (user.email == userDB[i].email &&
+                        HashPassword.VerifyHash(user.password, userDB[i].password))
                     {
                         token = new Dictionary<string, string>
                         {
-                            {"Token", TokenManager.GenerateToken(utilizadorDB[i].email, utilizadorDB[i].tipoUtilizador, utilizadorDB[i].idUtilizador)},
+                            {"Token", TokenManager.GenerateToken(userDB[i].email, userDB[i].tipoUtilizador, userDB[i].idUtilizador)},
                         };
                     }
                 }

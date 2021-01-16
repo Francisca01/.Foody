@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Foody.Models
 {
-    // Classe de Encomenda - Produto
-    public class EncomendaProduto
+    // Classe de OrderProduct
+    public class OrderProduct
     {
         [Key]
         public int idEncomendaProduto{ get; set; }
@@ -15,7 +15,7 @@ namespace Foody.Models
         public int idProduto { get; set; }
         public int quantidade { get; set; }
 
-        public EncomendaProduto()
+        public OrderProduct()
         {
 
         }

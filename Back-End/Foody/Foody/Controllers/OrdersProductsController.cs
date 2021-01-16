@@ -12,9 +12,9 @@ namespace Foody.Controllers
 {
     [Route("api/[controller]")]
     //[ApiController]
-    public class EncomendasProdutosController : ControllerBase
+    public class OrdersProductsController : ControllerBase
     {
-        // GET: api/<EncomendasProdutosController>
+        // GET: api/<OrdersProductsController>
         [HttpGet]
         public List<object> Get()
         {
@@ -27,21 +27,21 @@ namespace Foody.Controllers
                 using (var db = new DbHelper())
                 {
                     List<object> encomendasProdutos = new List<object>();
-                    foreach (var encomendaProduto in db.encomendaProduto.ToArray())
+                    foreach (var orderProduct in db.orderProduct.ToArray())
                     {
-                        encomendasProdutos.Add(encomendaProduto);
+                        encomendasProdutos.Add(orderProduct);
                     }
                     return encomendasProdutos;
                 }
             }
             else
             {
-                List<object> msg = new List<object>() { MessageService.AccessDeniedMessage() };
+                List<object> msg = new List<object>() { MessageService.AccessDenied() };
                 return msg;
             }
         }
 
-        // GET api/<EncomendasProdutosController>/5
+        // GET api/<OrdersProductsController>/5
         [HttpGet("{idEncomendaProduto}")]
         public object Get(int idOrderProduct)
         {
@@ -55,26 +55,26 @@ namespace Foody.Controllers
                 //obter dados dos utilizadores na base de dados
                 using (var db = new DbHelper())
                 {
-                    return db.encomendaProduto.Find(idOrderProduct);
+                    return db.orderProduct.Find(idOrderProduct);
                 }
             }
             else
             {
-                List<object> msg = new List<object>() { MessageService.AccessDeniedMessage() };
+                List<object> msg = new List<object>() { MessageService.AccessDenied() };
                 return msg;
             }
         }
 
-        // POST api/<EncomendasProdutosController>
+        // POST api/<OrdersProductsController>
         [HttpPost]
-        public string Post([FromBody] EncomendaProduto newOrderProduct)
+        public string Post([FromBody] OrderProduct newOrderProduct)
         {
             if (newOrderProduct.quantidade > 0 && !string.IsNullOrEmpty(newOrderProduct.idProduto.ToString()))
             {
                 // obter dados do utilizador na base de dados (por id especifico)
                 using (var db = new DbHelper())
                 {
-                    db.encomendaProduto.Add(newOrderProduct);
+                    db.orderProduct.Add(newOrderProduct);
                     db.SaveChanges();
 
                     return "Criado";
@@ -86,48 +86,48 @@ namespace Foody.Controllers
             }
         }
 
-        // PUT api/<EncomendasProdutosController>/5
+        // PUT api/<OrdersProductsController>/5
         [HttpPut("{idEncomendaProduto}")]
-        public void Put(int idEncomenda, [FromBody] EncomendaProduto encomendaProdutoUpdate)
+        public void Put(int idEncomenda, [FromBody] OrderProduct encomendaProdutoUpdate)
         {
             // obter dados do utilizador na base de dados (por id especifico de Produto)
             using (var db = new DbHelper())
             {
-                var encomendaProdutoDB = db.encomendaProduto.Find(encomendaProdutoUpdate.idEncomendaProduto);
+                var encomendaProdutoDB = db.orderProduct.Find(encomendaProdutoUpdate.idEncomendaProduto);
 
-                // verificar se os valores da encomendaProduto (DB) não são nulos,
-                // se os valores da encomendaProduto (inseridos para update) não são nulos,
-                // e se quantidade de encomendaProduto (inseridos para update) é maior que 0
+                // verificar se os valores da orderProduct (DB) não são nulos,
+                // se os valores da orderProduct (inseridos para update) não são nulos,
+                // e se quantidade de orderProduct (inseridos para update) é maior que 0
                 if (encomendaProdutoDB != null && encomendaProdutoUpdate != null && encomendaProdutoUpdate.quantidade > 0)
                 {
-                    db.encomendaProduto.Update(encomendaProdutoUpdate);
+                    db.orderProduct.Update(encomendaProdutoUpdate);
                     db.SaveChanges();
                 }
             }
         }
 
-        // DELETE api/<EncomendasProdutosController>/5
+        // DELETE api/<OrdersProductsController>/5
         [HttpDelete("{idEncomendaProduto}")]
         public string Delete(int idEncomendaProduto)
         {
             // obter dados do utilizador na base de dados (por id especifico)
             using (var db = new DbHelper())
             {
-                // procura o id da encomendaProduto
-                var encomendaProdutoDB = db.encomendaProduto.Find(idEncomendaProduto);
+                // procura o id da orderProduct
+                var encomendaProdutoDB = db.orderProduct.Find(idEncomendaProduto);
 
                 // se id encontrado (diferente de nulo), 
-                // remove a encomendaProduto associado
+                // remove a orderProduct associado
                 if (encomendaProdutoDB != null)
                 {
-                    db.encomendaProduto.Remove(encomendaProdutoDB);
+                    db.orderProduct.Remove(encomendaProdutoDB);
                     db.SaveChanges();
 
                     return "Eliminado!";
                 }
                 else
                 {
-                    return "A encomendaProduto com o id: " + idEncomendaProduto + " não foi encontrada";
+                    return "A orderProduct com o id: " + idEncomendaProduto + " não foi encontrada";
                 }
             }
         }

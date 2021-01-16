@@ -16,11 +16,11 @@ namespace Foody.Utils
         }
 
         //Definição das Tabelas (BD) / Models (API)
-        public DbSet<Utilizador> utilizador { get; set; }
-        public DbSet<Encomenda> encomenda { get; set; }
-        public DbSet<EncomendaProduto> encomendaProduto { get; set; }
-        public DbSet<Entrega> entrega { get; set; }
-        public DbSet<Produto> produto { get; set; }
+        public DbSet<User> user { get; set; }
+        public DbSet<Order> order { get; set; }
+        public DbSet<OrderProduct> orderProduct { get; set; }
+        public DbSet<Delivery> delivery { get; set; }
+        public DbSet<Product> product { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -31,11 +31,11 @@ namespace Foody.Utils
         //configuração das Keys (BD) para chaves primárias das entidades (API)
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Utilizador>().HasKey(u => new { u.idUtilizador });
-            modelBuilder.Entity<Encomenda>().HasKey(e => new { e.idCliente, e.idEncomendaProduto });
-            modelBuilder.Entity<EncomendaProduto>().HasKey(ep => new { ep.idProduto });
-            modelBuilder.Entity<Entrega>().HasKey(ent => new { ent.idCondutor, ent.idEncomenda });
-            modelBuilder.Entity<Produto>().HasKey(p => new { p.idProduto });
+            modelBuilder.Entity<User>().HasKey(u => new { u.idUtilizador });
+            modelBuilder.Entity<Order>().HasKey(e => new { e.idCliente, e.idEncomendaProduto });
+            modelBuilder.Entity<OrderProduct>().HasKey(ep => new { ep.idProduto });
+            modelBuilder.Entity<Delivery>().HasKey(ent => new { ent.idCondutor, ent.idEncomenda });
+            modelBuilder.Entity<Product>().HasKey(p => new { p.idProduto });
         }
     }
 }

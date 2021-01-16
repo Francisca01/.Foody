@@ -12,15 +12,15 @@ namespace Foody.Controllers
 {
     [Route("api/[controller]")]
     //[ApiController]
-    public class UtilizadoresController : ControllerBase
+    public class UsersController : ControllerBase
     {
-        // GET: api/<UtilizadoresController>
+        // GET: api/<UsersController>
         [HttpGet]
-        public Utilizador[] Get()
+        public User[] Get()
         {
             using (var db = new DbHelper())
             {
-                return db.utilizador.ToArray();
+                return db.user.ToArray();
             }
 
             //HttpContext.Response.StatusCode = (int)
@@ -28,21 +28,21 @@ namespace Foody.Controllers
             //return null;
         }
 
-        // GET api/<UtilizadoresController>/5
+        // GET api/<UsersController>/5
         [HttpGet("{idUtilizador}")]
-        public Utilizador Get(int idUtilizador)
+        public User Get(int idUtilizador)
         {
 
             using (var db = new DbHelper())
             {
-                var utilizador = db.utilizador.ToArray();
+                var user = db.user.ToArray();
 
-                for (int i = 0; i <= utilizador.Length; i++)
+                for (int i = 0; i <= user.Length; i++)
                 {
 
-                    if (utilizador[i].idUtilizador == idUtilizador)
+                    if (user[i].idUtilizador == idUtilizador)
                     {
-                        return utilizador[i];
+                        return user[i];
                     }
                 }
 
@@ -53,33 +53,33 @@ namespace Foody.Controllers
         //ou
 
         /*
-         public Utilizador Get(int idUtilizador)
+         public User Get(int idUtilizador)
         {
             using (var db = new DbHelper())
             {
-                return db.utilizador.Find(idUtilizador);
+                return db.user.Find(idUtilizador);
             }
         }
          */
 
-        // POST api/<UtilizadoresController>
+        // POST api/<UsersController>
         [HttpPost]
-        public string Post([FromBody] Utilizador novoUtilizador)
+        public string Post([FromBody] User novoUtilizador)
         {
             using (var db = new DbHelper())
             {
-                var utilizador = db.utilizador.ToArray();
+                var user = db.user.ToArray();
 
-                for (int i = 0; i < utilizador.Length; i++)
+                for (int i = 0; i < user.Length; i++)
                 {
 
-                    if (novoUtilizador.idUtilizador == utilizador[i].idUtilizador)
+                    if (novoUtilizador.idUtilizador == user[i].idUtilizador)
                     {
                         return "Já existe";
                     }
                 }
 
-                db.utilizador.Add(novoUtilizador);
+                db.user.Add(novoUtilizador);
                 db.SaveChanges();
 
                 return "Criado";
@@ -89,24 +89,24 @@ namespace Foody.Controllers
 
         /*
         [HttpPost]
-        public string Post([FromBody] Utilizador novoUtilizador)
+        public string Post([FromBody] User novoUtilizador)
         {
             using (var db = new DbHelper())
             {
                 cavalo.cod_cavaço = new Random().Next();
-                db.utilizador.Add(novoUtilizador);
+                db.user.Add(novoUtilizador);
                 db.SaveChanges();
             }
         }
          */
 
-        // PUT api/<UtilizadoresController>/5
+        // PUT api/<UsersController>/5
         [HttpPut("{idUtilizador}")]
-        public void Put(int idUtilizador, [FromBody] Utilizador utilizadorUpdate)
+        public void Put(int idUtilizador, [FromBody] User utilizadorUpdate)
         {
             using (var db = new DbHelper())
             {
-                var utilizadorDB = db.utilizador.Find(idUtilizador);
+                var utilizadorDB = db.user.Find(idUtilizador);
 
                 if (utilizadorDB == null)
                 {
@@ -131,30 +131,30 @@ namespace Foody.Controllers
                         utilizadorDB.password = utilizadorUpdate.password;
                     }
 
-                    db.utilizador.Update(utilizadorDB);
+                    db.user.Update(utilizadorDB);
                     db.SaveChanges();
                 }
             }
         }
 
-        // DELETE api/<UtilizadoresController>/5
+        // DELETE api/<UsersController>/5
         [HttpDelete("{idUtilizador}")]
         public string Delete(int idUtilizador)
         {
             using (var db = new DbHelper())
             {
-                var utilizadorDB = db.utilizador.Find(idUtilizador);
+                var utilizadorDB = db.user.Find(idUtilizador);
 
                 if (utilizadorDB != null)
                 {
-                    db.utilizador.Remove(utilizadorDB);
+                    db.user.Remove(utilizadorDB);
                     db.SaveChanges();
 
                     return "Eliminado!";
                 }
                 else
                 {
-                    return "O Utilizador com o idUtilizador: " + idUtilizador + " não foi encontrado";
+                    return "O User com o idUtilizador: " + idUtilizador + " não foi encontrado";
                 }
             }
         }

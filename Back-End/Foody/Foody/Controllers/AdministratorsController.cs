@@ -12,52 +12,52 @@ namespace Foody.Controllers
 {
     [Route("api/[controller]")]
     //[ApiController]
-    public class AdministradoresController : ControllerBase
+    public class AdministratorsController : ControllerBase
     {
-        // GET: api/<AdministradoresController>
+        // GET: api/<AdministratorsController>
         [HttpGet]
-        public Utilizador[] Get()
+        public User[] Get()
         {
             // obter dados dos utilizadores na base de dados
             using (var db = new DbHelper())
             {
                 // devolve-os (dados) num array
-                return db.utilizador.ToArray();
+                return db.user.ToArray();
             }
         }
 
-        // GET api/<AdministradoresController>/5
+        // GET api/<AdministratorsController>/5
         [HttpGet("{idUtilizador}/")]
-        public Utilizador Get(int id)
+        public User Get(int id)
         {
-            // obter dados do utilizador na base de dados (por id especifico)
+            // obter dados do user na base de dados (por id especifico)
             using (var db = new DbHelper())
             {
-                return db.utilizador.Find(id);
+                return db.user.Find(id);
             }
         }
 
-        // POST api/<AdministradoresController>
+        // POST api/<AdministratorsController>
         [HttpPost]
-        public string Post([FromBody] Utilizador novoAdministrador)
+        public string Post([FromBody] User novoAdministrador)
         {
-            // obter dados do utilizador na base de dados (por id especifico)
+            // obter dados do user na base de dados (por id especifico)
             using (var db = new DbHelper())
             {
                 // converte-os (dados) num array
-                var utilizador = db.utilizador.ToArray();
+                var user = db.user.ToArray();
 
-                // verifica se id de utilizador já existe na BD
-                for (int i = 0; i < utilizador.Length; i++)
+                // verifica se id de user já existe na BD
+                for (int i = 0; i < user.Length; i++)
                 {
-                    if (novoAdministrador.idUtilizador == utilizador[i].idUtilizador)
+                    if (novoAdministrador.idUtilizador == user[i].idUtilizador)
                     {
                         return "Já existe";
                     }
                 }
 
-                // se não existir, adiciona um novo utilizador
-                db.utilizador.Add(novoAdministrador);
+                // se não existir, adiciona um novo user
+                db.user.Add(novoAdministrador);
                 db.SaveChanges();
 
                 return "Criado";
@@ -68,42 +68,42 @@ namespace Foody.Controllers
 
         /*
         [HttpPost]
-        public string Post([FromBody] Utilizador novoAdministrador)
+        public string Post([FromBody] User novoAdministrador)
         {
             using (var db = new DbHelper())
             {
-                Utilizador.cod_cavaço = new Random().Next();
-                db.utilizador.Add(novoAdministrador);
+                User.cod_cavaço = new Random().Next();
+                db.user.Add(novoAdministrador);
                 db.SaveChanges();
             }
         } 
         */
 
 
-        // PUT api/<AdministradoresController>/5
+        // PUT api/<AdministratorsController>/5
         [HttpPut("{idUtilizador}/")]
-        public void Put(int idUtilizador, [FromBody] Utilizador administradorUpdate)
+        public void Put(int idUtilizador, [FromBody] User administradorUpdate)
         {
-            // verificar se utilizado logado é utilizador
+            // verificar se utilizado logado é user
             if (administradorUpdate.idUtilizador == idUtilizador)
             {
-                // obter dados do utilizador na base de dados (por id especifico)
+                // obter dados do user na base de dados (por id especifico)
                 using (var db = new DbHelper())
                 {
-                    var administradorDB = db.utilizador.Find(idUtilizador);
+                    var administradorDB = db.user.Find(idUtilizador);
 
-                    // se utilizador não existir, criar novo
+                    // se user não existir, criar novo
                     if (administradorDB == null)
                     {
                         Post(administradorUpdate);
                     }
 
-                    // se utilizador existir, atualizar dados
+                    // se user existir, atualizar dados
                     else
                     {
                         administradorDB.idUtilizador = idUtilizador;
 
-                        db.utilizador.Update(administradorDB);
+                        db.user.Update(administradorDB);
                         db.SaveChanges();
                     }
                 }
@@ -111,26 +111,26 @@ namespace Foody.Controllers
         }
 
 
-        // Por questões de política e privacidade de dados: Utilizador não pode ser eliminado
+        // Por questões de política e privacidade de dados: User não pode ser eliminado
 
-        /*  // DELETE api/<AdministradoresController>/5
+        /*  // DELETE api/<AdministratorsController>/5
         [HttpDelete("{idUtilizador}")]
         public string Delete(int idUtilizador, int idCavalo)
         {
             using (var db = new DbHelper())
             {
-                var administradorDB = db.utilizador.Find(idUtilizador, idCavalo);
+                var administradorDB = db.user.Find(idUtilizador, idCavalo);
 
                 if (administradorDB != null)
                 {
-                    db.utilizador.Remove(administradorDB);
+                    db.user.Remove(administradorDB);
                     db.SaveChanges();
 
                     return "Eliminado!";
                 }
                 else
                 {
-                    return "O Utilizador com o id de prova: " + idUtilizador + " não foi encontrado";
+                    return "O User com o id de prova: " + idUtilizador + " não foi encontrado";
                 }
             }
         }  */

@@ -9,23 +9,21 @@ namespace Foody.Utils
 {
     public class ProductService
     {
-        public static object VerifyProduct(int[] userLogin, Produto produto, bool editar, int idProduto)
+        public static object VerifyProduct(int[] userLogin, Product product, bool editar, int idProduto)
         {
             if (userLogin != null && userLogin[1] == 2)
             {
-                //valida os campos de produto
-                if (produto != null && !string.IsNullOrEmpty(produto.nome) &&
-                    produto.precoUnitario > 0.00)
+                //valida os campos de product
+                if (product != null && !string.IsNullOrEmpty(product.nome) &&
+                    product.precoUnitario > 0.00)
                 {
                     //lista para guardar o nome de todos os produtos da empresa
                     List<string> nomeProdutos = new List<string>();
 
-                    int j = 0;
-
                     using (var db = new DbHelper())
                     {
                         //array de produtos da base de dados
-                        var produtos = db.produto.ToArray();
+                        var produtos = db.product.ToArray();
 
                         //criação do array dos produtos da empresa
                         for (int i = 0; i < produtos.Length; i++)
@@ -33,17 +31,16 @@ namespace Foody.Utils
                             if (produtos[i].idUtilizador == userLogin[0])
                             {
                                 nomeProdutos.Add(produtos[i].nome);
-                                j++;
                             }
                         }
                     }
 
-                    //valida se o nome do produto introduzido já exista na empresa
+                    //valida se o nome do product introduzido já exista na empresa
                     for (int i = 0; i < nomeProdutos.Count; i++)
                     {
-                        if (nomeProdutos[i] == produto.nome)
+                        if (nomeProdutos[i] == product.nome)
                         {
-                            return MessageService.CustomMessage("O Produto com o nome: " + produto.nome + " já existe na sua empresa!");
+                            return MessageService.Custom("O Product com o nome: " + product.nome + " já existe na sua empresa!");
                         }
                     }
 
@@ -51,37 +48,36 @@ namespace Foody.Utils
                     {
                         if (editar == true)
                         {
-                            var produtoUpdate = db.produto.Find(idProduto);
+                            var produtoUpdate = db.product.Find(idProduto);
 
-                            produtoUpdate.nome = produto.nome;
-                            produtoUpdate.ingredientes = produto.ingredientes;
-                            produtoUpdate.precoUnitario = produto.precoUnitario;
-                            produtoUpdate.categoria = produto.categoria;
+                            produtoUpdate.nome = product.nome;
+                            produtoUpdate.ingredientes = product.ingredientes;
+                            produtoUpdate.precoUnitario = product.precoUnitario;
+                            produtoUpdate.categoria = product.categoria;
 
-                            db.produto.Update(produtoUpdate);
+                            db.product.Update(produtoUpdate);
                             db.SaveChanges();
 
-                            return MessageService.CustomMessage("Produto Editado!");
+                            return MessageService.Custom("Product Editado!");
                         }
                         else
                         {
-                            db.produto.Add(produto);
+                            db.product.Add(product);
                             db.SaveChanges();
 
-                            return MessageService.CustomMessage("Produto Criado!");
+                            return MessageService.Custom("Product Criado!");
                         }
                     }
                 }
                 else
                 {
-                    return MessageService.CustomMessage("Os campos obrigatórios não foram preenchidos ou são inválidos");
+                    return MessageService.Custom("Os campos obrigatórios não foram preenchidos ou são inválidos");
                 }
             }
             else
             {
-                return MessageService.AccessDeniedMessage();
+                return MessageService.AccessDenied();
             }
         }
-
     }
 }

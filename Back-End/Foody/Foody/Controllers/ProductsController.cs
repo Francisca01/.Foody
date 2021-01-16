@@ -13,9 +13,9 @@ namespace Foody.Controllers
 {
     [Route("api/[controller]")]
     //[ApiController]
-    public class ProdutosController : ControllerBase
+    public class ProductsController : ControllerBase
     {
-        // GET: api/<ProdutosController>
+        // GET: api/<ProductsController>
         [HttpGet]
         public object[] Get()
         {
@@ -23,7 +23,7 @@ namespace Foody.Controllers
             using (DbHelper db = new DbHelper())
             {
                 //devolve os produtos da base de dados num array
-                var produtosDB = db.produto.ToArray();
+                var produtosDB = db.product.ToArray();
 
                 if (produtosDB != null)
                 {
@@ -31,23 +31,23 @@ namespace Foody.Controllers
                 }
                 else
                 {
-                    object[] msg = { MessageService.WithoutResultsMessage() };
+                    object[] msg = { MessageService.WithoutResults() };
                     return msg;
                 }
             }
         }
 
-        /* [HttpGet("{idEmpresa}")]
+        [HttpGet("empresa/{idEmpresa}")]
         public List<object> GetCompanyProduct(int idEmpresa)
         {
             //obter dados dos produtos na base de dados
             using (DbHelper db = new DbHelper())
             {
                 //devolve os produtos da base de dados num array
-                var produtosDB = db.produto.ToArray();
+                var produtosDB = db.product.ToArray();
 
                 //lista de produtos a devolver
-                List<Produto> products = new List<Produto>();
+                List<Product> products = new List<Product>();
 
                 if (produtosDB != null)
                 {
@@ -64,13 +64,13 @@ namespace Foody.Controllers
                 }
                 else
                 {
-                    List<object> msg = new List<object>() { MessageService.WithoutResultsMessage() };
+                    List<object> msg = new List<object>() { MessageService.WithoutResults() };
                     return msg;
                 }
             }
-        } */
+        } 
 
-        // GET api/<ProdutosController>/5
+        // GET api/<ProductsController>/5
         [HttpGet("{idProduto}")]
         public object Get(int idProduto)
         {
@@ -78,7 +78,7 @@ namespace Foody.Controllers
             using (DbHelper db = new DbHelper())
             {
                 // devolve os dados da base de dados num array
-                var produtoDB = db.produto.Find(idProduto);
+                var produtoDB = db.product.Find(idProduto);
 
                 if (produtoDB != null)
                 {
@@ -86,14 +86,14 @@ namespace Foody.Controllers
                 }
                 else
                 {
-                    return MessageService.WithoutResultsMessage();
+                    return MessageService.WithoutResults();
                 }
             }
         }
 
-        // POST api/<ProdutosController>
+        // POST api/<ProductsController>
         [HttpPost]
-        public object Post([FromBody] Produto produto)
+        public object Post([FromBody] Product product)
         {
             //token do user logado
             string token = Request.Headers["token"][0];
@@ -104,17 +104,17 @@ namespace Foody.Controllers
 
             if (userLogin != null)
             {
-                return ProductService.VerifyProduct(userLogin, produto, false, -1);
+                return ProductService.VerifyProduct(userLogin, product, false, -1);
             }
             else
             {
-                return MessageService.AccessDeniedMessage();
+                return MessageService.AccessDenied();
             }
         }
 
-        // PUT api/<ProdutosController>/5
+        // PUT api/<ProductsController>/5
         [HttpPut("{idProduto}")]
-        public object Put(int idProduto, [FromBody] Produto editarProduto)
+        public object Put(int idProduto, [FromBody] Product editarProduto)
         {
                 //token do user logado
                 string token = Request.Headers["token"][0];
@@ -126,7 +126,7 @@ namespace Foody.Controllers
                 return ProductService.VerifyProduct(userLogin, editarProduto, true, idProduto);
         }
 
-        // DELETE api/<ProdutosController>/5
+        // DELETE api/<ProductsController>/5
         [HttpDelete("{idProduto}")]
         public object Delete(int idProduto)
         {
@@ -141,24 +141,24 @@ namespace Foody.Controllers
 
                 if (userLogin != null)
                 {
-                    //procura pelo produto na base de dados
-                    var produtosDB = db.produto.Find(idProduto);
+                    //procura pelo product na base de dados
+                    var produtosDB = db.product.Find(idProduto);
 
                     if (produtosDB != null && produtosDB.idUtilizador == userLogin[0])
                     {
-                        db.produto.Remove(produtosDB);
+                        db.product.Remove(produtosDB);
                         db.SaveChanges();
 
-                        return MessageService.CustomMessage("Eliminado!");
+                        return MessageService.Custom("Eliminado!");
                     }
                     else
                     {
-                        return MessageService.WithoutResultsMessage();
+                        return MessageService.WithoutResults();
                     }
                 }
                 else
                 {
-                    return MessageService.AccessDeniedMessage();
+                    return MessageService.AccessDenied();
                 }
             }
         }

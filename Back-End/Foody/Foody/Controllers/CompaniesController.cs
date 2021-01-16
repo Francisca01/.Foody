@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using Foody.Models;
 using Foody.Utils;
 using Microsoft.AspNetCore.Mvc;
@@ -9,9 +13,9 @@ namespace Foody.Controllers
 {
     [Route("api/[controller]")]
     //[ApiController]
-    public class ClientesController : ControllerBase
+    public class CompaniesController : ControllerBase
     {
-        // GET: api/<ClientesController>
+        // GET: api/<CompaniesController>
         [HttpGet]
         public List<object> Get()//so pode ser acedido pelo admin
         {
@@ -19,10 +23,10 @@ namespace Foody.Controllers
             string token = Request.Headers["token"][0];
 
             //vai buscar os utilizadores
-            return UserService.GetUser(token, 0);
+            return UserService.GetUser(token, 2);
         }
 
-        // GET api/<ClientesController>/5
+        // GET api/<CompaniesController>/5
         [HttpGet("{idUtilizador}")]
         public object Get(int idUtilizador)
         {
@@ -32,18 +36,18 @@ namespace Foody.Controllers
             //vai buscar o utilizadore
             return UserService.GetUserId(token, idUtilizador);
         }
-
-        // PUT api/<ClientesController>/5
+        
+        // PUT api/<CompaniesController>/5
         [HttpPut("{idUtilizador}")]
-        public object Put(int idUtilizador, [FromBody] Utilizador clienteUpdate)
+        public object Put(int idUtilizador, [FromBody] User companyUpdate)
         {
             //token do user logado
             string token = Request.Headers["token"][0];
 
-            return UserService.PutUser(token, clienteUpdate, idUtilizador);
+            return UserService.PutUser(token, companyUpdate, idUtilizador);
         }
 
-        // DELETE api/<ClientesController>/5
+        // DELETE api/<CompaniesController>/5
         [HttpDelete("{idUtilizador}")]
         public object Delete(int idUtilizador)
         {
