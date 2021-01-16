@@ -16,57 +16,65 @@ namespace Foody.Controllers
     {
         // GET: api/<EncomendasProdutosController>
         [HttpGet]
-        public EncomendaProduto[] Get()
+        public List<object> Get()
         {
-            // obter dados dos utilizadores na base de dados
-            using (var db = new DbHelper())
+            //token do user logado
+            string token = Request.Headers["token"][0];
+
+            if (UserService.VerifyUserAccess(token, 3))
             {
-                // devolve-os (dados) num array
-                return db.encomendaProduto.ToArray();
+                //obter dados dos utilizadores na base de dados
+                using (var db = new DbHelper())
+                {
+                    List<object> encomendasProdutos = new List<object>();
+                    foreach (var encomendaProduto in db.encomendaProduto.ToArray())
+                    {
+                        encomendasProdutos.Add(encomendaProduto);
+                    }
+                    return encomendasProdutos;
+                }
             }
-
-            //HttpContext.Response.StatusCode = (int)
-
-            //return null;
+            else
+            {
+                List<object> msg = new List<object>() { MessageService.AccessDeniedMessage() };
+                return msg;
+            }
         }
 
         // GET api/<EncomendasProdutosController>/5
         [HttpGet("{idEncomendaProduto}")]
-        public EncomendaProduto Get(int id)
+        public object Get(int idOrderProduct)
         {
-            // obter dados do utilizador na base de dados (por id especifico)
-            using (var db = new DbHelper())
+            //token do user logado
+            string token = Request.Headers["token"][0];
+
+            int[] userLoggedIn = UserService.UserLoggedIn(token);
+
+            if (OrderProductService.VerifyOrderProductAccess(userLoggedIn[0], idOrderProduct))
             {
-                // maneira mais simples
-                return db.encomendaProduto.Find(id);
-
-                // ou: maneira mais complexa
-                /* var encomendaProduto = db.encomendaProduto.ToArray();
-
-                for (int i = 0; i <= encomendaProduto.Length; i++)
+                //obter dados dos utilizadores na base de dados
+                using (var db = new DbHelper())
                 {
-                    if (encomendaProduto[i].idEncomendaProduto == id)
-                    {
-                        return encomendaProduto[i];
-                    }
+                    return db.encomendaProduto.Find(idOrderProduct);
                 }
-
-                return null;  */
+            }
+            else
+            {
+                List<object> msg = new List<object>() { MessageService.AccessDeniedMessage() };
+                return msg;
             }
         }
 
         // POST api/<EncomendasProdutosController>
         [HttpPost]
-        public string Post([FromBody] EncomendaProduto novaEncomendasProduto)
+        public string Post([FromBody] EncomendaProduto newOrderProduct)
         {
-            // verificar se a quantidade de encomendaProduto é maior que 0,
-            // e se idProduto não é recebido nulo ou vazio,
-            if (novaEncomendasProduto.quantidade > 0 && !string.IsNullOrEmpty(novaEncomendasProduto.idProduto.ToString()))
+            if (newOrderProduct.quantidade > 0 && !string.IsNullOrEmpty(newOrderProduct.idProduto.ToString()))
             {
                 // obter dados do utilizador na base de dados (por id especifico)
                 using (var db = new DbHelper())
                 {
-                    db.encomendaProduto.Add(novaEncomendasProduto);
+                    db.encomendaProduto.Add(newOrderProduct);
                     db.SaveChanges();
 
                     return "Criado";

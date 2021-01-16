@@ -98,7 +98,7 @@ namespace Foody.Controllers
             //token do user logado
             string token = Request.Headers["token"][0];
 
-            int[] userLogin = ProductService.VerifyProductAccess(token);
+            int[] userLogin = UserService.UserLoggedIn(token);
             //userLogin[0] = Id
             //userLogin[1] = UserType
 
@@ -108,7 +108,7 @@ namespace Foody.Controllers
             }
             else
             {
-                return null;
+                return MessageService.AccessDeniedMessage();
             }
         }
 

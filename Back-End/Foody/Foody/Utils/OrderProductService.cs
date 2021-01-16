@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace Foody.Utils
 {
-    public class ProductService
+    public class OrderProductService
     {
-        public static object VerifyProduct(int[] userLogin, Produto produto, bool editar)
+        public static object VerifyOrderProduct(int[] userLogin, Produto produto, bool editar)
         {
             if (userLogin != null && userLogin[1] == 2)
             {
                 produto.idUtilizador = userLogin[0];
 
                 //valida os campos de produto
-                if (produto != null && !string.IsNullOrEmpty(produto.nome) && 
+                if (produto != null && !string.IsNullOrEmpty(produto.nome) &&
                     produto.precoUnitario > 0.00)
                 {
                     //lista para guardar o nome de todos os produtos da empresa
@@ -78,5 +78,46 @@ namespace Foody.Utils
             }
         }
 
+        public static bool VerifyOrderProductAccess(int userId, int accessOrderProductId)
+        {
+            try
+            {
+                using (DbHelper db = new DbHelper())
+                {
+                    var orderProduct = db.encomendaProduto.Find(accessOrderProductId);
+
+                    if (orderProduct != null)
+                    {
+                        foreach (var product in db.produto.ToArray())
+                        {
+                            if (product.idProduto == orderProduct.idProduto)
+                            {
+                                if (userId == product.idUtilizador)
+                                {
+                                    return true;
+                                }
+                                else
+                                {
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }

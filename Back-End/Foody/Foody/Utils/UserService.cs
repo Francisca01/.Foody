@@ -290,6 +290,34 @@ namespace Foody.Utils
             }
         }
 
+        public static int[] UserLoggedIn(string token)
+        {
+            try
+            {
+                if (int.TryParse(TokenManager.GetPrincipal(token).Claims.ToArray()[0].Value, out var idUtilizadorLogado) &&
+                int.TryParse(TokenManager.GetPrincipal(token).Claims.ToArray()[1].Value, out var tipoUtilizadorLogado))
+                {
+                    if (tipoUtilizadorLogado == 2)
+                    {
+                        int[] userLogin = { idUtilizadorLogado, tipoUtilizadorLogado };
+                        return userLogin;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         #region Get User
         public static List<object> GetUser(string token, int userType)
         {
@@ -298,10 +326,10 @@ namespace Foody.Utils
 
             if (canAccess)
             {
-                // obter dados dos utilizadores na base de dados
+                //cria a variavel para aceder a base de dados
                 using (DbHelper db = new DbHelper())
                 {
-                    // devolve os dados da base de dados num array
+                    //obter dados dos utilizadores na base de dados num array
                     var utilizadoresDB = db.utilizador.ToArray();
 
                     //array para devolver o resultado
