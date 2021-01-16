@@ -9,14 +9,12 @@ namespace Foody.Utils
 {
     public class ProductService
     {
-        public static object VerifyProduct(int[] userLogin, Produto produto, bool editar)
+        public static object VerifyProduct(int[] userLogin, Produto produto, bool editar, int idProduto)
         {
             if (userLogin != null && userLogin[1] == 2)
             {
-                produto.idUtilizador = userLogin[0];
-
                 //valida os campos de produto
-                if (produto != null && !string.IsNullOrEmpty(produto.nome) && 
+                if (produto != null && !string.IsNullOrEmpty(produto.nome) &&
                     produto.precoUnitario > 0.00)
                 {
                     //lista para guardar o nome de todos os produtos da empresa
@@ -38,14 +36,14 @@ namespace Foody.Utils
                                 j++;
                             }
                         }
+                    }
 
-                        //valida se o nome do produto introduzido já exista na empresa
-                        for (int i = 0; i < nomeProdutos.Count; i++)
+                    //valida se o nome do produto introduzido já exista na empresa
+                    for (int i = 0; i < nomeProdutos.Count; i++)
+                    {
+                        if (nomeProdutos[i] == produto.nome)
                         {
-                            if (nomeProdutos[i] == produto.nome)
-                            {
-                                return MessageService.CustomMessage("O Produto com o nome: " + produto.nome + " já existe na sua empresa!");
-                            }
+                            return MessageService.CustomMessage("O Produto com o nome: " + produto.nome + " já existe na sua empresa!");
                         }
                     }
 
@@ -53,7 +51,14 @@ namespace Foody.Utils
                     {
                         if (editar == true)
                         {
-                            db.produto.Update(produto);
+                            var produtoUpdate = db.produto.Find(idProduto);
+
+                            produtoUpdate.nome = produto.nome;
+                            produtoUpdate.ingredientes = produto.ingredientes;
+                            produtoUpdate.precoUnitario = produto.precoUnitario;
+                            produtoUpdate.categoria = produto.categoria;
+
+                            db.produto.Update(produtoUpdate);
                             db.SaveChanges();
 
                             return MessageService.CustomMessage("Produto Editado!");

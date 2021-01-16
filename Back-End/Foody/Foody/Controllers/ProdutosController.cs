@@ -37,7 +37,7 @@ namespace Foody.Controllers
             }
         }
 
-        [HttpGet("{idEmpresa}")]
+        /* [HttpGet("{idEmpresa}")]
         public List<object> GetCompanyProduct(int idEmpresa)
         {
             //obter dados dos produtos na base de dados
@@ -68,7 +68,7 @@ namespace Foody.Controllers
                     return msg;
                 }
             }
-        }
+        } */
 
         // GET api/<ProdutosController>/5
         [HttpGet("{idProduto}")]
@@ -94,7 +94,7 @@ namespace Foody.Controllers
         // POST api/<ProdutosController>
         [HttpPost]
         public object Post([FromBody] Produto produto)
-        { 
+        {
             //token do user logado
             string token = Request.Headers["token"][0];
 
@@ -104,7 +104,7 @@ namespace Foody.Controllers
 
             if (userLogin != null)
             {
-                return ProductService.VerifyProduct(userLogin, produto, false);
+                return ProductService.VerifyProduct(userLogin, produto, false, -1);
             }
             else
             {
@@ -114,51 +114,51 @@ namespace Foody.Controllers
 
         // PUT api/<ProdutosController>/5
         [HttpPut("{idProduto}")]
-        public string Put(int idEmpresa, [FromBody] Produto editarProduto)
-        {/*
-            using (var db = new DbHelper())
-            {
-                //procura pelo produto na base de dados
-                var produtoDB = db.produto.Find(editarProduto.idProduto);
+        public object Put(int idProduto, [FromBody] Produto editarProduto)
+        {
+                //token do user logado
+                string token = Request.Headers["token"][0];
 
-                if (produtoDB != null)
-                {
-                    if (Post(idEmpresa, editarProduto, true) == "Ok")
-                    {
-                        return "Produto Alterado";
-                    }
-                    else
-                    {
-                        return "Não foi possivel criar o produto";
-                    }
-                }
-                else
-                {
-                    return "Produto não encontrado!";
-                }
-            }*/
-            return null;
+                int[] userLogin = UserService.UserLoggedIn(token);
+                //userLogin[0] = Id
+                //userLogin[1] = UserType
+
+                return ProductService.VerifyProduct(userLogin, editarProduto, true, idProduto);
         }
 
         // DELETE api/<ProdutosController>/5
-        [HttpDelete("{id}")]
-        public string Delete(int idEmpresa, int id)
+        [HttpDelete("{idProduto}")]
+        public object Delete(int idProduto)
         {
             using (var db = new DbHelper())
             {
-                //procura pelo produto na base de dados
-                var produtosDB = db.produto.Find(id);
+                //token do user logado
+                string token = Request.Headers["token"][0];
 
-                if (produtosDB != null && produtosDB.idUtilizador == idEmpresa)
+                int[] userLogin = UserService.UserLoggedIn(token);
+                //userLogin[0] = Id
+                //userLogin[1] = UserType
+
+                if (userLogin != null)
                 {
-                    db.produto.Remove(produtosDB);
-                    db.SaveChanges();
+                    //procura pelo produto na base de dados
+                    var produtosDB = db.produto.Find(idProduto);
 
-                    return "Eliminado!";
+                    if (produtosDB != null && produtosDB.idUtilizador == userLogin[0])
+                    {
+                        db.produto.Remove(produtosDB);
+                        db.SaveChanges();
+
+                        return MessageService.CustomMessage("Eliminado!");
+                    }
+                    else
+                    {
+                        return MessageService.WithoutResultsMessage();
+                    }
                 }
                 else
                 {
-                    return "O produto com o id: " + id + " não foi encontrado!";
+                    return MessageService.AccessDeniedMessage();
                 }
             }
         }
