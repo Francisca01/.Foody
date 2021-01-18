@@ -27,34 +27,34 @@ namespace Foody.Controllers
         }
 
         // GET api/<CompaniesController>/5
-        [HttpGet("{idUtilizador}")]
-        public object Get(int idUtilizador)
+        [HttpGet("{idUser}")]
+        public object Get(int idUser)
         {
             //token do user logado
             string token = Request.Headers["token"][0];
 
             //vai buscar o utilizadore
-            return UserService.GetUserId(token, idUtilizador);
+            return UserService.GetUserId(token, idUser);
         }
         
         // PUT api/<CompaniesController>/5
-        [HttpPut("{idUtilizador}")]
-        public object Put(int idUtilizador, [FromBody] User companyUpdate)
+        [HttpPut("{idUser}")]
+        public object Put(int idUser, [FromBody] User companyUpdate)
         {
             //token do user logado
             string token = Request.Headers["token"][0];
 
-            return UserService.PutUser(token, companyUpdate, idUtilizador);
+            return UserService.PutUser(token, companyUpdate, idUser);
         }
 
         // DELETE api/<CompaniesController>/5
-        [HttpDelete("{idUtilizador}")]
-        public object Delete(int idUtilizador)
+        [HttpDelete("{idUser}")]
+        public object Delete(int idUser)
         {
             //token do user logado
             string token = Request.Headers["token"][0];
 
-            return UserService.DeleteUser(token, idUtilizador);
+            return UserService.DeleteUser(token, idUser);
         }
     }
 }

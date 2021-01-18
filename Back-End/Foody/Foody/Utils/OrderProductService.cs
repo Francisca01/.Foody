@@ -9,115 +9,54 @@ namespace Foody.Utils
 {
     public class OrderProductService
     {
-        public static object VerifyOrderProduct(int[] userLogin, Product product, bool editar)
+        public static Message VerifyOrderProduct(OrderProduct orderProduct, bool edit, DbHelper db)
         {
-            if (userLogin != null && userLogin[1] == 2)
+            //verifica se o produto que esta a tentar adicionar a order já existe
+            var orderProductDB = db.orderProduct.Find(orderProduct.idOrder, orderProduct.idProduct);
+
+            //valida os campos de product
+            if (orderProduct != null)
             {
-                product.idUtilizador = userLogin[0];
-
-                //valida os campos de product
-                if (product != null && !string.IsNullOrEmpty(product.nome) &&
-                    product.precoUnitario > 0.00)
+                if (orderProduct.quantity > 0)
                 {
-                    //lista para guardar o nome de todos os produtos da empresa
-                    List<string> nomeProdutos = new List<string>();
-
-                    int j = 0;
-
-                    using (var db = new DbHelper())
+                    if (edit)
                     {
-                        //array de produtos da base de dados
-                        var produtos = db.product.ToArray();
-
-                        //criação do array dos produtos da empresa
-                        for (int i = 0; i < produtos.Length; i++)
-                        {
-                            if (produtos[i].idUtilizador == userLogin[0])
-                            {
-                                nomeProdutos.Add(produtos[i].nome);
-                                j++;
-                            }
-                        }
-
-                        //valida se o nome do product introduzido já exista na empresa
-                        for (int i = 0; i < nomeProdutos.Count; i++)
-                        {
-                            if (nomeProdutos[i] == product.nome)
-                            {
-                                return MessageService.Custom("O Product com o nome: " + product.nome + " já existe na sua empresa!");
-                            }
-                        }
+                        return Edit(orderProductDB, db, orderProduct);
                     }
-
-                    using (var db = new DbHelper())
+                    else
                     {
-                        if (editar == true)
+                        if (db.orderProduct.Find(orderProduct.idOrder, orderProduct.idProduct) != null)
                         {
-                            db.product.Update(product);
-                            db.SaveChanges();
-
-                            return MessageService.Custom("Product Editado!");
+                            return Edit(orderProductDB, db, orderProduct);
                         }
                         else
                         {
-                            db.product.Add(product);
+                            db.orderProduct.Add(orderProduct);
                             db.SaveChanges();
-
-                            return MessageService.Custom("Product Criado!");
                         }
+
+                        return MessageService.Custom("Encomenda Criada");
                     }
+
                 }
                 else
                 {
-                    return MessageService.Custom("Os campos obrigatórios não foram preenchidos ou são inválidos");
+                    return MessageService.Custom("Complete todos os campos!");
                 }
             }
             else
             {
-                return MessageService.AccessDenied();
+                return MessageService.Custom("Complete todos os campos!");
             }
         }
-
-        public static bool VerifyOrderProductAccess(int userId, int accessOrderProductId)
+        public static Message Edit(OrderProduct orderProductDB, DbHelper db, OrderProduct orderProduct)
         {
-            try
-            {
-                using (DbHelper db = new DbHelper())
-                {
-                    var orderProduct = db.orderProduct.Find(accessOrderProductId);
+            orderProductDB.quantity = orderProduct.quantity;
 
-                    if (orderProduct != null)
-                    {
-                        foreach (var product in db.product.ToArray())
-                        {
-                            if (product.idProduto == orderProduct.idProduto)
-                            {
-                                if (userId == product.idUtilizador)
-                                {
-                                    return true;
-                                }
-                                else
-                                {
-                                    return false;
-                                }
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                return false;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            db.orderProduct.Update(orderProductDB);
+            db.SaveChanges();
+
+            return MessageService.Custom("Encomenda Criada");
         }
     }
 }

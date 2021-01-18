@@ -31,14 +31,14 @@ namespace Foody.Controllers
         }
 
         // GET api/<DeliveriesController>/5
-        [HttpGet("{idEntrega}")]
-        public Delivery Get(int id)
+        [HttpGet("{idDelivery}")]
+        public Delivery Get(int idDelivery)
         {
             // obter dados do utilizador na base de dados (por id especifico)
             using (var db = new DbHelper())
             {
                 // maneira mais simples
-                return db.delivery.Find(id);
+                return db.delivery.Find(idDelivery);
 
                 // ou: maneira mais complexa
                 /* var entregasDB = db.delivery.ToArray();
@@ -46,7 +46,7 @@ namespace Foody.Controllers
                 for (int i = 0; i <= entregasDB.Length; i++)
                 {
 
-                    if (entregasDB[i].idEntrega == id)
+                    if (entregasDB[i].idDelivery == id)
                     {
                         return entregasDB[i];
                     }
@@ -58,11 +58,11 @@ namespace Foody.Controllers
 
         // POST api/<DeliveriesController>
         [HttpPost]
-        public string Post([FromBody] Delivery novaEntrega)
+        public string Post([FromBody] Delivery newDelivery)
         {
             // verificar se valores da nova delivery são nulos,
             // e se 
-            if (novaEntrega != null && !string.IsNullOrEmpty(novaEntrega.Estado))
+            if (newDelivery != null && !string.IsNullOrEmpty(newDelivery.state))
             {
                 // obter dados do utilizador na base de dados (por id especifico)
                 using (var db = new DbHelper())
@@ -73,14 +73,14 @@ namespace Foody.Controllers
                     // verifica se id de delivery já existe na BD
                     for (int i = 0; i < entregasDB.Length; i++)
                     {
-                        if (novaEntrega.idEntrega == entregasDB[i].idEntrega)
+                        if (newDelivery.idDelivery == entregasDB[i].idDelivery)
                         {
                             return "Já existe";
                         }
                     }
 
                     // se não existir, adiciona um novo delivery
-                    db.delivery.Add(novaEntrega);
+                    db.delivery.Add(newDelivery);
                     db.SaveChanges();
 
                     return "Criado";
@@ -93,27 +93,27 @@ namespace Foody.Controllers
         }
 
         // PUT api/<DeliveriesController>/5
-        [HttpPut("{idEntrega}")]
-        public void Put(int idUtilizador, [FromBody] Delivery entregaUpdate)
+        [HttpPut("{idDelivery}")]
+        public void Put(int idUser, [FromBody] Delivery deliveryUpdate)
         {
             // verificar se utilizado logado é delivery
-            if (entregaUpdate != null && entregaUpdate.idEntrega == idUtilizador)
+            if (deliveryUpdate != null && deliveryUpdate.idDelivery == idUser)
             {
                 // obter dados do utilizador na base de dados (por id especifico)
                 using (var db = new DbHelper())
                 {
-                    var entregasDB = db.delivery.Find(entregaUpdate.idEntrega);
+                    var entregasDB = db.delivery.Find(deliveryUpdate.idDelivery);
 
                     // se delivery não existir, criar novo
                     if (entregasDB == null)
                     {
 
-                        Post(entregaUpdate);
+                        Post(deliveryUpdate);
                     }
                     // se delivery existir, atualizar dados
                     else
                     {
-                        entregasDB.idEntrega = entregaUpdate.idEntrega;
+                        entregasDB.idDelivery = deliveryUpdate.idDelivery;
 
                         db.delivery.Update(entregasDB);
                         db.SaveChanges();
@@ -130,12 +130,12 @@ namespace Foody.Controllers
 
         /*
         // DELETE api/<DeliveriesController>/5
-        [HttpDelete("{idEntrega}")]
-        public string Delete(int idEntrega)
+        [HttpDelete("{idDelivery}")]
+        public string Delete(int idDelivery)
         {
             using (var db = new DbHelper())
             {
-                var entregasDB = db.delivery.Find(idEntrega);
+                var entregasDB = db.delivery.Find(idDelivery);
 
                 if (entregasDB != null)
                 {
@@ -146,7 +146,7 @@ namespace Foody.Controllers
                 }
                 else
                 {
-                    return "A delivery com o id: " + idEntrega + " não foi encontrada";
+                    return "A delivery com o id: " + idDelivery + " não foi encontrada";
                 }
             }
         }*/

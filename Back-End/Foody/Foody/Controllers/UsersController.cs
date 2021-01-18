@@ -29,8 +29,8 @@ namespace Foody.Controllers
         }
 
         // GET api/<UsersController>/5
-        [HttpGet("{idUtilizador}")]
-        public User Get(int idUtilizador)
+        [HttpGet("{idUser}")]
+        public User Get(int idUser)
         {
 
             using (var db = new DbHelper())
@@ -40,7 +40,7 @@ namespace Foody.Controllers
                 for (int i = 0; i <= user.Length; i++)
                 {
 
-                    if (user[i].idUtilizador == idUtilizador)
+                    if (user[i].idUser == idUser)
                     {
                         return user[i];
                     }
@@ -53,18 +53,18 @@ namespace Foody.Controllers
         //ou
 
         /*
-         public User Get(int idUtilizador)
+         public User Get(int idUser)
         {
             using (var db = new DbHelper())
             {
-                return db.user.Find(idUtilizador);
+                return db.user.Find(idUser);
             }
         }
          */
 
         // POST api/<UsersController>
         [HttpPost]
-        public string Post([FromBody] User novoUtilizador)
+        public string Post([FromBody] User newUser)
         {
             using (var db = new DbHelper())
             {
@@ -73,13 +73,13 @@ namespace Foody.Controllers
                 for (int i = 0; i < user.Length; i++)
                 {
 
-                    if (novoUtilizador.idUtilizador == user[i].idUtilizador)
+                    if (newUser.idUser == user[i].idUser)
                     {
                         return "Já existe";
                     }
                 }
 
-                db.user.Add(novoUtilizador);
+                db.user.Add(newUser);
                 db.SaveChanges();
 
                 return "Criado";
@@ -101,34 +101,34 @@ namespace Foody.Controllers
          */
 
         // PUT api/<UsersController>/5
-        [HttpPut("{idUtilizador}")]
-        public void Put(int idUtilizador, [FromBody] User utilizadorUpdate)
+        [HttpPut("{idUser}")]
+        public void Put(int idUser, [FromBody] User userUpdate)
         {
             using (var db = new DbHelper())
             {
-                var utilizadorDB = db.user.Find(idUtilizador);
+                var utilizadorDB = db.user.Find(idUser);
 
                 if (utilizadorDB == null)
                 {
-                    Post(utilizadorUpdate);
+                    Post(userUpdate);
                 }
                 else
                 {
-                    utilizadorDB.idUtilizador = idUtilizador;
+                    utilizadorDB.idUser = idUser;
 
-                    if (utilizadorUpdate.email != null)
+                    if (userUpdate.email != null)
                     {
-                        utilizadorDB.email = utilizadorUpdate.email;
+                        utilizadorDB.email = userUpdate.email;
                     }
 
-                    if (utilizadorUpdate.nome != null)
+                    if (userUpdate.name != null)
                     {
-                        utilizadorDB.nome = utilizadorUpdate.nome;
+                        utilizadorDB.name = userUpdate.name;
                     }
 
-                    if (utilizadorUpdate.password != null)
+                    if (userUpdate.password != null)
                     {
-                        utilizadorDB.password = utilizadorUpdate.password;
+                        utilizadorDB.password = userUpdate.password;
                     }
 
                     db.user.Update(utilizadorDB);
@@ -138,12 +138,12 @@ namespace Foody.Controllers
         }
 
         // DELETE api/<UsersController>/5
-        [HttpDelete("{idUtilizador}")]
-        public string Delete(int idUtilizador)
+        [HttpDelete("{idUser}")]
+        public string Delete(int idUser)
         {
             using (var db = new DbHelper())
             {
-                var utilizadorDB = db.user.Find(idUtilizador);
+                var utilizadorDB = db.user.Find(idUser);
 
                 if (utilizadorDB != null)
                 {
@@ -154,7 +154,7 @@ namespace Foody.Controllers
                 }
                 else
                 {
-                    return "O User com o idUtilizador: " + idUtilizador + " não foi encontrado";
+                    return "O User com o idUser: " + idUser + " não foi encontrado";
                 }
             }
         }

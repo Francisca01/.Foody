@@ -16,7 +16,7 @@ namespace Foody.Utils
             var userDB = db.user.ToArray();
             int j = 0;
 
-            //valores aceites para o nome
+            //valores aceites para o name
             var regexNome = new Regex("^[a-zA-Z ]*$");
 
             //valida a password
@@ -42,7 +42,7 @@ namespace Foody.Utils
             try
             {
                 //validação de campos do user geral
-                if (newUser != null && regexNome.IsMatch(newUser.nome) &&
+                if (newUser != null && regexNome.IsMatch(newUser.name) &&
                     numero.IsMatch(newUser.password) && letraMaiuscula.IsMatch(newUser.password) &&
                     tamanho.IsMatch(newUser.password))
                 {
@@ -51,7 +51,7 @@ namespace Foody.Utils
                     {
                         if (newUser.email == userDB[i].email)
                         {
-                            return MessageService.Custom("O user com o email: " 
+                            return MessageService.Custom("O user com o email: "
                                 + newUser.email + " já está associado").text;
                         }
                     }
@@ -59,13 +59,13 @@ namespace Foody.Utils
                     //verifica se o número de telemóvel já está associado
                     for (int i = 0; i < userDB.Length; i++)
                     {
-                        if (newUser.telemovel == userDB[i].telemovel)
+                        if (newUser.phone == userDB[i].phone)
                         {
                             //se o user for uma empresa, não pode associar mais do que um número
-                            if (newUser.tipoUtilizador == 2)
+                            if (newUser.userType == 2)
                             {
                                 return MessageService.Custom("A Empresa com o número de telemóvel: "
-                                    + newUser.telemovel + " já está associado").text;
+                                    + newUser.phone + " já está associado").text;
                             }
 
                             j++;
@@ -73,8 +73,8 @@ namespace Foody.Utils
                             //verifica se o telemóvel ja está atribuido a mais do que 2 utilizadores
                             if (j > 1)
                             {
-                                return MessageService.Custom("O User com o telemóvel: " 
-                                    + newUser.telemovel + " já está associado").text;
+                                return MessageService.Custom("O User com o telemóvel: "
+                                    + newUser.phone + " já está associado").text;
                             }
                         }
                     }
@@ -87,13 +87,13 @@ namespace Foody.Utils
                         newUser.password = HashPassword.GetHash(sha256Hash, newUser.password);
                     }
 
-                    //cria morada
-                    if (newUser.telemovel.ToString().Length >= 9)
+                    //cria address
+                    if (newUser.phone.ToString().Length >= 9)
                     {
                         //valida se o número de tlm está atribuido a mais de 2 contas
                         for (int i = 0; i < userDB.Length; i++)
                         {
-                            if (userDB[i].telemovel == newUser.telemovel)
+                            if (userDB[i].phone == newUser.phone)
                             {
                                 j++;
                                 if (j == 2)
@@ -104,19 +104,19 @@ namespace Foody.Utils
                         }
 
                         //se de alguma forma criarem outro tipo de user diferente dos possiveis ele é automaticamente tornado em cliente
-                        if (newUser.tipoUtilizador > 2 || newUser.tipoUtilizador < 0)
+                        if (newUser.userType > 2 || newUser.userType < 0)
                         {
-                            newUser.tipoUtilizador = 0;
+                            newUser.userType = 0;
                         }
 
                         //verifica se o user é empresa
-                        if (newUser.tipoUtilizador == 2)
+                        if (newUser.userType == 2)
                         {
                             //verifica o tamanho do nif
                             if (newUser.nif.Length == 9 &&  //empresa tem de ter nif
-                                string.IsNullOrEmpty(newUser.tipoVeiculo) && //empresa nao tem tipoVeiculo
-                                string.IsNullOrEmpty(newUser.numeroCartaConducao) && //empresa nao tem numeroCartaConducao
-                                string.IsNullOrEmpty(newUser.dataNascimento)) //empresa nao tem dataNascimento
+                                string.IsNullOrEmpty(newUser.vehicleType) && //empresa nao tem vehicleType
+                                string.IsNullOrEmpty(newUser.drivingLicense) && //empresa nao tem drivingLicense
+                                string.IsNullOrEmpty(newUser.birthDate)) //empresa nao tem birthDate
                             {
                                 return CreateUpdate(newUser, edit);
                             }
@@ -127,14 +127,14 @@ namespace Foody.Utils
                         }
 
                         //verifica se o user é condutor
-                        else if (newUser.tipoUtilizador == 1)
+                        else if (newUser.userType == 1)
                         {
-                            if (!string.IsNullOrEmpty(newUser.tipoVeiculo) && //condutor tem de ter tipoVeiculo
-                                !string.IsNullOrEmpty(newUser.numeroCartaConducao) && //condutor tem de ter numeroCartaConducao
-                                !string.IsNullOrEmpty(newUser.dataNascimento) && //condutor tem de ter dataNascimento
-                                                                                        //condutor nao tem nif
+                            if (!string.IsNullOrEmpty(newUser.vehicleType) && //condutor tem de ter vehicleType
+                                !string.IsNullOrEmpty(newUser.drivingLicense) && //condutor tem de ter drivingLicense
+                                !string.IsNullOrEmpty(newUser.birthDate) && //condutor tem de ter birthDate
+                                                                                 //condutor nao tem nif
                                 newUser.nif.Length == 1 &&
-                                newUser.numeroCartaConducao.Length >= 11) //condutor tem de ter carta de condução com pelo menos
+                                newUser.drivingLicense.Length >= 11) //condutor tem de ter carta de condução com pelo menos
                             {                                                    //11 caracteres
                                 return CreateUpdate(newUser, edit);
                             }
@@ -148,9 +148,9 @@ namespace Foody.Utils
                         //caso o user não seja nehuma das entidades a cima então é considerada user
                         else
                         {
-                            if (string.IsNullOrEmpty(newUser.tipoVeiculo) && //cliente não tem tipoVeiculo
-                                string.IsNullOrEmpty(newUser.numeroCartaConducao) && //cliente não tem numeroCartaConducao
-                                !string.IsNullOrEmpty(newUser.dataNascimento)) //cliente tem de ter dataNascimento
+                            if (string.IsNullOrEmpty(newUser.vehicleType) && //cliente não tem vehicleType
+                                string.IsNullOrEmpty(newUser.drivingLicense) && //cliente não tem drivingLicense
+                                !string.IsNullOrEmpty(newUser.birthDate)) //cliente tem de ter birthDate
                             {
                                 return CreateUpdate(newUser, edit);
 
@@ -191,13 +191,13 @@ namespace Foody.Utils
 
                     //verifica o tipo de user:
                     //verifica se é Empresa
-                    if (newUser.tipoUtilizador == 2)
+                    if (newUser.userType == 2)
                     {
                         return "Empresa criada!";
                     }
 
                     //verifica se é Condutor
-                    else if (newUser.tipoUtilizador == 1)
+                    else if (newUser.userType == 1)
                     {
                         return "Condutor criado!";
                     }
@@ -211,31 +211,31 @@ namespace Foody.Utils
                 else //caso contrário edita o user
                 {
                     //se os campos já exisitirem, irá edit user (procura pelo id de user)
-                    var userDB = db.user.Find(newUser.idUtilizador);
+                    var userDB = db.user.Find(newUser.idUser);
 
                     if (userDB != null)
                     {
-                        userDB.dataNascimento = newUser.dataNascimento;
+                        userDB.birthDate = newUser.birthDate;
                         userDB.email = newUser.email;
-                        userDB.morada = newUser.morada;
+                        userDB.address = newUser.address;
                         userDB.nif = newUser.nif;
-                        userDB.nome = newUser.nome;
-                        userDB.numeroCartaConducao = newUser.numeroCartaConducao;
+                        userDB.name = newUser.name;
+                        userDB.drivingLicense = newUser.drivingLicense;
                         userDB.password = newUser.password;
-                        userDB.telemovel = newUser.telemovel;
-                        userDB.tipoVeiculo = newUser.tipoVeiculo;
+                        userDB.phone = newUser.phone;
+                        userDB.vehicleType = newUser.vehicleType;
 
                         db.user.Update(userDB);
                         db.SaveChanges();
 
                         //verifica o tipo de user:
                         //verifica se é Empresa
-                        if (newUser.tipoUtilizador == 2)
+                        if (newUser.userType == 2)
                         {
                             return "Empresa editada!";
                         }
                         //verifica se é Condutor
-                        else if (newUser.tipoUtilizador == 1)
+                        else if (newUser.userType == 1)
                         {
                             return "Condutor editado!";
                         }
@@ -267,11 +267,11 @@ namespace Foody.Utils
                     {
                         return true;
                     }
-                    else if (user.tipoUtilizador == 2 && tipoUtilizadorLogado == 3)
+                    else if (user.userType == 2 && tipoUtilizadorLogado == 3)
                     {
                         return true;
                     }
-                    else if (user.tipoUtilizador == 1 && tipoUtilizadorLogado == 3)
+                    else if (user.userType == 1 && tipoUtilizadorLogado == 3)
                     {
                         return true;
                     }
@@ -298,15 +298,8 @@ namespace Foody.Utils
                 if (int.TryParse(TokenManager.GetPrincipal(token).Claims.ToArray()[0].Value, out var idUtilizadorLogado) &&
                 int.TryParse(TokenManager.GetPrincipal(token).Claims.ToArray()[1].Value, out var tipoUtilizadorLogado))
                 {
-                    if (tipoUtilizadorLogado == 2)
-                    {
-                        int[] userLogin = { idUtilizadorLogado, tipoUtilizadorLogado };
-                        return userLogin;
-                    }
-                    else
-                    {
-                        return null;
-                    }
+                    int[] userLogin = { idUtilizadorLogado, tipoUtilizadorLogado };
+                    return userLogin;
                 }
                 else
                 {
@@ -337,7 +330,7 @@ namespace Foody.Utils
                     //incrementador
                     for (int i = 0; i < utilizadoresDB.Length; i++)
                     {
-                        if (utilizadoresDB[i].tipoUtilizador == userType)//verifica se o user é cliente
+                        if (utilizadoresDB[i].userType == userType)//verifica se o user é cliente
                         {
                             clientes.Add(utilizadoresDB[i]);
                         }
@@ -359,18 +352,18 @@ namespace Foody.Utils
         #endregion
 
         #region Get User Id
-        public static object GetUserId(string token, int idUtilizador)
+        public static object GetUserId(string token, int idUser)
         {
             //verifica se user com a Sessão iniciada pode aceder
-            if (VerifyUserAccess(token, idUtilizador))
+            if (VerifyUserAccess(token, idUser))
             {
                 // obter dados do user na base de dados (por id especifico)
                 using (DbHelper db = new DbHelper())
                 {
-                    var userDB = db.user.Find(idUtilizador);
+                    var userDB = db.user.Find(idUser);
 
                     //verifica se o user com o id existe
-                    if (db.user.Find(idUtilizador) != null)
+                    if (db.user.Find(idUser) != null)
                     {
                         return userDB;
                     }
@@ -427,15 +420,15 @@ namespace Foody.Utils
         #endregion
 
         #region Delete User
-        public static object DeleteUser(string token, int idUtilizador)
+        public static object DeleteUser(string token, int idUser)
         {
             //verifica se user com a Sessão iniciada pode aceder
-            if (VerifyUserAccess(token, idUtilizador))
+            if (VerifyUserAccess(token, idUser))
             {
                 //obter dados do user na base de dados (por id especifico)
                 using (DbHelper db = new DbHelper())
                 {
-                    var userDB = db.user.Find(idUtilizador);
+                    var userDB = db.user.Find(idUser);
 
                     //verifica se o user com o id existe
                     if (userDB != null)

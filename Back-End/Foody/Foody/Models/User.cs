@@ -10,20 +10,20 @@ namespace Foody.Models
     public class User
     {
         [Key]
-        public int idUtilizador { get; set; }
-        public string morada { get; set; }
-        public int telemovel { get; set; }
-        public int tipoUtilizador { get; set; }
+        public int idUser { get; set; }
+        public string address { get; set; }
+        public int phone { get; set; }
+        public int userType { get; set; }
         // 0 - cliente 
         // 1 - condutor 
         // 2 - empresa
-        public string tipoVeiculo { get; set; }
+        public string vehicleType { get; set; }
         public string nif { get; set; }
-        public string numeroCartaConducao { get; set; }
-        public string nome { get; set; }
+        public string drivingLicense { get; set; }
+        public string name { get; set; }
         public string email { get; set; }
         public string password { get; set; }
-        public string dataNascimento { get; set; }
+        public string birthDate { get; set; }
 
         public User()
         {

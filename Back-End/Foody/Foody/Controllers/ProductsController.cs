@@ -37,7 +37,7 @@ namespace Foody.Controllers
             }
         }
 
-        [HttpGet("empresa/{idEmpresa}")]
+        [HttpGet("company/{idEmpresa}")]
         public List<object> GetCompanyProduct(int idEmpresa)
         {
             //obter dados dos produtos na base de dados
@@ -53,7 +53,7 @@ namespace Foody.Controllers
                 {
                     for (int i = 0; i < produtosDB.Length; i++)
                     {
-                        if (produtosDB[i].idUtilizador == idEmpresa)
+                        if (produtosDB[i].idCompany == idEmpresa)
                         {
                             products.Add(produtosDB[i]);
                         }
@@ -104,7 +104,14 @@ namespace Foody.Controllers
 
             if (userLogin != null)
             {
-                return ProductService.VerifyProduct(userLogin, product, false, -1);
+                if (userLogin[1] == 2)
+                {
+                    return ProductService.VerifyProduct(userLogin, product, false, -1);
+                }
+                else
+                {
+                    return MessageService.AccessDenied();
+                }
             }
             else
             {
@@ -144,7 +151,7 @@ namespace Foody.Controllers
                     //procura pelo product na base de dados
                     var produtosDB = db.product.Find(idProduto);
 
-                    if (produtosDB != null && produtosDB.idUtilizador == userLogin[0])
+                    if (produtosDB != null && produtosDB.idCompany == userLogin[0])
                     {
                         db.product.Remove(produtosDB);
                         db.SaveChanges();

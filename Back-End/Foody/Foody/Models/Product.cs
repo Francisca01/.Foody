@@ -12,13 +12,12 @@ namespace Foody.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int idProduto{ get; set; }
-        [Key]
-        public int idUtilizador { get; set; }
-        public string nome { get; set; }
-        public float precoUnitario { get; set; }
-        public string ingredientes { get; set; }
-        public int categoria { get; set; }
+        public int idProduct { get; set; }
+        public int idCompany { get; set; }
+        public string name { get; set; }
+        public float unitPrice { get; set; }
+        public string ingredients { get; set; }
+        public int category { get; set; }
 
         public Product()
         {

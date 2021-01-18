@@ -9,16 +9,16 @@ namespace Foody.Utils
 {
     public class ProductService
     {
-        public static object VerifyProduct(int[] userLogin, Product product, bool editar, int idProduto)
+        public static object VerifyProduct(int[] userLogin, Product product, bool edit, int idProduto)
         {
             if (userLogin != null && userLogin[1] == 2)
             {
                 //valida os campos de product
-                if (product != null && !string.IsNullOrEmpty(product.nome) &&
-                    product.precoUnitario > 0.00)
+                if (product != null && !string.IsNullOrEmpty(product.name) &&
+                    product.unitPrice > 0.00)
                 {
-                    //lista para guardar o nome de todos os produtos da empresa
-                    List<string> nomeProdutos = new List<string>();
+                    //lista para guardar o name de todos os produtos da empresa
+                    List<string> productsName = new List<string>();
 
                     using (var db = new DbHelper())
                     {
@@ -28,40 +28,42 @@ namespace Foody.Utils
                         //criação do array dos produtos da empresa
                         for (int i = 0; i < produtos.Length; i++)
                         {
-                            if (produtos[i].idUtilizador == userLogin[0])
+                            if (produtos[i].idCompany == userLogin[0])
                             {
-                                nomeProdutos.Add(produtos[i].nome);
+                                productsName.Add(produtos[i].name);
                             }
                         }
                     }
 
-                    //valida se o nome do product introduzido já exista na empresa
-                    for (int i = 0; i < nomeProdutos.Count; i++)
+                    //valida se o name do product introduzido já exista na empresa
+                    for (int i = 0; i < productsName.Count; i++)
                     {
-                        if (nomeProdutos[i] == product.nome)
+                        if (productsName[i] == product.name)
                         {
-                            return MessageService.Custom("O Product com o nome: " + product.nome + " já existe na sua empresa!");
+                            return MessageService.Custom("O Product com o name: " + product.name + " já existe na sua empresa!");
                         }
                     }
 
                     using (var db = new DbHelper())
                     {
-                        if (editar == true)
+                        if (edit == true)
                         {
-                            var produtoUpdate = db.product.Find(idProduto);
+                            var productUpdate = db.product.Find(idProduto);
 
-                            produtoUpdate.nome = product.nome;
-                            produtoUpdate.ingredientes = product.ingredientes;
-                            produtoUpdate.precoUnitario = product.precoUnitario;
-                            produtoUpdate.categoria = product.categoria;
+                            productUpdate.name = product.name;
+                            productUpdate.ingredients = product.ingredients;
+                            productUpdate.unitPrice = product.unitPrice;
+                            productUpdate.category = product.category;
 
-                            db.product.Update(produtoUpdate);
+                            db.product.Update(productUpdate);
                             db.SaveChanges();
 
                             return MessageService.Custom("Product Editado!");
                         }
                         else
                         {
+                            product.idCompany = userLogin[0];
+
                             db.product.Add(product);
                             db.SaveChanges();
 

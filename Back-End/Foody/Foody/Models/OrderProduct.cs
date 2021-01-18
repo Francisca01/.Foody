@@ -10,10 +10,10 @@ namespace Foody.Models
     public class OrderProduct
     {
         [Key]
-        public int idEncomendaProduto{ get; set; }
+        public int idOrder{ get; set; }
         [Key]
-        public int idProduto { get; set; }
-        public int quantidade { get; set; }
+        public int idProduct { get; set; }
+        public int quantity { get; set; }
 
         public OrderProduct()
         {

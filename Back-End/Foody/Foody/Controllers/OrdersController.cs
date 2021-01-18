@@ -14,130 +14,108 @@ namespace Foody.Controllers
     //[ApiController]
     public class OrdersController : ControllerBase
     {
-        // GET: api/<OrdersController>
-        [HttpGet]
-        public Order[] Get()
+        // GET api/<OrdersController>/5
+        [HttpGet("myOrders")]
+        public List<object> GetUserOrders()
         {
-            // obter dados dos utilizadores na base de dados
-            using (var db = new DbHelper())
+            //token do user logado
+            string token = Request.Headers["token"][0];
+
+            int[] userLoggedIn = UserService.UserLoggedIn(token);
+
+            //verifica se o utilizador tem alguma Encomenda
+            // o valor -1 deixa o utilizador passar para ver as suas orders
+            if (OrderService.VerifyOrderAccess(userLoggedIn[0], -1))
             {
-                // devolve-os (dados) num array
-                return db.order.ToArray();
+                return OrderService.GetOrdersUserId(userLoggedIn[0]);
+            }
+            else
+            {
+                List<object> msg = new List<object>() { MessageService.WithoutResults() };
+                return msg;
             }
         }
 
         // GET api/<OrdersController>/5
-        [HttpGet("{idEncomenda}")]
-        public Order Get(int id)
+        [HttpGet("{idOrder}")]
+        public object Get(int idOrder)
         {
-            // obter dados do utilizador na base de dados (por id especifico)
-            using (var db = new DbHelper())
+            //token do user logado
+            string token = Request.Headers["token"][0];
+
+            int[] userLoggedIn = UserService.UserLoggedIn(token);
+
+            //verifica se o utilizador tem alguma Encomenda
+            if (OrderService.VerifyOrderAccess(userLoggedIn[0], idOrder))
             {
-                // maneira mais simples
-                return db.order.Find(id);
-
-                // maneira mais complesa 
-                /*  var encomendasDB = db.order.ToArray();
-
-                for (int i = 0; i <= encomendasDB.Length; i++)
-                {
-                    if (encomendasDB[i].idEncomenda == id)
-                    {
-                        return encomendasDB[i];
-                    }
-                }
-
-                return null;  */
+                return OrderService.GetOrderId(idOrder);
+            }
+            else
+            {
+                return MessageService.AccessDenied();
             }
         }
 
         // POST api/<OrdersController>
         [HttpPost]
-        public string Post([FromBody] Order novaEncomenda)
+        public Message Post([FromBody] OrderProduct newOrderProduct)
         {
-            if (novaEncomenda != null)
-            {
-                // obter dados do utilizador na base de dados (por id especifico)
-                using (var db = new DbHelper())
-                {
-                    // converte-os (dados) num array
-                    var encomendasDB = db.order.ToArray();
+            //token do user com a sessão iniciada
+            string token = Request.Headers["token"][0];
 
-                    // verifica se id de order já existe na BD
-                    for (int i = 0; i < encomendasDB.Length; i++)
-                    {
-                        if (novaEncomenda.idEncomenda == encomendasDB[i].idEncomenda)
-                        {
-                            return "Já existe";
-                        }
-                    }
+            int[] userLoggedIn = UserService.UserLoggedIn(token);
 
-                    // se não existir, adiciona um novo order
-                    db.order.Add(novaEncomenda);
-                    db.SaveChanges();
+            return OrderService.VerifyOrder(userLoggedIn, newOrderProduct, false, -1, -1);
+        }
 
-                    return "Criado";
-                }
-            }
-            else
-            {
-                return "Não foi recebido qualquer tipo de dados!";
-            }
+        // POST api/<OrdersController>
+        [HttpPost("{idOrder}")]
+        public Message PostAddOrder(int idOrder, [FromBody] OrderProduct newOrderProduct)
+        {
+            //adiciona o product a order atual
+            newOrderProduct.idOrder = idOrder;
+
+            //token do user com a sessão iniciada
+            string token = Request.Headers["token"][0];
+
+            int[] userLoggedIn = UserService.UserLoggedIn(token);
+
+            return OrderService.VerifyOrder(userLoggedIn, newOrderProduct, false, -1, -1);
         }
 
         // PUT api/<OrdersController>/5
-        [HttpPut("{idEncomenda}")]
-        public void Put(int idEncomenda, [FromBody] Order encomendaUpdate)
+        [HttpPut("{idOrder}/{idProduct}")]
+        public Message Put(int idOrder, int idProduct, [FromBody] OrderProduct orderProductUpdate)
         {
-            // verificar se order não está nula 
-            if (encomendaUpdate != null && encomendaUpdate.idEncomenda == idEncomenda)
-            {
-                // obter dados do utilizador na base de dados (por id especifico)
-                using (var db = new DbHelper())
-                {
-                    var encomendasDB = db.order.Find(idEncomenda);
+            //token do user com a sessão iniciada
+            string token = Request.Headers["token"][0];
 
-                    // se order não existir, criar nova
-                    if (encomendasDB == null)
-                    {
-                        Post(encomendaUpdate);
-                    }
-                    // se order existir, atualizar dados
-                    else
-                    {
-                        encomendasDB.idEncomenda = idEncomenda;
+            int[] userLoggedIn = UserService.UserLoggedIn(token);
 
-                        db.order.Update(encomendasDB);
-                        db.SaveChanges();
-                    }
-                }
-            }
+            return OrderService.VerifyOrder(userLoggedIn, orderProductUpdate, true, idOrder, idProduct);
         }
 
         // DELETE api/<OrdersController>/5
-        [HttpDelete("{idEncomenda}")]
-        public string Delete(int id)
+        [HttpDelete("{idOrder}")]
+        public Message Delete(int idOrder)
         {
-            // obter dados do utilizador na base de dados (por id especifico)
-            using (var db = new DbHelper())
-            {
-                // procura o id do order
-                var encomendasDB = db.order.Find(id);
+            //token do user com a sessão iniciada
+            string token = Request.Headers["token"][0];
 
-                // se id encontrado (diferente de nulo), 
-                // remove o cliente associado
-                if (encomendasDB != null)
-                {
-                    db.order.Remove(encomendasDB);
-                    db.SaveChanges();
+            int[] userLoggedIn = UserService.UserLoggedIn(token);
 
-                    return "Eliminado!";
-                }
-                else
-                {
-                    return "A order com o id: " + id + " não foi encontrada";
-                }
-            }
+            return OrderService.DeleteOrder(userLoggedIn[0], idOrder, -1);
+        }
+
+        [HttpDelete("{idOrder}/{idProduct}")]
+        public Message Delete(int idOrder, int idProduct)
+        {
+            //token do user com a sessão iniciada
+            string token = Request.Headers["token"][0];
+
+            int[] userLoggedIn = UserService.UserLoggedIn(token);
+
+            return OrderService.DeleteOrder(userLoggedIn[0], idOrder, idProduct);
         }
     }
 }

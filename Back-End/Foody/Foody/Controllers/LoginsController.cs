@@ -31,18 +31,18 @@ namespace Foody.Controllers
                     {"Message", MessageService.Custom("Dados inválidos").text},
                 };
 
-                if (user.telemovel != 0)
+                if (user.phone != 0)
                 {
                     for (int i = 0; i < userDB.Length; i++)
                     {
                         // verificar se email inserido corresposnde ao da BD,
                         // e se password inserida (encriptada) corresponde à da BD
-                        if (user.telemovel == userDB[i].telemovel && user.tipoUtilizador == userDB[i].tipoUtilizador &&
+                        if (user.phone == userDB[i].phone && user.userType == userDB[i].userType &&
                             HashPassword.VerifyHash(user.password, userDB[i].password))
                         {
                             token = new Dictionary<string, string>
                             {
-                                {"Token", TokenManager.GenerateToken(userDB[i].email, userDB[i].tipoUtilizador, userDB[i].idUtilizador)},
+                                {"Token", TokenManager.GenerateToken(userDB[i].email, userDB[i].userType, userDB[i].idUser)},
                             };
                             return token;
                         }
@@ -73,7 +73,7 @@ namespace Foody.Controllers
                     {
                         token = new Dictionary<string, string>
                         {
-                            {"Token", TokenManager.GenerateToken(userDB[i].email, userDB[i].tipoUtilizador, userDB[i].idUtilizador)},
+                            {"Token", TokenManager.GenerateToken(userDB[i].email, userDB[i].userType, userDB[i].idUser)},
                         };
                     }
                 }

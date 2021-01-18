@@ -1,0 +1,29 @@
+https://localhost:44342/api/
+
+EMPRESA
+{
+    "morada": "morada",
+    "telemovel": 912345686,
+    "nome": "Empresa",
+    "tipoUtilizador": 2,
+    "nif": "123456789",
+    "email": "empra@empresa.pt",
+    "password": "AAaa2020"
+}
+
+CLIENTE
+{
+    "morada": "morada",
+    "telemovel": 912345644,
+    "nome": "cliente",
+    "tipoUtilizador": 0,
+    "email": "cliente@cliente.pt",
+    "password": "AAaa2020",
+    "dataNascimento": "11/9/1999"
+}
+
+ENCOMENDA
+{
+    "idProduct": 3,
+    "quantity": 1
+}
