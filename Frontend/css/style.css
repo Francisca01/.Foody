@@ -116,6 +116,39 @@ a:hover {
 }
 
 #login form {
+	display: inline;
+	justify-content: center;
+	font-size: 15px;
+	margin-top: 25px;
+	justify-content: center;
+}
+
+#login button {
+	width: 100% !important;
+}
+
+#login h1, h5, label {
+	text-align: center;
+}
+
+#login a {
+	justify-content: center;
+	text-align: center;
+	width: 170px;
+}
+
+#login p {
+	padding-bottom: 40px;
+}
+
+
+#register {
+	padding: 10px;
+	height: 100%;
+	margin-top: 10%;
+}
+
+#register form {
 	display: flex;
 	justify-content: center;
 	font-size: 15px;
@@ -124,11 +157,15 @@ a:hover {
 	text-align: center;
 }
 
-#login h1, h5, label {
+#register button {
+	width: 100% !important;
+}
+
+#register h1, h5, label {
 	text-align: center;
 }
 
-#login a {
+#register a {
 	justify-content: center;
 	text-align: center;
 	width: 170px;
