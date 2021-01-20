@@ -23,11 +23,11 @@ namespace Foody.Controllers
             using (DbHelper db = new DbHelper())
             {
                 //devolve os produtos da base de dados num array
-                var produtosDB = db.product.ToArray();
+                var productsDB = db.product.ToArray();
 
-                if (produtosDB != null)
+                if (productsDB != null)
                 {
-                    return produtosDB;
+                    return productsDB;
                 }
                 else
                 {
@@ -44,18 +44,18 @@ namespace Foody.Controllers
             using (DbHelper db = new DbHelper())
             {
                 //devolve os produtos da base de dados num array
-                var produtosDB = db.product.ToArray();
+                var productsDB = db.product.ToArray();
 
                 //lista de produtos a devolver
                 List<Product> products = new List<Product>();
 
-                if (produtosDB != null)
+                if (productsDB != null)
                 {
-                    for (int i = 0; i < produtosDB.Length; i++)
+                    for (int i = 0; i < productsDB.Length; i++)
                     {
-                        if (produtosDB[i].idCompany == idEmpresa)
+                        if (productsDB[i].idCompany == idEmpresa)
                         {
-                            products.Add(produtosDB[i]);
+                            products.Add(productsDB[i]);
                         }
                     }
 
@@ -68,17 +68,17 @@ namespace Foody.Controllers
                     return msg;
                 }
             }
-        } 
+        }
 
         // GET api/<ProductsController>/5
-        [HttpGet("{idProduto}")]
-        public object Get(int idProduto)
+        [HttpGet("{idProduct}")]
+        public object Get(int idProduct)
         {
             // obter dados dos utilizadores na base de dados
             using (DbHelper db = new DbHelper())
             {
                 // devolve os dados da base de dados num array
-                var produtoDB = db.product.Find(idProduto);
+                var produtoDB = db.product.Find(idProduct);
 
                 if (produtoDB != null)
                 {
@@ -96,17 +96,17 @@ namespace Foody.Controllers
         public object Post([FromBody] Product product)
         {
             //token do user logado
-            string token = Request.Headers["token"][0];
+            string token = Request.Headers["token"];
 
-            int[] userLogin = UserService.UserLoggedIn(token);
-            //userLogin[0] = Id
-            //userLogin[1] = UserType
+            int[] userLoggedIn = UserService.UserLoggedIn(token);
+            //userLoggedIn[0] = Id
+            //userLoggedIn[1] = UserType
 
-            if (userLogin != null)
+            if (userLoggedIn != null)
             {
-                if (userLogin[1] == 2)
+                if (userLoggedIn[1] == 2)
                 {
-                    return ProductService.VerifyProduct(userLogin, product, false, -1);
+                    return ProductService.VerifyProduct(userLoggedIn, product, false, -1);
                 }
                 else
                 {
@@ -120,53 +120,69 @@ namespace Foody.Controllers
         }
 
         // PUT api/<ProductsController>/5
-        [HttpPut("{idProduto}")]
-        public object Put(int idProduto, [FromBody] Product editarProduto)
+        [HttpPut("{idProduct}")]
+        public object Put(int idProduct, [FromBody] Product productUpdate)
         {
-                //token do user logado
-                string token = Request.Headers["token"][0];
+            //token do user logado
+            string token = Request.Headers["token"];
 
-                int[] userLogin = UserService.UserLoggedIn(token);
-                //userLogin[0] = Id
-                //userLogin[1] = UserType
+            int[] userLoggedIn = UserService.UserLoggedIn(token);
+            //userLoggedIn[0] = Id
+            //userLoggedIn[1] = UserType
 
-                return ProductService.VerifyProduct(userLogin, editarProduto, true, idProduto);
+            if (userLoggedIn != null)
+            {
+                return ProductService.VerifyProduct(userLoggedIn, productUpdate, true, idProduct);
+            }
+            else
+            {
+                List<object> msg = new List<object>() { MessageService.AccessDenied() };
+                return msg;
+            }
         }
 
         // DELETE api/<ProductsController>/5
-        [HttpDelete("{idProduto}")]
-        public object Delete(int idProduto)
+        [HttpDelete("{idProduct}")]
+        public object Delete(int idProduct)
         {
-            using (var db = new DbHelper())
+            //token do user logado
+            string token = Request.Headers["token"];
+
+            int[] userLoggedIn = UserService.UserLoggedIn(token);
+            //userLoggedIn[0] = Id
+            //userLoggedIn[1] = UserType
+
+            if (userLoggedIn != null)
             {
-                //token do user logado
-                string token = Request.Headers["token"][0];
-
-                int[] userLogin = UserService.UserLoggedIn(token);
-                //userLogin[0] = Id
-                //userLogin[1] = UserType
-
-                if (userLogin != null)
+                using (var db = new DbHelper())
                 {
-                    //procura pelo product na base de dados
-                    var produtosDB = db.product.Find(idProduto);
-
-                    if (produtosDB != null && produtosDB.idCompany == userLogin[0])
+                    if (userLoggedIn != null)
                     {
-                        db.product.Remove(produtosDB);
-                        db.SaveChanges();
+                        //procura pelo product na base de dados
+                        var productsDB = db.product.Find(idProduct);
 
-                        return MessageService.Custom("Eliminado!");
+                        if (productsDB != null && productsDB.idCompany == userLoggedIn[0])
+                        {
+                            db.product.Remove(productsDB);
+                            db.SaveChanges();
+
+                            return MessageService.Custom("Eliminado!");
+                        }
+                        else
+                        {
+                            return MessageService.WithoutResults();
+                        }
                     }
                     else
                     {
-                        return MessageService.WithoutResults();
+                        return MessageService.AccessDenied();
                     }
                 }
-                else
-                {
-                    return MessageService.AccessDenied();
-                }
+            }
+            else
+            {
+                List<object> msg = new List<object>() { MessageService.AccessDenied() };
+                return msg;
             }
         }
     }

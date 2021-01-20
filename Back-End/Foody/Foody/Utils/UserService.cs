@@ -132,7 +132,7 @@ namespace Foody.Utils
                             if (!string.IsNullOrEmpty(newUser.vehicleType) && //condutor tem de ter vehicleType
                                 !string.IsNullOrEmpty(newUser.drivingLicense) && //condutor tem de ter drivingLicense
                                 !string.IsNullOrEmpty(newUser.birthDate) && //condutor tem de ter birthDate
-                                                                                 //condutor nao tem nif
+                                                                            //condutor nao tem nif
                                 newUser.nif.Length == 1 &&
                                 newUser.drivingLicense.Length >= 11) //condutor tem de ter carta de condução com pelo menos
                             {                                                    //11 caracteres
@@ -255,37 +255,44 @@ namespace Foody.Utils
 
         public static bool VerifyUserAccess(string token, int accessUserId)
         {
-            try
+            if (token != null)
             {
-                if (int.TryParse(TokenManager.GetPrincipal(token).Claims.ToArray()[0].Value, out var idUtilizadorLogado) &&
-                int.TryParse(TokenManager.GetPrincipal(token).Claims.ToArray()[1].Value, out var tipoUtilizadorLogado))
+                try
                 {
-                    DbHelper db = new DbHelper();
-                    var user = db.user.Find(accessUserId);
+                    if (int.TryParse(TokenManager.GetPrincipal(token).Claims.ToArray()[0].Value, out var idUtilizadorLogado) &&
+                    int.TryParse(TokenManager.GetPrincipal(token).Claims.ToArray()[1].Value, out var tipoUtilizadorLogado))
+                    {
+                        DbHelper db = new DbHelper();
+                        var user = db.user.Find(accessUserId);
 
-                    if (idUtilizadorLogado == accessUserId)
-                    {
-                        return true;
-                    }
-                    else if (user.userType == 2 && tipoUtilizadorLogado == 3)
-                    {
-                        return true;
-                    }
-                    else if (user.userType == 1 && tipoUtilizadorLogado == 3)
-                    {
-                        return true;
+                        if (idUtilizadorLogado == accessUserId)
+                        {
+                            return true;
+                        }
+                        else if (user.userType == 2 && tipoUtilizadorLogado == 3)
+                        {
+                            return true;
+                        }
+                        else if (user.userType == 1 && tipoUtilizadorLogado == 3)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
                     }
                     else
                     {
                         return false;
                     }
                 }
-                else
+                catch (Exception)
                 {
                     return false;
                 }
             }
-            catch (Exception)
+            else
             {
                 return false;
             }
@@ -293,20 +300,27 @@ namespace Foody.Utils
 
         public static int[] UserLoggedIn(string token)
         {
-            try
+            if (token != null)
             {
-                if (int.TryParse(TokenManager.GetPrincipal(token).Claims.ToArray()[0].Value, out var idUtilizadorLogado) &&
-                int.TryParse(TokenManager.GetPrincipal(token).Claims.ToArray()[1].Value, out var tipoUtilizadorLogado))
+                try
                 {
-                    int[] userLogin = { idUtilizadorLogado, tipoUtilizadorLogado };
-                    return userLogin;
+                    if (int.TryParse(TokenManager.GetPrincipal(token).Claims.ToArray()[0].Value, out var idUtilizadorLogado) &&
+                    int.TryParse(TokenManager.GetPrincipal(token).Claims.ToArray()[1].Value, out var tipoUtilizadorLogado))
+                    {
+                        int[] userLoggedIn = { idUtilizadorLogado, tipoUtilizadorLogado };
+                        return userLoggedIn;
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
-                else
+                catch (Exception)
                 {
                     return null;
                 }
             }
-            catch (Exception)
+            else
             {
                 return null;
             }
@@ -381,9 +395,9 @@ namespace Foody.Utils
         #endregion
 
         #region Put User
-        public static object PutUser(string token, User utilizadorUpdate, int accessUserId)
+        public static object PutUser(string token, User userUpdate, int accessUserId)
         {
-            if (utilizadorUpdate != null)
+            if (userUpdate != null)
             {
                 //verifica se user com a Sessão iniciada pode aceder
                 if (VerifyUserAccess(token, accessUserId))
@@ -396,7 +410,7 @@ namespace Foody.Utils
                         //se cliente não existir, diz que não foram encontrados resultados
                         if (userDB != null)
                         {
-                            string msg = ValidateUser(utilizadorUpdate, true);
+                            string msg = ValidateUser(userUpdate, true);
                             return MessageService.Custom(msg);
                         }
 

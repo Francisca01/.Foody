@@ -9,9 +9,9 @@ namespace Foody.Utils
 {
     public class ProductService
     {
-        public static object VerifyProduct(int[] userLogin, Product product, bool edit, int idProduto)
+        public static object VerifyProduct(int[] userLoggedIn, Product product, bool edit, int idProduto)
         {
-            if (userLogin != null && userLogin[1] == 2)
+            if (userLoggedIn != null && userLoggedIn[1] == 2)
             {
                 //valida os campos de product
                 if (product != null && !string.IsNullOrEmpty(product.name) &&
@@ -28,7 +28,7 @@ namespace Foody.Utils
                         //criação do array dos produtos da empresa
                         for (int i = 0; i < produtos.Length; i++)
                         {
-                            if (produtos[i].idCompany == userLogin[0])
+                            if (produtos[i].idCompany == userLoggedIn[0])
                             {
                                 productsName.Add(produtos[i].name);
                             }
@@ -62,7 +62,7 @@ namespace Foody.Utils
                         }
                         else
                         {
-                            product.idCompany = userLogin[0];
+                            product.idCompany = userLoggedIn[0];
 
                             db.product.Add(product);
                             db.SaveChanges();

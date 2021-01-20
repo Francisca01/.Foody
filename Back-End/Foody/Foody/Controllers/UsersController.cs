@@ -22,10 +22,6 @@ namespace Foody.Controllers
             {
                 return db.user.ToArray();
             }
-
-            //HttpContext.Response.StatusCode = (int)
-
-            //return null;
         }
 
         // GET api/<UsersController>/5

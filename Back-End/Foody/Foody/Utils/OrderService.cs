@@ -7,10 +7,10 @@ namespace Foody.Utils
 {
     public class OrderService
     {
-        public static Message VerifyOrder(int[] userLogin, OrderProduct orderProduct, bool edit, int orderId, int idProduct)
+        public static Message VerifyOrder(int[] userLoggedIn, OrderProduct orderProduct, bool edit, int orderId, int idProduct)
         {
             //verifica se é cliente
-            if (userLogin[1] == 0)
+            if (userLoggedIn[1] == 0)
             {
                 if (orderProduct != null)
                 {
@@ -18,10 +18,11 @@ namespace Foody.Utils
                     {
                         if (edit == true)
                         {
-                            if (VerifyOrderAccess(userLogin[0], orderId))
+                            if (VerifyOrderAccess(userLoggedIn[0], orderId))
                             {
                                 orderProduct.idOrder = orderId;
                                 orderProduct.idProduct = idProduct;
+
                                 OrderProductService.VerifyOrderProduct(orderProduct, true, db);
                                 return MessageService.Custom("Encomenda Editada!");
                             }
@@ -33,7 +34,8 @@ namespace Foody.Utils
                         else
                         {
                             Order order = new Order();
-                            order.idClient = userLogin[0];
+                            order.idClient = userLoggedIn[0];
+                            order.state = 0;
 
                             //verifica se o product é para adicionar a order
                             if (orderProduct.idOrder == 0)
@@ -97,7 +99,42 @@ namespace Foody.Utils
             }
         }
 
-        public static List<object> GetOrdersUserId(int userId)
+        public static Message ChangePayment(int[] userLoggedIn, int accessOrderId, int state)
+        {
+            if (VerifyOrderAccess(userLoggedIn[0], accessOrderId))
+            {
+                using (DbHelper db = new DbHelper())
+                {
+                    var orderDB = db.order.Find(accessOrderId);
+
+                    if (orderDB != null)
+                    {
+                        orderDB.state = state;
+
+                        db.order.Update(orderDB);
+                        db.SaveChanges();
+
+                        //após o pagamento feito é crio Delivery
+                        Delivery delivery = new Delivery();
+                        delivery.idOrder = orderDB.idOrder;
+
+                        DeliveryService.CreateEditDelivery(userLoggedIn[1], delivery, -1);
+
+                        return MessageService.Custom("Pagamento feito!");
+                    }
+                    else
+                    {
+                        return MessageService.WithoutResults();
+                    }
+                }
+            }
+            else
+            {
+                return MessageService.AccessDenied();
+            }
+        }
+
+        public static List<object> GetOrdersUserId()
         {
             using (DbHelper db = new DbHelper())
             {
@@ -120,11 +157,11 @@ namespace Foody.Utils
             }
         }
 
-        public static Message DeleteOrder(int userLogin, int idOrder, int idProduct)
+        public static Message DeleteOrder(int userLoggedIn, int idOrder, int idProduct)
         {
             using (DbHelper db = new DbHelper())
             {
-                if (VerifyOrderAccess(userLogin, idOrder))
+                if (VerifyOrderAccess(userLoggedIn, idOrder))
                 {
                     //elimina todos os OrderProducts e o Order
                     if (idProduct == -1)

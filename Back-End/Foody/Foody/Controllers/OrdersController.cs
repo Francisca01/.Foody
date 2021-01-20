@@ -19,19 +19,27 @@ namespace Foody.Controllers
         public List<object> GetUserOrders()
         {
             //token do user logado
-            string token = Request.Headers["token"][0];
+            string token = Request.Headers["token"];
 
             int[] userLoggedIn = UserService.UserLoggedIn(token);
 
-            //verifica se o utilizador tem alguma Encomenda
-            // o valor -1 deixa o utilizador passar para ver as suas orders
-            if (OrderService.VerifyOrderAccess(userLoggedIn[0], -1))
+            if (userLoggedIn != null)
             {
-                return OrderService.GetOrdersUserId(userLoggedIn[0]);
+                //verifica se o utilizador tem alguma Encomenda
+                // o valor -1 deixa o utilizador passar para ver as suas orders
+                if (OrderService.VerifyOrderAccess(userLoggedIn[0], -1))
+                {
+                    return OrderService.GetOrdersUserId();
+                }
+                else
+                {
+                    List<object> msg = new List<object>() { MessageService.WithoutResults() };
+                    return msg;
+                }
             }
             else
             {
-                List<object> msg = new List<object>() { MessageService.WithoutResults() };
+                List<object> msg = new List<object>() { MessageService.AccessDenied() };
                 return msg;
             }
         }
@@ -41,18 +49,26 @@ namespace Foody.Controllers
         public object Get(int idOrder)
         {
             //token do user logado
-            string token = Request.Headers["token"][0];
+            string token = Request.Headers["token"];
 
             int[] userLoggedIn = UserService.UserLoggedIn(token);
 
-            //verifica se o utilizador tem alguma Encomenda
-            if (OrderService.VerifyOrderAccess(userLoggedIn[0], idOrder))
+            if (userLoggedIn != null)
             {
-                return OrderService.GetOrderId(idOrder);
+                //verifica se o utilizador tem alguma Encomenda
+                if (OrderService.VerifyOrderAccess(userLoggedIn[0], idOrder))
+                {
+                    return OrderService.GetOrderId(idOrder);
+                }
+                else
+                {
+                    return MessageService.AccessDenied();
+                }
             }
             else
             {
-                return MessageService.AccessDenied();
+                List<object> msg = new List<object>() { MessageService.AccessDenied() };
+                return msg;
             }
         }
 
@@ -61,11 +77,18 @@ namespace Foody.Controllers
         public Message Post([FromBody] OrderProduct newOrderProduct)
         {
             //token do user com a sessão iniciada
-            string token = Request.Headers["token"][0];
+            string token = Request.Headers["token"];
 
             int[] userLoggedIn = UserService.UserLoggedIn(token);
 
-            return OrderService.VerifyOrder(userLoggedIn, newOrderProduct, false, -1, -1);
+            if (userLoggedIn != null)
+            {
+                return OrderService.VerifyOrder(userLoggedIn, newOrderProduct, false, -1, -1);
+            }
+            else
+            {
+                return MessageService.AccessDenied();
+            }
         }
 
         // POST api/<OrdersController>
@@ -76,23 +99,55 @@ namespace Foody.Controllers
             newOrderProduct.idOrder = idOrder;
 
             //token do user com a sessão iniciada
-            string token = Request.Headers["token"][0];
+            string token = Request.Headers["token"];
 
             int[] userLoggedIn = UserService.UserLoggedIn(token);
 
-            return OrderService.VerifyOrder(userLoggedIn, newOrderProduct, false, -1, -1);
+            if (userLoggedIn != null)
+            {
+                return OrderService.VerifyOrder(userLoggedIn, newOrderProduct, false, -1, -1);
+            }
+            else
+            {
+                return MessageService.AccessDenied();
+            }
         }
 
         // PUT api/<OrdersController>/5
         [HttpPut("{idOrder}/{idProduct}")]
-        public Message Put(int idOrder, int idProduct, [FromBody] OrderProduct orderProductUpdate)
+        public Message PutProduct(int idOrder, int idProduct, [FromBody] OrderProduct orderProductUpdate)
         {
             //token do user com a sessão iniciada
-            string token = Request.Headers["token"][0];
+            string token = Request.Headers["token"];
 
             int[] userLoggedIn = UserService.UserLoggedIn(token);
 
-            return OrderService.VerifyOrder(userLoggedIn, orderProductUpdate, true, idOrder, idProduct);
+            if (userLoggedIn != null)
+            {
+                return OrderService.VerifyOrder(userLoggedIn, orderProductUpdate, true, idOrder, idProduct);
+            }
+            else
+            {
+                return MessageService.AccessDenied();
+            }
+        }
+
+        [HttpPut("{idOrder}")]
+        public Message PutOrder(int idOrder)
+        {
+            //token do user com a sessão iniciada
+            string token = Request.Headers["token"];
+
+            int[] userLoggedIn = UserService.UserLoggedIn(token);
+
+            if (userLoggedIn != null)
+            {
+                return OrderService.ChangePayment(userLoggedIn, idOrder, 1);
+            }
+            else
+            {
+                return MessageService.AccessDenied();
+            }
         }
 
         // DELETE api/<OrdersController>/5
@@ -100,22 +155,36 @@ namespace Foody.Controllers
         public Message Delete(int idOrder)
         {
             //token do user com a sessão iniciada
-            string token = Request.Headers["token"][0];
+            string token = Request.Headers["token"];
 
             int[] userLoggedIn = UserService.UserLoggedIn(token);
 
-            return OrderService.DeleteOrder(userLoggedIn[0], idOrder, -1);
+            if (userLoggedIn != null)
+            {
+                return OrderService.DeleteOrder(userLoggedIn[0], idOrder, -1);
+            }
+            else
+            {
+                return MessageService.AccessDenied();
+            }
         }
 
         [HttpDelete("{idOrder}/{idProduct}")]
         public Message Delete(int idOrder, int idProduct)
         {
             //token do user com a sessão iniciada
-            string token = Request.Headers["token"][0];
+            string token = Request.Headers["token"];
 
             int[] userLoggedIn = UserService.UserLoggedIn(token);
 
-            return OrderService.DeleteOrder(userLoggedIn[0], idOrder, idProduct);
+            if (userLoggedIn != null)
+            {
+                return OrderService.DeleteOrder(userLoggedIn[0], idOrder, idProduct);
+            }
+            else
+            {                
+                return MessageService.AccessDenied();
+            }
         }
     }
 }

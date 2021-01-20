@@ -20,7 +20,7 @@ namespace Foody.Controllers
         public List<object> Get()//so pode ser acedido pelo admin
         {
             //token do user logado
-            string token = Request.Headers["token"][0];
+            string token = Request.Headers["token"];
 
             //vai buscar os utilizadores
             return UserService.GetUser(token, 2);
@@ -31,7 +31,7 @@ namespace Foody.Controllers
         public object Get(int idUser)
         {
             //token do user logado
-            string token = Request.Headers["token"][0];
+            string token = Request.Headers["token"];
 
             //vai buscar o utilizadore
             return UserService.GetUserId(token, idUser);
@@ -42,7 +42,7 @@ namespace Foody.Controllers
         public object Put(int idUser, [FromBody] User companyUpdate)
         {
             //token do user logado
-            string token = Request.Headers["token"][0];
+            string token = Request.Headers["token"];
 
             return UserService.PutUser(token, companyUpdate, idUser);
         }
@@ -52,7 +52,7 @@ namespace Foody.Controllers
         public object Delete(int idUser)
         {
             //token do user logado
-            string token = Request.Headers["token"][0];
+            string token = Request.Headers["token"];
 
             return UserService.DeleteUser(token, idUser);
         }

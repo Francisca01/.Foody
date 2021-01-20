@@ -16,10 +16,18 @@ namespace Foody.Controllers
         public List<object> Get()//so pode ser acedido pelo admin
         {
             //token do user logado
-            string token = Request.Headers["token"][0];
+            string token = Request.Headers["token"];
 
-            //vai buscar os utilizadores
-            return UserService.GetUser(token, 0);
+            if (token != null)
+            {
+                //vai buscar os utilizadores
+                return UserService.GetUser(token, 0);
+            }
+            else
+            {
+                List<object> msg = new List<object>() { MessageService.AccessDenied() };
+                return msg;
+            }
         }
 
         // GET api/<ClientsController>/5
@@ -27,20 +35,36 @@ namespace Foody.Controllers
         public object Get(int idUser)
         {
             //token do user logado
-            string token = Request.Headers["token"][0];
+            string token = Request.Headers["token"];
 
-            //vai buscar o utilizadore
-            return UserService.GetUserId(token, idUser);
+            if (token != null)
+            {
+                //vai buscar o utilizadore
+                return UserService.GetUserId(token, idUser);
+            }
+            else
+            {
+                List<object> msg = new List<object>() { MessageService.AccessDenied() };
+                return msg;
+            }
         }
 
         // PUT api/<ClientsController>/5
         [HttpPut("{idUser}")]
-        public object Put(int idUser, [FromBody] User clienteUpdate)
+        public object Put(int idUser, [FromBody] User clientUpdate)
         {
             //token do user logado
-            string token = Request.Headers["token"][0];
+            string token = Request.Headers["token"];
 
-            return UserService.PutUser(token, clienteUpdate, idUser);
+            if (token != null)
+            {
+                return UserService.PutUser(token, clientUpdate, idUser);
+            }
+            else
+            {
+                List<object> msg = new List<object>() { MessageService.AccessDenied() };
+                return msg;
+            }
         }
 
         // DELETE api/<ClientsController>/5
@@ -48,9 +72,17 @@ namespace Foody.Controllers
         public object Delete(int idUser)
         {
             //token do user logado
-            string token = Request.Headers["token"][0];
+            string token = Request.Headers["token"];
 
-            return UserService.DeleteUser(token, idUser);
+            if (token != null)
+            {
+                return UserService.DeleteUser(token, idUser);
+            }
+            else
+            {
+                List<object> msg = new List<object>() { MessageService.AccessDenied() };
+                return msg;
+            }
         }
     }
 }
