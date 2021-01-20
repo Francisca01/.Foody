@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Foody</title>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="HTML, CSS, JavaScript">
+    <meta name="description" content="Restaurantes - Definições">
+    <meta name="author" content="Francisca Costa, Leonardo Vieira, Tomás Braga">
+
+    <link rel="stylesheet" href="./css/style.css">
+
+    <!-- Styles - CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+    <section>
+        <div class="nav-wrapper">
+            <a href="../index.html" class="side-top brand-logo"><img src="../images/logo.png"></a>
+            <div class="">
+                <ul id="nav-mobile" class="side-bottom hide-on-med-and-down">
+                    <li><a href="../index.html"><i class="material-icons">home</i></a></li>
+                    <li><a href="#"><i class="material-icons">shopping_cart</i></a></li>
+                    <li><a href="../pages/login.html"><i class="material-icons">people</i></a></li>
+                    <li><a href=""><i class="material-icons selected">settings</i></a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="left-main" style="background-color: #707070;">
+        <div style="text-align: center;">
+            <h2 style="color: #fff !important; top: 0;">Restaurantes | Página de Gestão</h2>
+
+            <br><br>
+
+            <img src="../images/profile_restaurant.png">
+            <h3 style="color: #fff !important;">Nome do Restaurante</h3>
+        </div>
+    </section>
+
+    <section class="right-main register">
+        <div class="row options">
+            <div class="">
+                <ul class="tabs">
+                    <li class="tab"><a href="#dadosPessoais">Dados de Utilizador</a></li>
+                    <li class="tab"><a href="#morada">Dados da Morada</a></li>
+                    <li class="tab"><a href="#produtos">Produtos</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <form id="dadosPessoais" action="#">
+            <!-- Nome de Utilizador e Data de Nascimento -->
+            <div class="row">
+                <div class="input-field col s6">
+                    <label for="autocomplete-input">Nome de Utilizador</label>
+                    <input type="text" class="input-field autocomplete">
+                </div>
+                <div class="input-field col s6">
+                    <input type="date" class="form-control" id="" placeholder="Data de Nascimento">
+                </div>
+            </div>
+
+            <!-- Email -->
+            <div class="row">
+                <div class="input-field col s6">
+                    <label for="autocomplete-input">Email</label>
+                    <input type="email" class="input-field autocomplete">
+                </div>
+                <div class="input-field col s6">
+                    <label for="autocomplete-input">Password</label>
+                    <input type="password" class="input-field autocomplete">
+                </div>
+            </div>
+
+            <!-- Password e Repetir Password -->
+            <div class="row">
+
+                <div class="input-field col s6">
+                    <label for="autocomplete-input">Telemóvel</label>
+                    <input type="tel" class="input-field autocomplete">
+                </div>
+                <div class="input-field col s6">
+                    <label for="autocomplete-input">NIF</label>
+                    <input type="text" class="input-field autocomplete">
+                </div>
+            </div>
+            <div class="row">
+                <button type="submit" class="btn waves-effect waves-light">Salvar</button>
+            </div>
+
+        </form>
+
+        <form id="morada">
+            <div class="row">
+                <div class="input-field col s6">
+                    <label for="autocomplete-input">Rua</label>
+                    <input type="text" class="input-field autocomplete">
+                </div>
+                <div class="input-field col s6">
+                    <label for="autocomplete-input">Nº</label>
+                    <input type="text" class="input-field autocomplete">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s6">
+                    <label for="autocomplete-input">Andar</label>
+                    <input type="text" class="input-field autocomplete">
+                </div>
+                <div class="input-field col s6">
+                    <label for="autocomplete-input">Código Postal</label>
+                    <input type="text" class="input-field autocomplete">
+                </div>
+                <div class="input-field col s6">
+                    <label for="autocomplete-input">Localidade</label>
+                    <input type="text" class="input-field autocomplete">
+                </div>
+            </div>
+            <div class="row">
+                <button type="submit" class="btn waves-effect waves-light">Salvar</button>
+            </div>
+        </form>
+
+        <div id="produtos">
+            <div class="row itens">
+                <label class="col s10">Produto 1</label>
+                <a class="col s1 modal-trigger" href="#modal1"><i class="large material-icons">remove_red_eye</i></a>
+                <a class="col s1" href=""><i class="large material-icons">delete</i></a>
+            </div>
+            <div class="row itens">
+                <label class="col s10">Produto 1</label>
+                <a class="col s1" href=""><i class="large material-icons">remove_red_eye</i></a>
+                <a class="col s1" href=""><i class="large material-icons">delete</i></a>
+            </div>
+            <div class="row itens">
+                <label class="col s10">Produto 1</label>
+                <a class="col s1" href=""><i class="large material-icons">remove_red_eye</i></a>
+                <a class="col s1" href=""><i class="large material-icons">delete</i></a>
+            </div>
+
+            <!-- Modal Structure -->
+            <div id="modal1" class="modal">
+                <div class="modal-content">
+                    <h4>Produto Nome</h4>
+                    <form>
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <label for="autocomplete-input">Nome do Produto</label>
+                                <input type="text" class="input-field autocomplete">
+                            </div>
+                            <div class="input-field col s6">
+                                <label for="autocomplete-input">Preço</label>
+                                <input type="text" class="input-field autocomplete">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <label for="autocomplete-input">Ingredientes</label>
+                                <textarea type="text" class="materialize-textarea"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+
+</body>
+
+</html>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init();
+
+        var instance = M.AutoInit();
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.modal');
+        var instances = M.Modal.init();
+
+        var instance = M.AutoInit();
+
+    });
+
+
+</script>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
