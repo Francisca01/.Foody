@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>Foody</title>
@@ -10,22 +10,24 @@
 		<!-- Styles - CSS -->
 		<link rel="stylesheet" href="../css/style.css">
 
-		<!-- Links Externos -->
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-		<script src="https://kit.fontawesome.com/739a3f8b60.js" crossorigin="anonymous"></script>
+		<!-- Compiled and minified CSS -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+		<!-- Compiled and minified JavaScript -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+		<!-- Material Icons -->
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+		<!--Let browser know website is optimized for mobile-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	</head>
 	<body>
 		<?php
-			if($_POST['exampleInputEmail1']==null){
-				die("<p>É obrigatório indicar o email</p><p><a href='login.html'>Voltar<a/></p>");
-			}
-			if($_POST['exampleInputPassword1']==null){
-				die("<p>É obrigatório indicar a palavra-passe</p><p><a href='login.html'>Voltar<a/></p>");
+			if($_POST['emails'] != null){
+				$emailss = mysqli_real_escape_string($link, $_POST['emails']);
+				
 			}
 		?>
-		<script>
-			window.location.replace("../index.html");
-		</script>
 	</body>
 </html>
