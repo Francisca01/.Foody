@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 	<title>Foody</title>
 	<meta charset="UTF-8">
@@ -8,142 +7,148 @@
 	<meta name="description" content="Cliente Register">
 	<meta name="author" content="Francisca Costa, Leonardo Vieira, Tomás Braga">
 
-	<<!-- Styles - CSS -->
-		<link rel="stylesheet" href="../css/style.css">
+	<!-- Styles - CSS -->
+	<link rel="stylesheet" href="../css/style.css">
 
-		<!-- Compiled and minified CSS -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
-		<!-- Compiled and minified JavaScript -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
-		<!-- Material Icons -->
-		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-		<!--Let browser know website is optimized for mobile-->
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<!-- Links Externos -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+	<script src="https://kit.fontawesome.com/739a3f8b60.js" crossorigin="anonymous"></script>
 </head>
 
 <body id="body">
-	<section>
-		<div class="nav-wrapper">
-			<a href="../index.html" class="side-top brand-logo"><img src="../images/logo.png"></a>
+	<section id="mySidenav" class="sidenav">
+		<div class="side-top">
+			<!-- <a onclick="goBack()" <i class="fas fa-long-arrow-alt-left"></i></a> --> 	
+			<img src="../images/logo.png">
+		</div>
+		<div class="side-bottom">
+			<a href="../index.html"><i class="fas fa-home"></i></a>
+			<a href="#"><i class="fas fa-shopping-cart"></i></a>
+			<a href="#"><i class="fas fa-user selected"></i></a>
+		</div>	
+	</section>
+
+
+
+	<div id="register">
+		<section id="left-main" style="background-color: #EE8328 !important;">
 			<div>
-				<ul id="nav-mobile" class="side-bottom hide-on-med-and-down">
-					<li><a href="../index.html"><i class="material-icons">home</i></a></li>
-					<li><a href="#"><i class="material-icons">shopping_cart</i></a></li>
-					<li><a href="../pages/login.html"><i class="material-icons selected">people</i></a></li>
-				</ul>
+				<h1 style="color: #fff !important;">Novo por Aqui?</h1>
+				<h5 style="color: #fff !important;">Clientes</h5>
 			</div>
-		</div>
-	</section>
+		</section>
 
-	<section class="left-main" style="background-color: #EE8328;">
-		<div>
-			<h1 style="color: #fff !important;">Novo por Aqui?</h1>
-			<h5 style="color: #fff !important;">Clientes</h5>
-		</div>
-	</section>
+		<section id="right-main">
+			<form class="register-form">
+				<div class="row">
+					<h5>Dados Pessoais</h5>
+					<hr>
+				</div>
 
-	<section class="right-main register">
-		<div class="row options">
-			<div class="">
-				<ul class="tabs">
-					<li class="tab"><a href="#dadosPessoais">Dados Pessoais</a></li>
-					<li class="tab"><a href="#morada">Morada</a></li>
-				</ul>
-			</div>
-		</div>
+				<!-- Nome de Utilizador e Data de Nascimento -->
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<input type="text" class="form-control" id="" placeholder="Nome do Utilizador">
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<input type="date" class="form-control" id="" placeholder="Data de Nascimento">
+						</div>
+					</div>
+				</div>
 
-		<form id="dadosPessoais" action="#">
-			<!-- Nome de Utilizador e Data de Nascimento -->
-			<div class="row">
-				<div class="input-field col s6">
-					<label for="autocomplete-input">Nome de Utilizador</label>
-					<input type="text" class="input-field autocomplete">
+				<!-- Email -->
+				<div class="row">
+					<div class="col-md-12" style="display: block;">
+						<div class="form-group" style="position: static;">
+							<input type="email" class="form-control" id="" placeholder="Email">
+						</div>
+					</div>
 				</div>
-				<div class="input-field col s6">
-					<input type="date" class="form-control" id="" placeholder="Data de Nascimento">
-				</div>
-			</div>
 
-			<!-- Email e Password -->
-			<div class="row">
-				<div class="input-field col s6">
-					<label for="autocomplete-input">Email</label>
-					<input type="email" class="input-field autocomplete">
+				<!-- Password e Repetir Password -->
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<input type="password" class="form-control" id="" placeholder="Password">
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<input type="password" class="form-control" id="" placeholder="Repetir Password">
+						</div>
+					</div>
 				</div>
-				<div class="input-field col s6">
-					<label for="autocomplete-input">Password</label>
-					<input type="password" class="input-field autocomplete">
-				</div>
-			</div>
 
-			<!-- Telemovel e NIF -->
-			<div class="row">
-				<div class="input-field col s6">
-					<label for="autocomplete-input">Telemóvel</label>
-					<input type="tel" class="input-field autocomplete">
+				<!-- Telemovel e NIF -->
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<input type="tel" class="form-control" id="" placeholder="Telemóvel">
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<input type="text" class="form-control" id="" placeholder="NIF">
+						</div>
+					</div>
 				</div>
-				<div class="input-field col s6">
-					<label for="autocomplete-input">NIF</label>
-					<input type="text" class="input-field autocomplete">
-				</div>
-			</div>
-		</form>
 
-		<form id="morada">
-			<!-- Rua e Nº -->
-			<div class="row">
-				<div class="input-field col s6">
-					<label for="autocomplete-input">Rua</label>
-					<input type="text" class="input-field autocomplete">
-				</div>
-				<div class="input-field col s6">
-					<label for="autocomplete-input">Nº</label>
-					<input type="text" class="input-field autocomplete">
-				</div>
-			</div>
 
-			<!-- Andar e CP e Localidade -->
-			<div class="row">
-				<div class="input-field col s6">
-					<label for="autocomplete-input">Andar</label>
-					<input type="text" class="input-field autocomplete">
+				<div class="row">
+					<h5>Morada</h5>
+					<hr>
 				</div>
-				<div class="input-field col s6">
-					<label for="autocomplete-input">Código Postal</label>
-					<input type="text" class="input-field autocomplete">
+
+				<!-- Rua e Nº -->
+				<div class="row">
+					<div class="col-md-9">
+						<div class="form-group">
+							<input type="text" class="form-control" id="" placeholder="Rua">
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<input type="number" class="form-control" id="" placeholder="Nº">
+						</div>
+					</div>
 				</div>
-				<div class="input-field col s6">
-					<label for="autocomplete-input">Localidade</label>
-					<input type="text" class="input-field autocomplete">
+
+				<!-- Andar, CP e Localidade -->
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+							<input type="text" class="form-control" id="" placeholder="Andar">
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<input type="text" class="form-control" id="" placeholder="Código-Postal">
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<input type="text" class="form-control" id="" placeholder="Localidade">
+						</div>
+					</div>
 				</div>
-			</div>
-		</form>
-		<div class="row">
-			<button type="submit" class="btn waves-effect waves-light">Efetuar Registo</button>
-		</div>
-	</section>
+
+				<div class="row">
+					<button type="submit" class="btn btn-primary" style="
+					margin-top: 35px;
+					padding: .375rem .75rem !important;
+					">Efetuar Registo</button>
+				</div>
+			</form>
+		</section>
 	</div>
 </body>
-
 </html>
 
 <script>
 	function goBack() {
 		window.history.back();
 	}
-
-	document.addEventListener('DOMContentLoaded', function () {
-		var elems = document.querySelectorAll('select');
-		var instances = M.FormSelect.init();
-
-		var instance = M.AutoInit();
-	});
 </script>
-
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-
-<!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

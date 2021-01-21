@@ -25,6 +25,9 @@
 </head>
 
 <body>
+	<!--Import jQuery before materialize.js-->
+
+
 	<section>
 		<div class="nav-wrapper">
 			<a href="../index.html" class="side-top brand-logo"><img src="../images/logo.png"></a>
@@ -44,14 +47,43 @@
 		<div id="login">
 			<h1>Bem Vindo de Volta</h1>
 
-			<form action="processaLogin.php" method="POST">
+			<div class="row login-options">
+				<div class="">
+					<ul class="tabs">
+						<li class="tab"><a href="#email">Email</a></li>
+						<li class="tab"><a href="#telemovel">Telemóvel</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<form id="email" method="POST" action="processaLogin.php">
 				<div class="input-field">
-					<label for="autocomplete-input">Email ou Telemóvel</label>
-					<input type="text" class="input-field autocomplete">
+					<label for="autocomplete-input">Email</label>
+					<input type="email" class="input-field autocomplete" name="emails">
 				</div>
 				<div class="input-field">
 					<label for="autocomplete-input">Password</label>
-					<input type="password" class="input-field autocomplete">
+					<input type="password" class="input-field autocomplete" name="password">
+				</div>
+				<p>
+					<input type="checkbox" class="filled-in" checked="checked">
+					<span>Relembrar-me</span>
+				</p>
+				<button type="submit" class="btn waves-effect waves-light">Ok</button>
+				<p class="center-align" style="margin: 5px">
+					<label>Ainda nao é registado?</label>
+					<a href="../pages/register.html">Clique Aqui</a>
+				</p>
+			</form>
+
+			<form id="telemovel" method="POST" action="processaLogin.php">
+				<div class="input-field">
+					<label for="autocomplete-input">Telemóvel</label>
+					<input type="tel" class="input-field autocomplete" name="telemovel">
+				</div>
+				<div class="input-field">
+					<label for="autocomplete-input">Password</label>
+					<input type="password" class="input-field autocomplete" name="passwords">
 				</div>
 				<p>
 					<input type="checkbox" class="filled-in" checked="checked">
@@ -70,10 +102,7 @@
 </html>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-
-<!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
+<script type="text/javascript" src="js/materialize.min.js"></script>
 <script>
-	  var instance = M.AutoInit();
+	  var instance = M.Tabs.init(el, options);
 </script>
