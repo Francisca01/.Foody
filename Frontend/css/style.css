@@ -1,4 +1,4 @@
-* Colors: #A8645E; #BC6457, #DE643E, #DF7840, #EE8328*/
+/* Colors: #A8645E; #BC6457, #DE643E, #DF7840, #EE8328*/
 
 * {
 	font-family: 'Montserrat', sans-serif;
@@ -367,7 +367,7 @@ a:hover {
 	height: 100%;
 	width: 25%;
 	position: fixed;
-	z-index: 1;
+	z-index: -1;
 	top: 0;
 	left: 75%;
 	background-color: #707070;
@@ -375,13 +375,54 @@ a:hover {
 	text-align: center;
 }
 
-.shoppingCart h3 {}
-
 .sc-products-group {
 	padding: 70% 40px;
 	color: white;
 	/* justify-content: center; */
 	display: grid;
+}
+
+.card-content{
+	display: block;
+	text-align: left;
+}
+
+.card-title{
+	margin: 0;
+}
+
+.cardHeader{
+	margin: 0;
+	display: flow-root;
+}
+
+.cardHeader h5{
+	float: left !important;
+}
+
+.cardHeader label{
+	float: right !important;
+}
+
+.entregasModal h4{
+	padding-bottom: 30px;
+	color: #707070;
+}
+
+.entregasModal h6{
+	font-size: 15px;
+	color: #707070;
+}
+
+.driverOptions .material-icons{
+	font-size: 15px;
+	float: right;
+	padding-left: 10px;
+	color: #707070;
+}
+
+.entregasModal .row{
+	margin-bottom: 0 !important;
 }
 
 /*@media screen and (max-height: 450px) {

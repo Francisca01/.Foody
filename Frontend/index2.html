@@ -5,7 +5,7 @@
 	<title>Foody</title>
 	<meta charset="UTF-8">
 	<meta name="keywords" content="HTML, CSS, JavaScript">
-	<meta name="description" content="Restaurantes- Pagina individual">
+	<meta name="description" content="Pagina Principal - Restaurantes">
 	<meta name="author" content="Francisca Costa, Leonardo Vieira, Tomás Braga">
 
 	<link rel="stylesheet" href="./css/style.css">
@@ -29,13 +29,12 @@
 <body>
 	<section>
 		<div class="nav-wrapper">
-			<a href="../index.html" class="side-top brand-logo"><img src="../images/logo.png"></a>
+			<a href="./index.html" class="side-top brand-logo"><img src="./images/logo.png"></a>
 			<div class="">
 				<ul id="nav-mobile" class="side-bottom hide-on-med-and-down">
-					<li><a href="../index.html"><i class="material-icons selected">home</i></a></li>
-					<li><a href="#"><i class="material-icons">shopping_cart</i></a></li>
-					<li><a href="../pages/login.html"><i class="material-icons">people</i></a></li>
-					<li><a href="../pages/client_Settings.html"><i class="material-icons">settings</i></a></li>
+					<li><a href="./index2.html"><i class="material-icons selected">home</i></a></li>
+					<li><a href="./pages/login.html"><i class="material-icons">people</i></a></li>
+					<li><a href="../pages/restaurant_Settings.html"><i class="material-icons">settings</i></a></li>
 				</ul>
 			</div>
 		</div>
@@ -47,20 +46,35 @@
 		</div>
 
 		<div class="itens-group-header">
-			<h5>Produtos</h5>
+			<h5>Próximas Encomendas</h5>
 			<hr>
 		</div>
 
 		<div class="row itens">
-			<label class="col s10">Produto 1</label>
+			<label class="col s10">Encomenda 1</label>
 			<a class="col s1 modal-trigger" href="#modal1"><i class="large material-icons">remove_red_eye</i></a>
-			<a class="col s1" href=""><i class="large material-icons">add</i></a>
+			<a class="col s1" href=""><i class="large material-icons">done</i></a>
+		</div>
+		<div class="row itens">
+			<label class="col s10">Encomenda 1</label>
+			<a class="col s1 modal-trigger" href="#modal1"><i class="large material-icons">remove_red_eye</i></a>
+			<a class="col s1" href=""><i class="large material-icons">done</i></a>
+		</div>
+		<div class="row itens">
+			<label class="col s10">Encomenda 1</label>
+			<a class="col s1 modal-trigger" href="#modal1"><i class="large material-icons">remove_red_eye</i></a>
+			<a class="col s1" href=""><i class="large material-icons">done</i></a>
+		</div>
+		<div class="row itens">
+			<label class="col s10">Encomenda 1</label>
+			<a class="col s1 modal-trigger" href="#modal1"><i class="large material-icons">remove_red_eye</i></a>
+			<a class="col s1" href=""><i class="large material-icons">done</i></a>
 		</div>
 
 		<!-- Modal Structure -->
 		<div id="modal1" class="modal entregasModal">
 			<div class="modal-content">
-				<h4>Produto</h4>
+				<h4>Encomenda #23</h4>
 
 				<div class="row">
 					<p class="col s9">
@@ -84,11 +98,12 @@
 				<a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
 			</div>
 		</div>
+
+
 	</section>
 
-
 	<section class="col s5 shoppingCart">
-		<h3 style="margin-bottom: 40px;">Carrinho de Compras</h3>
+		<h3 style="margin-bottom: 40px;">Pedidos de Encomendas</h3>
 		<!--div class="sc-products-group">
 			<p>Ainda não tem nada adicionado ao carrinho</p>
 			<button class="btn waves-effect waves-light" style="width: 80%;">Procurar Produtos</button>
@@ -102,16 +117,13 @@
 						<label class="card-title">15.00€</label>
 					</div>
 					<p>
-						<span>Quantidade: </span>
-						<label> 3</label>
+						<span>Ingredientes: </span>
+						<label> Ingrediente; Ingrediente; Ingrediente; Ingrediente; Ingrediente; </label>
 					</p>
-					<p>
-						<span>Preço Unitário: </span>
-						<label> 5.00€</label>
-					</p>
-					<p>
-						<span>Restaurante: </span>
-						<label> Ciccoria</label>
+					<br>
+					<p class="driverOptions">
+						<a class="driverOptions col s2" href=""><i class="large material-icons">done</i></a>
+						<a class="driverOptions col s2" href=""><i class="large material-icons">close</i></a>
 					</p>
 				</div>
 			</div>
@@ -123,22 +135,16 @@
 						<label class="card-title">15.00€</label>
 					</div>
 					<p>
-						<span>Quantidade: </span>
-						<label> 3</label>
+						<span>Ingredientes: </span>
+						<label> Ingrediente; Ingrediente; Ingrediente; Ingrediente; Ingrediente; </label>
 					</p>
-					<p>
-						<span>Preço Unitário: </span>
-						<label> 5.00€</label>
-					</p>
-					<p>
-						<span>Restaurante: </span>
-						<label> Ciccoria</label>
+					<br>
+					<p class="driverOptions">
+						<a class="driverOptions col s2" href=""><i class="large material-icons">done</i></a>
+						<a class="driverOptions col s2" href=""><i class="large material-icons">close</i></a>
 					</p>
 				</div>
 			</div>
-
-			<button class="btn waves-effect waves-light"
-				style="bottom: -165px; position: relative; width: 80%;">Finalizar</button>
 		</div>
 
 	</section>
