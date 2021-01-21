@@ -7,7 +7,7 @@
 		<meta name="description" content="Cliente Register">
 		<meta name="author" content="Francisca Costa, Leonardo Vieira, Tomás Braga">
 
-		<!-- Styles - CSSS -->
+		<!-- Styles - CSS -->
 		<link rel="stylesheet" href="../css/style.css">
 
 		<!-- Links Externos -->
