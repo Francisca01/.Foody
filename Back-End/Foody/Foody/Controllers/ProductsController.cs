@@ -93,7 +93,7 @@ namespace Foody.Controllers
 
         // POST api/<ProductsController>
         [HttpPost]
-        public object Post([FromBody] Product product)
+        public Message Post([FromBody] Product product)
         {
             //token do user logado
             string token = Request.Headers["token"];
@@ -121,7 +121,7 @@ namespace Foody.Controllers
 
         // PUT api/<ProductsController>/5
         [HttpPut("{idProduct}")]
-        public object Put(int idProduct, [FromBody] Product productUpdate)
+        public Message Put(int idProduct, [FromBody] Product productUpdate)
         {
             //token do user logado
             string token = Request.Headers["token"];
@@ -136,14 +136,13 @@ namespace Foody.Controllers
             }
             else
             {
-                List<object> msg = new List<object>() { MessageService.AccessDenied() };
-                return msg;
+                return MessageService.AccessDenied();
             }
         }
 
         // DELETE api/<ProductsController>/5
         [HttpDelete("{idProduct}")]
-        public object Delete(int idProduct)
+        public Message Delete(int idProduct)
         {
             //token do user logado
             string token = Request.Headers["token"];
@@ -181,8 +180,7 @@ namespace Foody.Controllers
             }
             else
             {
-                List<object> msg = new List<object>() { MessageService.AccessDenied() };
-                return msg;
+                return MessageService.AccessDenied();
             }
         }
     }

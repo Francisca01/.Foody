@@ -1,4 +1,4 @@
 {
     "email": "admin@admin.pt",
-    "password": "Aa2020Aa" ou "AAaa2020" já não sei 
+    "password": "Aa2020Aa" outras passwords "AAaa2020" ou "AA12ipca"
 }

@@ -9,7 +9,7 @@ namespace Foody.Utils
 {
     public class ProductService
     {
-        public static object VerifyProduct(int[] userLoggedIn, Product product, bool edit, int idProduto)
+        public static Message VerifyProduct(int[] userLoggedIn, Product product, bool edit, int idProduto)
         {
             if (userLoggedIn != null && userLoggedIn[1] == 2)
             {

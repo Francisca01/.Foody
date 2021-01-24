@@ -36,7 +36,7 @@ namespace Foody.Controllers
 
         // PUT api/<DriversController>/5
         [HttpPut("{idUser}")]
-        public object Put(int idUser, [FromBody] User condutorUpdate)
+        public Message Put(int idUser, [FromBody] User condutorUpdate)
         {
             //token do user logado
             string token = Request.Headers["token"];
@@ -46,7 +46,7 @@ namespace Foody.Controllers
 
         // DELETE api/<DriversController>/5
         [HttpDelete("{idUser}")]
-        public object Delete(int idUser)
+        public Message Delete(int idUser)
         {
             //token do user logado
             string token = Request.Headers["token"];

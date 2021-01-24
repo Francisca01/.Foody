@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using Foody.Models;
+using Microsoft.AspNetCore.Mvc;
+
 
 namespace Foody.Utils
 {
     public class UserService
     {
-        public static string ValidateUser(User newUser, bool edit)
+        public static Message ValidateUser(User newUser, bool edit)
         {
             //vai buscar todos os user à base de dados 
             DbHelper db = new DbHelper();
@@ -36,7 +39,7 @@ namespace Foody.Utils
             }
             catch (Exception)
             {
-                return MessageService.Custom("Formato de Email inválido").text;
+                return MessageService.Custom("Formato de Email inválido");
             }
 
             try
@@ -46,35 +49,63 @@ namespace Foody.Utils
                     numero.IsMatch(newUser.password) && letraMaiuscula.IsMatch(newUser.password) &&
                     tamanho.IsMatch(newUser.password))
                 {
+
                     //verifica se o email já está associado
                     for (int i = 0; i < userDB.Length; i++)
                     {
-                        if (newUser.email == userDB[i].email)
+                        if (edit == false)
                         {
-                            return MessageService.Custom("O user com o email: "
-                                + newUser.email + " já está associado").text;
+                            if (newUser.email == userDB[i].email)
+                            {
+                                return MessageService.Custom("O user com o email: "
+                                    + newUser.email + " já está associado");
+                            }
+                        }
+                        else
+                        {
+                            if (newUser.email == userDB[i].email)
+                            {
+                                j++;
+
+                                if (j > 1)
+                                {
+                                    return MessageService.Custom("O user com o email: "
+                                    + newUser.email + " já está associado");
+                                }
+
+                                if (newUser.idUser != userDB[i].idUser)
+                                {
+                                    return MessageService.Custom("O user com o email: "
+                                        + newUser.email + " já está associado");
+                                }
+                            }
                         }
                     }
 
-                    //verifica se o número de telemóvel já está associado
-                    for (int i = 0; i < userDB.Length; i++)
+                    j = 0;
+
+                    if (edit == false)
                     {
-                        if (newUser.phone == userDB[i].phone)
+                        //verifica se o número de telemóvel já está associado
+                        for (int i = 0; i < userDB.Length; i++)
                         {
-                            //se o user for uma empresa, não pode associar mais do que um número
-                            if (newUser.userType == 2)
+                            if (newUser.phone == userDB[i].phone)
                             {
-                                return MessageService.Custom("A Empresa com o número de telemóvel: "
-                                    + newUser.phone + " já está associado").text;
-                            }
+                                //se o user for uma empresa, não pode associar mais do que um número
+                                if (newUser.userType == 2)
+                                {
+                                    return MessageService.Custom("A Empresa com o número de telemóvel: "
+                                        + newUser.phone + " já está associado");
+                                }
 
-                            j++;
+                                j++;
 
-                            //verifica se o telemóvel ja está atribuido a mais do que 2 utilizadores
-                            if (j > 1)
-                            {
-                                return MessageService.Custom("O User com o telemóvel: "
-                                    + newUser.phone + " já está associado").text;
+                                //verifica se o telemóvel ja está atribuido a mais do que 2 utilizadores
+                                if (j > 1)
+                                {
+                                    return MessageService.Custom("O User com o telemóvel: "
+                                        + newUser.phone + " já está associado");
+                                }
                             }
                         }
                     }
@@ -90,15 +121,18 @@ namespace Foody.Utils
                     //cria address
                     if (newUser.phone.ToString().Length >= 9)
                     {
-                        //valida se o número de tlm está atribuido a mais de 2 contas
-                        for (int i = 0; i < userDB.Length; i++)
+                        if (edit == false)
                         {
-                            if (userDB[i].phone == newUser.phone)
+                            //valida se o número de tlm está atribuido a mais de 2 contas
+                            for (int i = 0; i < userDB.Length; i++)
                             {
-                                j++;
-                                if (j == 2)
+                                if (userDB[i].phone == newUser.phone)
                                 {
-                                    return MessageService.Custom("O número de telemóvel já se encontra atribuido a 2 contas!").text;
+                                    j++;
+                                    if (j == 2)
+                                    {
+                                        return MessageService.Custom("O número de telemóvel já se encontra atribuido a 2 contas!");
+                                    }
                                 }
                             }
                         }
@@ -112,17 +146,29 @@ namespace Foody.Utils
                         //verifica se o user é empresa
                         if (newUser.userType == 2)
                         {
-                            //verifica o tamanho do nif
-                            if (newUser.nif.Length == 9 &&  //empresa tem de ter nif
-                                string.IsNullOrEmpty(newUser.vehicleType) && //empresa nao tem vehicleType
-                                string.IsNullOrEmpty(newUser.drivingLicense) && //empresa nao tem drivingLicense
-                                string.IsNullOrEmpty(newUser.birthDate)) //empresa nao tem birthDate
+                            //verifica se colocou nif
+                            if (!string.IsNullOrEmpty(newUser.nif))
                             {
-                                return CreateUpdate(newUser, edit);
+                                //verifica o tamanho do nif
+                                if (newUser.nif.Length == 9)  //empresa tem de ter nif
+                                {
+                                    if (edit == false)
+                                    {
+                                        newUser.birthDate = null; //empresa nao tem birthDate
+                                        newUser.drivingLicense = null; //empresa nao tem drivingLicense
+                                        newUser.vehicleType = null;//empresa nao tem vehicleType
+                                    }
+
+                                    return CreateUpdate(newUser, edit);
+                                }
+                                else
+                                {
+                                    return MessageService.Custom("O nif introduzido não é válido, tem de ter um valor de 9 caracteres!");
+                                }
                             }
                             else
                             {
-                                return "O nif introduzido não é válido, tem de ter um valor de 9 caracteres!";
+                                return MessageService.Custom("Introduza um nif!");
                             }
                         }
 
@@ -131,45 +177,55 @@ namespace Foody.Utils
                         {
                             if (!string.IsNullOrEmpty(newUser.vehicleType) && //condutor tem de ter vehicleType
                                 !string.IsNullOrEmpty(newUser.drivingLicense) && //condutor tem de ter drivingLicense
-                                !string.IsNullOrEmpty(newUser.birthDate) && //condutor tem de ter birthDate
-                                                                            //condutor nao tem nif
-                                newUser.nif.Length == 1 &&
-                                newUser.drivingLicense.Length >= 11) //condutor tem de ter carta de condução com pelo menos
-                            {                                                    //11 caracteres
-                                return CreateUpdate(newUser, edit);
+                                !string.IsNullOrEmpty(newUser.birthDate)) //condutor tem de ter birthDate
+                            {
+                                if (newUser.drivingLicense.Length >= 11)//condutor tem de ter carta de condução com pelo menos 11 caracteres
+                                {
+                                    if (edit == false)
+                                    {
+                                        newUser.nif = null; //condutor nao tem nif
+                                    }
+
+                                    return CreateUpdate(newUser, edit);
+                                }
+                                else
+                                {
+                                    return MessageService.Custom("Licença de Condução não está completa!");
+                                }
                             }
                             else
                             {
-                                return "Prencha todos os campos!";
+                                return MessageService.Custom("Prencha todos os campos!");
                             }
                         }
-
 
                         //caso o user não seja nehuma das entidades a cima então é considerada user
                         else
                         {
-                            if (string.IsNullOrEmpty(newUser.vehicleType) && //cliente não tem vehicleType
-                                string.IsNullOrEmpty(newUser.drivingLicense) && //cliente não tem drivingLicense
-                                !string.IsNullOrEmpty(newUser.birthDate)) //cliente tem de ter birthDate
+                            if (!string.IsNullOrEmpty(newUser.birthDate)) //cliente tem de ter birthDate
                             {
+                                if (edit == false)
+                                {
+                                    newUser.vehicleType = null;
+                                    newUser.drivingLicense = null;
+                                }
                                 return CreateUpdate(newUser, edit);
-
                             }
                             else
                             {
-                                return "Introduza a Data de Nascimento";
+                                return MessageService.Custom("Introduza a Data de Nascimento");
                             }
 
                         }
                     }
                     else
                     {
-                        return "Número de Telemóvel inválido";
+                        return MessageService.Custom("Número de Telemóvel inválido");
                     }
                 }
                 else
                 {
-                    return "Palavra passe ou Nome inválido";
+                    return MessageService.Custom("Palavra passe ou Nome inválido");
                 }
 
             }
@@ -179,7 +235,7 @@ namespace Foody.Utils
             }
         }
 
-        public static string CreateUpdate(User newUser, bool edit)
+        public static Message CreateUpdate(User newUser, bool edit)
         {
             using (DbHelper db = new DbHelper())
             {
@@ -193,19 +249,19 @@ namespace Foody.Utils
                     //verifica se é Empresa
                     if (newUser.userType == 2)
                     {
-                        return "Empresa criada!";
+                        return MessageService.Custom("Empresa criada!");
                     }
 
                     //verifica se é Condutor
                     else if (newUser.userType == 1)
                     {
-                        return "Condutor criado!";
+                        return MessageService.Custom("Condutor criado!");
                     }
 
                     //verifica se é Cliente
                     else
                     {
-                        return "Cliente criado!";
+                        return MessageService.Custom("Cliente criado!");
                     }
                 }
                 else //caso contrário edita o user
@@ -230,24 +286,24 @@ namespace Foody.Utils
 
                         //verifica o tipo de user:
                         //verifica se é Empresa
-                        if (newUser.userType == 2)
+                        if (userDB.userType == 2)
                         {
-                            return "Empresa editada!";
+                            return MessageService.Custom("Empresa editada!");
                         }
                         //verifica se é Condutor
-                        else if (newUser.userType == 1)
+                        else if (userDB.userType == 1)
                         {
-                            return "Condutor editado!";
+                            return MessageService.Custom("Condutor editado!");
                         }
                         //verifica se é Cliente
                         else
                         {
-                            return "Cliente editado!";
+                            return MessageService.Custom("Cliente editado!");
                         }
                     }
                     else
                     {
-                        return "Cliente inexistente!";
+                        return MessageService.Custom("Cliente inexistente!");
                     }
                 }
             }
@@ -269,11 +325,7 @@ namespace Foody.Utils
                         {
                             return true;
                         }
-                        else if (user.userType == 2 && tipoUtilizadorLogado == 3)
-                        {
-                            return true;
-                        }
-                        else if (user.userType == 1 && tipoUtilizadorLogado == 3)
+                        else if (tipoUtilizadorLogado == 3)
                         {
                             return true;
                         }
@@ -346,6 +398,7 @@ namespace Foody.Utils
                     {
                         if (utilizadoresDB[i].userType == userType)//verifica se o user é cliente
                         {
+                            utilizadoresDB[i].password = null;
                             clientes.Add(utilizadoresDB[i]);
                         }
                     }
@@ -379,6 +432,7 @@ namespace Foody.Utils
                     //verifica se o user com o id existe
                     if (db.user.Find(idUser) != null)
                     {
+                        userDB.password = null;
                         return userDB;
                     }
                     else
@@ -395,7 +449,7 @@ namespace Foody.Utils
         #endregion
 
         #region Put User
-        public static object PutUser(string token, User userUpdate, int accessUserId)
+        public static Message PutUser(string token, User userUpdate, int accessUserId)
         {
             if (userUpdate != null)
             {
@@ -410,8 +464,8 @@ namespace Foody.Utils
                         //se cliente não existir, diz que não foram encontrados resultados
                         if (userDB != null)
                         {
-                            string msg = ValidateUser(userUpdate, true);
-                            return MessageService.Custom(msg);
+                            userUpdate.idUser = accessUserId;
+                            return ValidateUser(userUpdate, true);
                         }
 
                         //se cliente existir, atualizar dados
@@ -434,7 +488,7 @@ namespace Foody.Utils
         #endregion
 
         #region Delete User
-        public static object DeleteUser(string token, int idUser)
+        public static Message DeleteUser(string token, int idUser)
         {
             //verifica se user com a Sessão iniciada pode aceder
             if (VerifyUserAccess(token, idUser))
@@ -444,9 +498,37 @@ namespace Foody.Utils
                 {
                     var userDB = db.user.Find(idUser);
 
+                    //valida se empresa está associada a algum produto
+                    foreach (var product in db.product.ToArray())
+                    {
+                        if (idUser == product.idCompany)
+                        {
+                            return MessageService.Custom("Não é permitido eliminar uma empresa que tenha um produto associado!");
+                        }
+                    }
+
+                    //valida se cliente está associada a alguma encomenda
+                    foreach (var order in db.order.ToArray())
+                    {
+                        if (idUser == order.idClient)
+                        {
+                            return MessageService.Custom("Não é permitido eliminar um cliente que tenha uma encomenda associado!");
+                        }
+                    }
+
+                    //valida se condutor está associada a alguma entrega
+                    foreach (var delivery in db.delivery.ToArray())
+                    {
+                        if (idUser == delivery.idDriver)
+                        {
+                            //object ok = HttpStatusCode.BadRequest;
+                            return MessageService.Custom("Não é permitido eliminar um condutor que tenha uma entrega associado!");
+                        }
+                    }
+
                     //verifica se o user com o id existe
                     if (userDB != null)
-                    {
+                    {                        
                         db.user.Remove(userDB);
                         db.SaveChanges();
 
