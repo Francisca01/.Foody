@@ -1,0 +1,1054 @@
+{
+	"info": {
+		"_postman_id": "e2a3284d-76b4-4d76-bf4f-53cd822e3cb3",
+		"name": "Foody",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Gets",
+					"item": [
+						{
+							"name": "Cliente",
+							"item": [
+								{
+									"name": "Get",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "token",
+												"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjEiLCJUaXBvIjoiMyIsIm5iZiI6MTYxMTQ5NzI3MiwiZXhwIjoxNjExNTgzNjcyLCJpYXQiOjE2MTE0OTcyNzJ9.NbRs76uSkWOEXJN6njhMU54KW5fra1Ni6xTlXPZb840",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "https://localhost:44342/api/clients",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "44342",
+											"path": [
+												"api",
+												"clients"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Id",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "token",
+												"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjEiLCJUaXBvIjoiMyIsIm5iZiI6MTYxMTQ5NzI3MiwiZXhwIjoxNjExNTgzNjcyLCJpYXQiOjE2MTE0OTcyNzJ9.NbRs76uSkWOEXJN6njhMU54KW5fra1Ni6xTlXPZb840",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "https://localhost:44342/api/clients/2",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "44342",
+											"path": [
+												"api",
+												"clients",
+												"2"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Condutor",
+							"item": [
+								{
+									"name": "Get",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "token",
+												"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjEiLCJUaXBvIjoiMyIsIm5iZiI6MTYxMTQ5NzI3MiwiZXhwIjoxNjExNTgzNjcyLCJpYXQiOjE2MTE0OTcyNzJ9.NbRs76uSkWOEXJN6njhMU54KW5fra1Ni6xTlXPZb840",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "https://localhost:44342/api/drivers",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "44342",
+											"path": [
+												"api",
+												"drivers"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Id",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "token",
+												"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjEiLCJUaXBvIjoiMyIsIm5iZiI6MTYxMTQ5NzI3MiwiZXhwIjoxNjExNTgzNjcyLCJpYXQiOjE2MTE0OTcyNzJ9.NbRs76uSkWOEXJN6njhMU54KW5fra1Ni6xTlXPZb840",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "https://localhost:44342/api/drivers/3",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "44342",
+											"path": [
+												"api",
+												"drivers",
+												"3"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Empresa",
+							"item": [
+								{
+									"name": "Get",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "token",
+												"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjEiLCJUaXBvIjoiMyIsIm5iZiI6MTYxMTQ5NzI3MiwiZXhwIjoxNjExNTgzNjcyLCJpYXQiOjE2MTE0OTcyNzJ9.NbRs76uSkWOEXJN6njhMU54KW5fra1Ni6xTlXPZb840",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "https://localhost:44342/api/companies",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "44342",
+											"path": [
+												"api",
+												"companies"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Id",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "token",
+												"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjEiLCJUaXBvIjoiMyIsIm5iZiI6MTYxMTQ5NzI3MiwiZXhwIjoxNjExNTgzNjcyLCJpYXQiOjE2MTE0OTcyNzJ9.NbRs76uSkWOEXJN6njhMU54KW5fra1Ni6xTlXPZb840",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "https://localhost:44342/api/companies/4",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "44342",
+											"path": [
+												"api",
+												"companies",
+												"4"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Posts",
+					"item": [
+						{
+							"name": "Registo",
+							"item": [
+								{
+									"name": "Registar Empresa",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"address\": \"a minha morada\",\r\n    \"phone\": 911945678,\r\n    \"userType\": 2,\r\n    \"nif\": \"123456789\",\r\n    \"name\": \"Eduardo\",\r\n    \"email\": \"eduardo@empresa.pt\",\r\n    \"password\": \"Aa2020Aa\",\r\n    \"birthDate\": \"seila\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:44342/api/register",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "44342",
+											"path": [
+												"api",
+												"register"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Registar Condutor",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"address\": \"a minha morada\",\r\n    \"phone\": 911145678,\r\n    \"userType\": 1,\r\n    \"vehicleType\": \"carro\",\r\n    \"drivingLicense\": \"1234567891011\",\r\n    \"name\": \"Rodrigo\",\r\n    \"email\": \"rodrigo@condutor.pt\",\r\n    \"password\": \"Aa2020Aa\",\r\n    \"birthDate\": \"seila\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:44342/api/register",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "44342",
+											"path": [
+												"api",
+												"register"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Registar Cliente",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"address\": \"a minha morada\",\r\n    \"phone\": 911145678,\r\n    \"userType\": 0,\r\n    \"name\": \"Filipe\",\r\n    \"email\": \"filipe@cliente.pt\",\r\n    \"password\": \"Aa2020Aa\",\r\n    \"birthDate\": \"seila\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:44342/api/register",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "44342",
+											"path": [
+												"api",
+												"register"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"tiagos@condutor.pt\",\r\n    \"password\": \"Aa2020Aa\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44342/api/logins",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44342",
+									"path": [
+										"api",
+										"logins"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Puts",
+					"item": [
+						{
+							"name": "Editar Condutor",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjMiLCJUaXBvIjoiMSIsIm5iZiI6MTYxMTQ5ODIwMywiZXhwIjoxNjExNTg0NjAzLCJpYXQiOjE2MTE0OTgyMDN9.cLBAQPZWwUfHteNvRFBpdXQQQgkyNUClnl4scqX4Bts",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"address\": \"a morada minha\",\r\n    \"phone\": 911911148,\r\n    \"name\": \"Tiago\",\r\n    \"email\": \"tiagos@empresa.pt\",\r\n    \"password\": \"Aa2020Aa\",\r\n    \"birthDate\": \"seila\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44342/api/drivers/3",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44342",
+									"path": [
+										"api",
+										"drivers",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Editar Empresa",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"type": "text",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjQiLCJUaXBvIjoiMiIsIm5iZiI6MTYxMTUwMzYwMiwiZXhwIjoxNjExNTkwMDAyLCJpYXQiOjE2MTE1MDM2MDJ9.SqWq5gDZ5z5a3Txm3cuETYjK2Szj32lrwBMdxQeUkKM"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"address\": \"a morada minha\",\r\n    \"phone\": 911011048,\r\n    \"name\": \"Rafael\",\r\n    \"email\": \"rafael@empresa.pt\",\r\n    \"password\": \"Aa2020Aa\",\r\n    \"birthDate\": \"14/02/1988\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44342/api/companies/4",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44342",
+									"path": [
+										"api",
+										"companies",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Editar Cliente",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"type": "text",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjIiLCJUaXBvIjoiMCIsIm5iZiI6MTYxMTUwNDE5NiwiZXhwIjoxNjExNTkwNTk2LCJpYXQiOjE2MTE1MDQxOTZ9.wFGmgsi_9cfJQO59ANk6uvQqKUQWtztQ3ogwQJWwPk0"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"address\": \"a morada minha\",\r\n    \"phone\": 911021048,\r\n    \"name\": \"Raul\",\r\n    \"email\": \"raul@cliente.pt\",\r\n    \"password\": \"Aa2020Aa\",\r\n    \"birthDate\": \"14/02/1988\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44342/api/clients/2",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44342",
+									"path": [
+										"api",
+										"clients",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Deletes",
+					"item": [
+						{
+							"name": "Eliminar Condutor",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjMiLCJUaXBvIjoiMSIsIm5iZiI6MTYxMTUwNzEyNSwiZXhwIjoxNjExNTkzNTI1LCJpYXQiOjE2MTE1MDcxMjV9.qGB8DrS9rKvfNUBaQqTkQbkRxDH-zs4y3y3Kf4ZbAK8",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "https://localhost:44342/api/drivers/3",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44342",
+									"path": [
+										"api",
+										"drivers",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Eliminar Cliente",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjYiLCJUaXBvIjoiMCIsIm5iZiI6MTYxMTUwNjc0NiwiZXhwIjoxNjExNTkzMTQ2LCJpYXQiOjE2MTE1MDY3NDZ9.smymdGNjTXQOZ8IqQC6VU7hBF6BM3SQ0JYW1cqjNXdY",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://localhost:44342/api/clients/6",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44342",
+									"path": [
+										"api",
+										"clients",
+										"6"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Eliminar Empresa",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjkiLCJUaXBvIjoiMiIsIm5iZiI6MTYxMTUwNDk3NiwiZXhwIjoxNjExNTkxMzc2LCJpYXQiOjE2MTE1MDQ5NzZ9.Zuf80ZGSUROjp-YkLjU-ntAjtjbh7Ob1oHd-q671gdg",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://localhost:44342/api/companies/9",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44342",
+									"path": [
+										"api",
+										"companies",
+										"9"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Gets",
+					"item": [
+						{
+							"name": "Get",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:44342/api/products",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44342",
+									"path": [
+										"api",
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:44342/api/products/1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44342",
+									"path": [
+										"api",
+										"products",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Criar Produto",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjQiLCJUaXBvIjoiMiIsIm5iZiI6MTYxMTUyMjIzMywiZXhwIjoxNjExNjA4NjMzLCJpYXQiOjE2MTE1MjIyMzN9.32Za0Pu7OAha4yXO5awI80cSwViz0yMlCsmoqVKNJQ8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"oregãos\",\r\n    \"unitPrice\": 0.55,\r\n    \"ingredients\": \"\",\r\n    \"category\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44342/api/products",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44342",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar Produto",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjQiLCJUaXBvIjoiMiIsIm5iZiI6MTYxMTUyMjIzMywiZXhwIjoxNjExNjA4NjMzLCJpYXQiOjE2MTE1MjIyMzN9.32Za0Pu7OAha4yXO5awI80cSwViz0yMlCsmoqVKNJQ8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"maçãs\",\r\n    \"unitPrice\": 1.31,\r\n    \"ingredients\": \"\",\r\n    \"category\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44342/api/products/6",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44342",
+							"path": [
+								"api",
+								"products",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Produto",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjQiLCJUaXBvIjoiMiIsIm5iZiI6MTYxMTUyMjIzMywiZXhwIjoxNjExNjA4NjMzLCJpYXQiOjE2MTE1MjIyMzN9.32Za0Pu7OAha4yXO5awI80cSwViz0yMlCsmoqVKNJQ8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:44342/api/products/6",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44342",
+							"path": [
+								"api",
+								"products",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "Gets",
+					"item": [
+						{
+							"name": "Get Encomendas",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjIiLCJUaXBvIjoiMCIsIm5iZiI6MTYxMTUyNjI1NSwiZXhwIjoxNjExNjEyNjU1LCJpYXQiOjE2MTE1MjYyNTV9.97YU7mrcSF3u8vJvWyyI4N2GySkb7_nwb0bVuK6Ds2Q",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://localhost:44342/api/orders/",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44342",
+									"path": [
+										"api",
+										"orders",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjIiLCJUaXBvIjoiMCIsIm5iZiI6MTYxMTUyNjI1NSwiZXhwIjoxNjExNjEyNjU1LCJpYXQiOjE2MTE1MjYyNTV9.97YU7mrcSF3u8vJvWyyI4N2GySkb7_nwb0bVuK6Ds2Q",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://localhost:44342/api/orders/1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44342",
+									"path": [
+										"api",
+										"orders",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Posts",
+					"item": [
+						{
+							"name": "Criar Order",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjIiLCJUaXBvIjoiMCIsIm5iZiI6MTYxMTQ1MDA3MywiZXhwIjoxNjExNTM2NDczLCJpYXQiOjE2MTE0NTAwNzN9.CQTYLXrNpBMi-_cZ8STvhWwB7gp-H4KSqqg9IfoFFl0",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"idProduct\": 2,\r\n    \"quantity\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44342/api/orders",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44342",
+									"path": [
+										"api",
+										"orders"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Adicionar Produto a Encomenda",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjIiLCJUaXBvIjoiMCIsIm5iZiI6MTYxMTUyNjI1NSwiZXhwIjoxNjExNjEyNjU1LCJpYXQiOjE2MTE1MjYyNTV9.97YU7mrcSF3u8vJvWyyI4N2GySkb7_nwb0bVuK6Ds2Q",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"idProduct\": 2,\r\n    \"quantity\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44342/api/orders/2",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44342",
+									"path": [
+										"api",
+										"orders",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Puts",
+					"item": [
+						{
+							"name": "Editar Produto em Endomenda",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjIiLCJUaXBvIjoiMCIsIm5iZiI6MTYxMTUyNjI1NSwiZXhwIjoxNjExNjEyNjU1LCJpYXQiOjE2MTE1MjYyNTV9.97YU7mrcSF3u8vJvWyyI4N2GySkb7_nwb0bVuK6Ds2Q",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"idProduct\": 3,\r\n    \"quantity\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44342/api/orders/2/7",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44342",
+									"path": [
+										"api",
+										"orders",
+										"2",
+										"7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Fazer pagamento",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjIiLCJUaXBvIjoiMCIsIm5iZiI6MTYxMTUyOTM0NSwiZXhwIjoxNjExNjE1NzQ1LCJpYXQiOjE2MTE1MjkzNDV9.oP7tPAWd8EYjyQM3lbftMqhThLHrD7-rOt5sUg2C0Ss",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44342/api/orders/2",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44342",
+									"path": [
+										"api",
+										"orders",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Deletes",
+					"item": [
+						{
+							"name": "Eliminar Encomenda",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjIiLCJUaXBvIjoiMCIsIm5iZiI6MTYxMTUyOTM0NSwiZXhwIjoxNjExNjE1NzQ1LCJpYXQiOjE2MTE1MjkzNDV9.oP7tPAWd8EYjyQM3lbftMqhThLHrD7-rOt5sUg2C0Ss",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://localhost:44342/api/orders/5/",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44342",
+									"path": [
+										"api",
+										"orders",
+										"5",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Eliminar Produto de Encomenda",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjIiLCJUaXBvIjoiMCIsIm5iZiI6MTYxMTUyOTM0NSwiZXhwIjoxNjExNjE1NzQ1LCJpYXQiOjE2MTE1MjkzNDV9.oP7tPAWd8EYjyQM3lbftMqhThLHrD7-rOt5sUg2C0Ss",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://localhost:44342/api/orders/3/4",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44342",
+									"path": [
+										"api",
+										"orders",
+										"3",
+										"4"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Delivery",
+			"item": [
+				{
+					"name": "Gets",
+					"item": [
+						{
+							"name": "Get Id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjMiLCJUaXBvIjoiMSIsIm5iZiI6MTYxMTUzMTI4NywiZXhwIjoxNjExNjE3Njg3LCJpYXQiOjE2MTE1MzEyODd9.BBDmEycZTNPvvFm5pOAqcQriVyFzVJu3N3mgGah6wfE",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://localhost:44342/api/deliveries/1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44342",
+									"path": [
+										"api",
+										"deliveries",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjEiLCJUaXBvIjoiMyIsIm5iZiI6MTYxMTUzMTQ0NCwiZXhwIjoxNjExNjE3ODQ0LCJpYXQiOjE2MTE1MzE0NDR9._IA7N0V7AFPtOtmSM9AyRzBUxQJv-w0gA5FZ1nwMu4Q",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://localhost:44342/api/deliveries",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44342",
+									"path": [
+										"api",
+										"deliveries"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Puts",
+					"item": [
+						{
+							"name": "Editar Condutor",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjMiLCJUaXBvIjoiMSIsIm5iZiI6MTYxMTUzMTU5MSwiZXhwIjoxNjExNjE3OTkxLCJpYXQiOjE2MTE1MzE1OTF9.mjPiiWFCoiqptnJQ6L7Bpk54iB6NUjAdwVqfRmIrPIY",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"state\": \"A ser preparado\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44342/api/deliveries/1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44342",
+									"path": [
+										"api",
+										"deliveries",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}

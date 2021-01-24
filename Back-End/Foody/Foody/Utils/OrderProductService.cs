@@ -35,7 +35,7 @@ namespace Foody.Utils
                             db.SaveChanges();
                         }
 
-                        return MessageService.Custom("Encomenda Criada");
+                        return MessageService.Custom("Produto adicionado a Encomenda!");
                     }
 
                 }

@@ -15,7 +15,7 @@ namespace Foody.Controllers
     public class OrdersController : ControllerBase
     {
         // GET api/<OrdersController>/5
-        [HttpGet("myOrders")]
+        [HttpGet]
         public List<object> GetUserOrders()
         {
             //token do user logado
@@ -142,7 +142,7 @@ namespace Foody.Controllers
 
             if (userLoggedIn != null)
             {
-                return OrderService.ChangePayment(userLoggedIn, idOrder, 1);
+                return OrderService.ChangePayment(userLoggedIn, idOrder);
             }
             else
             {

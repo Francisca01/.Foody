@@ -99,7 +99,7 @@ namespace Foody.Utils
             }
         }
 
-        public static Message ChangePayment(int[] userLoggedIn, int accessOrderId, int state)
+        public static Message ChangePayment(int[] userLoggedIn, int accessOrderId)
         {
             if (VerifyOrderAccess(userLoggedIn[0], accessOrderId))
             {
@@ -109,7 +109,7 @@ namespace Foody.Utils
 
                     if (orderDB != null)
                     {
-                        orderDB.state = state;
+                        orderDB.state = 1;
 
                         db.order.Update(orderDB);
                         db.SaveChanges();
@@ -159,6 +159,7 @@ namespace Foody.Utils
 
         public static Message DeleteOrder(int userLoggedIn, int idOrder, int idProduct)
         {
+            bool eliminarProduto = false;
             using (DbHelper db = new DbHelper())
             {
                 if (VerifyOrderAccess(userLoggedIn, idOrder))
@@ -180,13 +181,21 @@ namespace Foody.Utils
                     }
                     else //elimina o OrderProduct
                     {
+                        eliminarProduto = true;
                         var orderProductDBt = db.orderProduct.Find(idOrder, idProduct);
                         db.orderProduct.Remove(orderProductDBt);
                     }
 
                     db.SaveChanges();
 
-                    return MessageService.Custom("Encomenda Eliminada");
+                    if (eliminarProduto)
+                    {
+                        return MessageService.Custom("Produto Eliminado de Encomenda");
+                    }
+                    else
+                    {
+                        return MessageService.Custom("Encomenda Eliminada");
+                    }
                 }
                 else
                 {
