@@ -4,23 +4,15 @@ Temos como principal objetivo, permitir que as pessoas saboreiem do seu prato pr
 
 <br>
 
-testeteste
-
+# Tecnologias Usadas TESTE
 <table align="center">
-  <tr><th align="center">Header A</th><th align="center">Header B</th><th align="center">Header C</th></tr>
-  <tr><td>Content a1</td><td>Content b1</td><td>Content c1</td></tr>
-  <tr><td>Content a2</td><td>Content b2</td><td>Content c2</td></tr>
-  <tr><td>Content a3</td><td>Content b3</td><td>Content c3</td></tr>
+  <tr><th align="center">Parte do Projeto</th><th align="center">Tecnologias Usadas</th></tr>
+  <tr><td>**Back-end**</td><td>C#</td></tr>
+  <tr><td>**Front-end**</td><td>Html, CSS e JavaScript</td></tr>
+  <tr><td>**Base de Dados**</td><td>SQLite</td></tr>
+  <tr><td>**Desenvolvimento**</td><td>SCRUM e GitHub</td></tr>
 </table>
  
-# Tecnologias Usadas TESTE
-- | Parte do Projeto | Tecnologias Usadas |
-- | --- | --- |
-- | **Back-end** | C# |
-- | **Front-end** | Html, CSS e JavaScript |
-- | **Base de Dados** | SQLite |
-- | **Desenvolvimento** | SCRUM e GitHub |
-
 <br>
   
 # Documentação da API
@@ -29,38 +21,41 @@ testeteste
 <br>
 
 # Especificações da API
-| Noun | HHT Action | REST URL | Description
-| --- | --- | --- | --- |
-| Registar | POST | /api/register | Registar Empresa, Cliente ou Condutor
-| Login | POST | /api/logins | Efetuar Login
-| Clientes | GET | /api/clients | Lista todos os Clientes
-| Clientes | GET | /api/clients/{id} | Lista Cliente pelo ID
-| Clientes | PUT | /api/clients/{id} | Edita um Cliente pelo ID
-| Clientes | DELETE | /api/clients/{id} | Apaga um Cliente pelo ID
-| Condutores | GET | /api/drivers | Lista todos os Condutores
-| Condutores | GET | /api/drivers/{id} | Lista Condutor pelo ID
-| Condutores | PUT | /api/drivers/{id} | Edita um Condutor pelo ID
-| Condutores | DELETE | /api/drivers/{id} | Apaga um Condutor pelo ID
-| Empresas | GET | /api/companies | Lista todos as Empresas
-| Empresas | GET | /api/companies/{id} | Lista Empresa pelo ID
-| Empresas | PUT | /api/companies/{id} | Edita uma Empresa pelo ID
-| Empresas | DELETE | /api/companies/{id} | Apaga uma Empresa pelo ID
-| Encomendas | GET | /api/orders | Lista todas as Encomendas
-| Encomendas | GET | /api/orders/{id} | Lista Encomenda pelo ID
-| Encomendas | POST | /api/orders | Adiciona uma Encomenda
-| Encomendas | POST | /api/orders/{id} | Adicionar Produto a Encomenda
-| Encomendas | PUT | /api/orders/{IdOrder}/{IdProduct} | Editar Produto em Endomenda 
-| Encomendas | PUT | /api/orders/{id} | Edita uma Encomenda pelo ID
-| Encomendas | DELETE | /api/orders/{IdOrder}/{IdProduct} | Eliminar Produto de Encomenda
-| Encomendas | DELETE | /api/encomendas/{id} | Apaga uma Encomenda pelo ID
-| Entregas | GET | /api/deliveries | Lista todos as Entregas
-| Entregas | GET | /api/deliveries/{id} | Lista Entrega pelo ID
-| Entregas | PUT | /api/deliveries/{id} | Edita uma Entrega pelo ID
-| Produtos | GET | /api/products | Lista todos os Produtos
-| Produtos | GET | /api/products/{id} | Lista Produto pelo ID
-| Produtos | POST | /api/products | Adiciona um Produto
-| Produtos | PUT | /api/products/{id} | Edita um Produto pelo ID
-| Produtos | DELETE | /api/products/{id} | Apaga um Produto pelo ID
+
+
+<table align="center">
+<tr><th align="center">Noun</th><th align="center">HHT Action</th><th align="center">REST URL</th><th align="center">Description</th></tr>
+  <tr><td> Registar </td><td> POST </td><td> /api/register </td><td> Registar Empresa, Cliente ou Condutor </td></tr>
+  <tr><td> Login </td><td> POST </td><td> /api/logins </td><td> Efetuar Login </td></tr>
+  <tr><td> Clientes </td><td> GET </td><td> /api/clients </td><td> Lista todos os Clientes </td></tr>
+  <tr><td> Clientes </td><td> GET </td><td> /api/clients/{id} </td><td> Lista Cliente pelo ID </td></tr>
+  <tr><td> Clientes </td><td> PUT </td><td> /api/clients/{id} </td><td> Edita um Cliente pelo ID </td></tr>
+  <tr><td> Clientes </td><td> DELETE </td><td> /api/clients/{id} </td><td> Apaga um Cliente pelo ID </td></tr>
+  <tr><td> Condutores </td><td> GET </td><td> /api/drivers </td><td> Lista todos os Condutores </td></tr>
+  <tr><td> Condutores </td><td> GET </td><td> /api/drivers/{id} </td><td> Lista Condutor pelo ID </td></tr>
+  <tr><td> Condutores </td><td> PUT </td><td> /api/drivers/{id} </td><td> Edita um Condutor pelo ID </td></tr>
+  <tr><td> Condutores </td><td> DELETE </td><td> /api/drivers/{id} </td><td> Apaga um Condutor pelo ID </td></tr>
+  <tr><td> Empresas </td><td> GET </td><td> /api/companies </td><td> Lista todos as Empresas </td></tr>
+  <tr><td> Empresas </td><td> GET </td><td> /api/companies/{id} </td><td> Lista Empresa pelo ID </td></tr>
+  <tr><td> Empresas </td><td> PUT </td><td> /api/companies/{id} </td><td> Edita uma Empresa pelo ID </td></tr>
+  <tr><td> Empresas </td><td> DELETE </td><td> /api/companies/{id} </td><td> Apaga uma Empresa pelo ID </td></tr>
+  <tr><td> Encomendas </td><td> GET </td><td> /api/orders </td><td> Lista todas as Encomendas </td></tr>
+  <tr><td> Encomendas </td><td> GET </td><td> /api/orders/{id} </td><td>  Lista Encomenda pelo ID </td></tr>
+  <tr><td> Encomendas </td><td> POST </td><td> /api/orders </td><td> Adiciona uma Encomenda </td></tr>
+  <tr><td> Encomendas </td><td> POST </td><td> /api/orders/{id} </td><td> Adicionar Produto a Encomenda </td></tr>
+  <tr><td> Encomendas </td><td> PUT </td><td> /api/orders/{IdOrder}/{IdProduct} </td><td> Editar Produto em Endomenda </td></tr>
+  <tr><td> Encomendas </td><td> PUT </td><td> /api/orders/{id} </td><td> Edita uma Encomenda pelo ID </td></tr>
+  <tr><td> Encomendas </td><td> DELETE </td><td> /api/orders/{IdOrder}/{IdProduct} </td><td> Eliminar Produto de Encomenda </td></tr>
+  <tr><td> Encomendas </td><td> DELETE </td><td> /api/encomendas/{id} </td><td> Apaga uma Encomenda pelo ID </td></tr>
+  <tr><td> Entregas </td><td> GET </td><td> /api/deliveries </td><td> Lista todos as Entregas </td></tr>
+  <tr><td> Entregas </td><td> GET </td><td> /api/deliveries/{id} </td><td> Lista Entrega pelo ID </td></tr>
+  <tr><td> Entregas </td><td> PUT </td><td> /api/deliveries/{id} </td><td> Edita uma Entrega pelo ID </td></tr>
+  <tr><td> Produtos </td><td> GET </td><td> /api/products </td><td> Lista todos os Produtos </td></tr>
+  <tr><td> Produtos </td><td> GET </td><td> /api/products/{id} </td><td> Lista Produto pelo ID </td></tr>
+  <tr><td> Produtos </td><td> POST </td><td> /api/products </td><td> Adiciona um Produto </td></tr>
+  <tr><td> Produtos </td><td> PUT </td><td> /api/products/{id} </td><td> Edita um Produto pelo ID </td></tr>
+  <tr><td> Produtos </td><td> DELETE </td><td> /api/products/{id} </td><td> Apaga um Produto pelo ID </td></tr>
+</table>
 
 <br>
 
