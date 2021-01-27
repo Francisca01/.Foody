@@ -7,10 +7,10 @@ Temos como principal objetivo, permitir que as pessoas saboreiem do seu prato pr
 # Tecnologias Usadas
 <table align="center">
   <tr><th align="center">Parte do Projeto</th><th align="center">Tecnologias Usadas</th></tr>
-  <tr><td>**Back-end**</td><td>C#</td></tr>
-  <tr><td>**Front-end**</td><td>Html, CSS e JavaScript</td></tr>
-  <tr><td>**Base de Dados**</td><td>SQLite</td></tr>
-  <tr><td>**Desenvolvimento**</td><td>SCRUM e GitHub</td></tr>
+  <tr><td>Back-end</td><td>C#</td></tr>
+  <tr><td>Front-end</td><td>Html, CSS e JavaScript</td></tr>
+  <tr><td>Base de Dados</td><td>SQLite</td></tr>
+  <tr><td>Desenvolvimento</td><td>SCRUM e GitHub</td></tr>
 </table>
  
 <br>
