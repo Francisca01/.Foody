@@ -5,12 +5,12 @@ Temos como principal objetivo, permitir que as pessoas saboreiem do seu prato pr
 <br>
 
 # Tecnologias Usadas
-| Parte do Projeto | Tecnologias Usadas
+| Parte do Projeto | Tecnologias Usadas |
 | --- | --- |
-| **Back-end** | C#
-| **Front-end** | Html, CSS e JavaScript
-| **Base de Dados** | SQLite
-| **Desenvolvimento** | SCRUM e GitHub
+| **Back-end** | C# |
+| **Front-end** | Html, CSS e JavaScript |
+| **Base de Dados** | SQLite |
+| **Desenvolvimento** | SCRUM e GitHub |
 
 <br>
   
