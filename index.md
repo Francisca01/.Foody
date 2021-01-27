@@ -3,6 +3,13 @@ Foody é uma empresa criada tendo em conta os tempos pandémicos atuais, que tem
 Temos como principal objetivo, permitir que as pessoas saboreiem do seu prato predileto sem terem que sair de casa, respeitando assim as normas sanitárias.
 
 <br>
+
+<table align="center">
+  <tr><th align="center">Header A</th><th align="center">Header B</th><th align="center">Header C</th></tr>
+  <tr><td>Content a1</td><td>Content b1</td><td>Content c1</td></tr>
+  <tr><td>Content a2</td><td>Content b2</td><td>Content c2</td></tr>
+  <tr><td>Content a3</td><td>Content b3</td><td>Content c3</td></tr>
+</table>
  
 # Tecnologias Usadas TESTE
 - | Parte do Projeto | Tecnologias Usadas |
