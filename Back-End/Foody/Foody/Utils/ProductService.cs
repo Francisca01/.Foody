@@ -68,6 +68,11 @@ namespace Foody.Utils
                     if (edit == true)
                     {
                         var productUpdate = db.product.Find(idProduto);
+
+                        if (productUpdate == null)
+                        {
+                            return MessageService.WithoutResults();
+                        }
                         if (product.name != null)
                         {
                             productUpdate.name = product.name;

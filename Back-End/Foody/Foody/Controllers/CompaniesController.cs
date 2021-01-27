@@ -21,9 +21,16 @@ namespace Foody.Controllers
         {
             //token do user logado
             string token = Request.Headers["token"];
-
-            //vai buscar os utilizadores
-            return UserService.GetUser(token, 2);
+            if (token != null)
+            {
+                //vai buscar os utilizadores
+                return UserService.GetUser(token, 2);
+            }
+            else
+            {
+                List<object> msg = new List<object>() { MessageService.AccessDenied() };
+                return msg;
+            }
         }
 
         // GET api/<CompaniesController>/5
@@ -32,9 +39,15 @@ namespace Foody.Controllers
         {
             //token do user logado
             string token = Request.Headers["token"];
-
-            //vai buscar o utilizadore
-            return UserService.GetUserId(token, idUser);
+            if (token != null)
+            {
+                //vai buscar o utilizadore
+                return UserService.GetUserId(token, idUser);
+            }
+            else
+            {
+                return MessageService.AccessDenied();
+            }
         }
         
         // PUT api/<CompaniesController>/5
@@ -43,8 +56,14 @@ namespace Foody.Controllers
         {
             //token do user logado
             string token = Request.Headers["token"];
-
-            return UserService.PutUser(token, companyUpdate, idUser);
+            if (token != null)
+            {
+                return UserService.PutUser(token, companyUpdate, idUser);
+            }
+            else
+            {
+                return MessageService.AccessDenied();
+            }
         }
 
         // DELETE api/<CompaniesController>/5
@@ -53,8 +72,14 @@ namespace Foody.Controllers
         {
             //token do user logado
             string token = Request.Headers["token"];
-
-            return UserService.DeleteUser(token, idUser);
+            if (token != null)
+            {
+                return UserService.DeleteUser(token, idUser);
+            }
+            else
+            {
+                return MessageService.AccessDenied();
+            }           
         }
     }
 }
