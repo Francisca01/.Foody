@@ -4,7 +4,7 @@ Temos como principal objetivo, permitir que as pessoas saboreiem do seu prato pr
 
 <br>
 
-# Tecnologias Usadas TESTE
+# Tecnologias Usadas
 <table align="center">
   <tr><th align="center">Parte do Projeto</th><th align="center">Tecnologias Usadas</th></tr>
   <tr><td>**Back-end**</td><td>C#</td></tr>
