@@ -3,8 +3,8 @@ Foody é uma empresa criada tendo em conta os tempos pandémicos atuais, que tem
 Temos como principal objetivo, permitir que as pessoas saboreiem do seu prato predileto sem terem que sair de casa, respeitando assim as normas sanitárias.
 
 <br>
-
-# Tecnologias Usadas
+ 
+# Tecnologias Usadas TESTE
 - | Parte do Projeto | Tecnologias Usadas |
 - | --- | --- |
 - | **Back-end** | C# |
