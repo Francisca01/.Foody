@@ -50,15 +50,15 @@
 				<div class="">
 					<ul class="tabs">
 						<li class="tab"><a href="#email">Email</a></li>
-						<li class="tab"><a href="#telemovel">Telemóvel</a></li>
+						<li class="tab"><a href="#telemovelform">Telemóvel</a></li>
 					</ul>
 				</div>
 			</div>
 
-			<form id="email" method="POST" action="processaLogin.php">
+			<form id="emailform" method="POST" action="processaLoginEmail.php">
 				<div class="input-field">
 					<label for="autocomplete-input">Email</label>
-					<input type="email" class="input-field autocomplete" name="emails">
+					<input type="email" class="input-field autocomplete" id="emails" name="emails">
 				</div>
 				<div class="input-field">
 					<label for="autocomplete-input">Password</label>
@@ -75,10 +75,11 @@
 				</p>
 			</form>
 
-			<form id="telemovel" method="POST" action="processaLogin.php">
+			<form id="telemovelform" method="POST" action="processaLoginTelemovel.php">
+				<fieldset disabled>
 				<div class="input-field">
 					<label for="autocomplete-input">Telemóvel</label>
-					<input type="tel" class="input-field autocomplete" name="telemovel">
+					<input type="tel" class="input-field autocomplete" id="telemovel" name="telemovel">
 				</div>
 				<div class="input-field">
 					<label for="autocomplete-input">Password</label>
@@ -93,6 +94,7 @@
 					<label>Ainda nao é registado?</label>
 					<a href="register.html">Clique Aqui</a>
 				</p>
+				</fieldset>
 			</form>
 		</div>
 	</section>
@@ -103,5 +105,6 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="js/materialize.min.js"></script>
 <script>
-	  var instance = M.Tabs.init(el, options);
+	var instance = M.Tabs.init(el, options);
+}	
 </script>
