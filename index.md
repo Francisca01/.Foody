@@ -59,6 +59,6 @@ Temos como principal objetivo, permitir que as pessoas saboreiem do seu prato pr
 
 <br>
 
-# Copyright
+## Copyright
 Código e Documentação © 2020-2021
 Francisca Costa & Leonardo Vieira & Tomás Braga
