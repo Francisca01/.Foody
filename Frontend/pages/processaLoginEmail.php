@@ -24,9 +24,8 @@
 	</head>
 	<body>
 		<?php
-			if($_POST['emails'] != null){
-				$emailss = mysqli_real_escape_string($link, $_POST['emails']);
-				
+			if($_POST['emails']!=null || $_POST['telemovel']==null){
+				//Login através do email
 			}
 		?>
 	</body>
