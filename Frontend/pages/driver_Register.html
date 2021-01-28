@@ -45,17 +45,13 @@
 		</div>
 	</section>
 
-	<section class="right-main register">
-		<div class="row options">
-			<div class="">
-				<ul class="tabs">
-					<li class="tab"><a href="#dadosPessoais">Dados Pessoais</a></li>
-					<li class="tab"><a href="#morada">Morada</a></li>
-				</ul>
-			</div>
+	<section class="right-main">
+		<div>
+			<h5>Dados Pessoais</h5>
+			<hr style="border-color: #DE643E !important;">
 		</div>
 
-		<form id="dadosPessoais" action="#">
+		<form action="#">
 			<!-- Nome de Utilizador e Data de Nascimento -->
 			<div class="row">
 				<div class="input-field col s6">
@@ -102,7 +98,12 @@
 			</div>
 		</form>
 
-		<form id="morada">
+		<div>
+			<h5>Morada</h5>
+			<hr style="border-color: #DE643E !important;">
+		</div>
+
+		<form>
 			<div class="row">
 				<div class="input-field col s6">
 					<label for="autocomplete-input">Rua</label>
@@ -128,10 +129,18 @@
 					<input type="text" class="input-field autocomplete">
 				</div>
 			</div>
+			<button type="submit" class="btn waves-effect waves-light">Ok</button>
 		</form>
+
+
+
 		<div class="row">
-			<button type="submit" class="btn waves-effect waves-light">Efetuar Registo</button>
+			<button type="submit" class="btn btn-primary" style="
+					margin-top: 35px;
+					padding: .375rem .75rem !important;
+					">Efetuar Registo</button>
 		</div>
+		</form>
 	</section>
 </body>
 
@@ -143,14 +152,12 @@
 	}
 
 	document.addEventListener('DOMContentLoaded', function () {
-		var elems = document.querySelectorAll('select');
-		var instances = M.FormSelect.init();
+		var elems = document.querySelectorAll('.datepicker');
+		var instances = M.Datepicker.init(elems, options);
+	});
 
-		var instance = M.AutoInit();
+	document.addEventListener('DOMContentLoaded', function () {
+		var elems = document.querySelectorAll('select');
+		var instances = M.FormSelect.init(elems, options);
 	});
 </script>
-
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-
-<!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
