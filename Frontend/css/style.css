@@ -141,7 +141,6 @@ a:hover {
 	padding-bottom: 40px;
 }
 
-
 #register {
 	padding: 10px;
 	height: 100%;
@@ -172,7 +171,7 @@ a:hover {
 }
 
 .tabs .indicator {
-    background-color: #707070 !important;
+	background-color: #707070 !important;
 }
 
 .tabs .tab a.active {
@@ -199,7 +198,7 @@ a:hover {
 	width: 100;
 }
 
-.options ul{
+.options ul {
 	width: 100% !important;
 }
 
@@ -382,46 +381,46 @@ a:hover {
 	display: grid;
 }
 
-.card-content{
+.card-content {
 	display: block;
 	text-align: left;
 }
 
-.card-title{
+.card-title {
 	margin: 0;
 }
 
-.cardHeader{
+.cardHeader {
 	margin: 0;
 	display: flow-root;
 }
 
-.cardHeader h5{
+.cardHeader h5 {
 	float: left !important;
 }
 
-.cardHeader label{
+.cardHeader label {
 	float: right !important;
 }
 
-.entregasModal h4{
+.entregasModal h4 {
 	padding-bottom: 30px;
 	color: #707070;
 }
 
-.entregasModal h6{
+.entregasModal h6 {
 	font-size: 15px;
 	color: #707070;
 }
 
-.driverOptions .material-icons{
+.driverOptions .material-icons {
 	font-size: 15px;
 	float: right;
 	padding-left: 10px;
 	color: #707070;
 }
 
-.entregasModal .row{
+.entregasModal .row {
 	margin-bottom: 0 !important;
 }
 

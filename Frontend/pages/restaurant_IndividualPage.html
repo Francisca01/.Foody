@@ -33,7 +33,6 @@
 			<div class="">
 				<ul id="nav-mobile" class="side-bottom hide-on-med-and-down">
 					<li><a href="../index.html"><i class="material-icons selected">home</i></a></li>
-					<li><a href="#"><i class="material-icons">shopping_cart</i></a></li>
 					<li><a href="login.html"><i class="material-icons">people</i></a></li>
 					<li><a href="client_Settings.html"><i class="material-icons">settings</i></a></li>
 				</ul>
@@ -75,7 +74,8 @@
 				<div class="row">
 					<p class="col s12">
 						<span>Ingredientes: </span>
-						<label>Ingrediente; Ingrediente; Ingrediente; Ingrediente; Ingrediente; Ingrediente; Ingrediente; Ingrediente; Ingrediente;</label>
+						<label>Ingrediente; Ingrediente; Ingrediente; Ingrediente; Ingrediente; Ingrediente;
+							Ingrediente; Ingrediente; Ingrediente;</label>
 					</p>
 				</div>
 			</div>
@@ -113,6 +113,9 @@
 						<span>Restaurante: </span>
 						<label> Ciccoria</label>
 					</p>
+					<p class="driverOptions">
+						<a class="col s1" href=""><i class="large material-icons">delete</i></a>
+					</p>
 				</div>
 			</div>
 
@@ -134,14 +137,55 @@
 						<span>Restaurante: </span>
 						<label> Ciccoria</label>
 					</p>
+					<p class="driverOptions">
+						<a class="col s1" href=""><i class="large material-icons">delete</i></a>
+					</p>
 				</div>
 			</div>
 
-			<button class="btn waves-effect waves-light"
-				style="bottom: -165px; position: relative; width: 80%;">Finalizar</button>
+			<button class="btn waves-effect waves-light modal-trigger" href="#modalPagamento" style="bottom: -165px; position: relative; width: 80%;">Finalizar</button>
+		</div>
+	</section>
+
+	<!-- Modal Structure -->
+	<div id="modalPagamento" class="modal">
+		<div class="modal-content">
+			<h4>Pagamento</h4>
+			<form>
+				<h5>30.00€</h5>
+				<p style="text-align: center;">Efetue o Pagamento e receba a sua encomonda no conforto do seu lar!</p>
+				<br>
+				<div class="row">
+					<select class="input-field col s6">
+						<option value="" disabled selected>Método de Pagamento</option>
+						<option value="1">Cartão de Crédito</option>
+						<option value="2">Pagamento na Entrega</option>
+					</select>
+				</div>
+				<div class="row">
+					<select class="input-field col s6">
+						<option value="" disabled selected>Local de Entrega</option>
+						<option value="1">Associado</option>
+						<option value="2">Adicionar Novo</option>
+					</select>
+				</div>
+				<div class="row">
+					<div class="input-field col s6">
+						<label for="autocomplete-input">Horario de Entrega</label>
+						<input type="text" class="input-field autocomplete">
+					</div>
+					<div class="input-field col s6">
+						<label for="autocomplete-input">NIF Cliente</label>
+						<textarea type="text" class="materialize-textarea"></textarea>
+					</div>
+				</div>
+			</form>
 		</div>
 
-	</section>
+		<div class="modal-footer">
+			<a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+		</div>
+	</div>
 
 </body>
 
