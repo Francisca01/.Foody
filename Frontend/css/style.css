@@ -35,7 +35,7 @@ p, label, span, input, button, optgroup, select, textarea {
 	font-size: 13px !important;
 }
 
-span{
+span {
 	font-size: 13px !important;
 	color: #707070;
 }
@@ -116,33 +116,97 @@ a:hover {
 }
 
 #login form {
-	display: grid;
+	display: inline;
 	justify-content: center;
 	font-size: 15px;
 	margin-top: 25px;
+	justify-content: center;
+}
+
+#login button {
+	width: 100% !important;
 }
 
 #login h1, h5, label {
 	text-align: center;
 }
 
-#login button {
-	margin-top: 40px;
-	margin: 10px;
-	width: 400px;
+#login a {
+	justify-content: center;
+	text-align: center;
+	width: 170px;
 }
 
-.login-options{
+#login p {
+	padding-bottom: 40px;
+}
+
+#register {
+	padding: 10px;
+	height: 100%;
+	margin-top: 10%;
+}
+
+#register form {
+	display: flex;
 	justify-content: center;
-	margin: auto;
+	font-size: 15px;
+	margin-top: 25px;
+	justify-content: center;
 	text-align: center;
 }
 
-.ul{
+#register button {
+	width: 100% !important;
+}
+
+#register h1, h5, label {
+	text-align: center;
+}
+
+#register a {
+	justify-content: center;
+	text-align: center;
+	width: 170px;
+}
+
+.tabs .indicator {
+	background-color: #707070 !important;
+}
+
+.tabs .tab a.active {
+	background-color: white !important;
 	color: #707070 !important;
 }
 
-.flex-form {	
+.tabs .tab a:hover {
+	background-color: #eee;
+	color: #707070 !important;
+}
+
+.tab a {
+	font-weight: 600;
+	color: rgb(105, 105, 105) !important;
+	text-transform: none !important;
+}
+
+.options {
+	justify-content: center;
+	margin: auto;
+	padding-bottom: 50px;
+	text-align: center;
+	width: 100;
+}
+
+.options ul {
+	width: 100% !important;
+}
+
+.ul {
+	color: #707070 !important;
+}
+
+.flex-form {
 	justify-content: center;
 }
 
@@ -156,7 +220,7 @@ a:hover {
 	font-weight: bold;
 }
 
-.flex-form i{
+.flex-form i {
 	font-size: 25px !important;
 	color: #fff !important;
 	padding-bottom: 0px;
@@ -165,6 +229,8 @@ a:hover {
 
 .client {
 	background: #EE8328 !important;
+	font-size: 15px !important;
+	color: #fff !important;
 }
 
 .driver {
@@ -210,26 +276,13 @@ a:hover {
 	padding: 50px;
 }
 
-.right-main .row{
+.right-main .row {
 	margin: 0 !important;
 }
 
-.register-form {
-	display: grid;
-	width: 80%;
-	justify-content: center;
-	text-align: center;
-	margin: auto;
-}
-
-.register-form h5 {
-	text-align: left;
-	margin-bottom: 0;
-	margin-top: 50px;
-}
-
-.row>* {
-	padding: 0px 5px !important;
+.register button {
+	margin-top: 40px;
+	width: 100%;
 }
 
 /* MAIN */
@@ -313,7 +366,7 @@ a:hover {
 	height: 100%;
 	width: 25%;
 	position: fixed;
-	z-index: 1;
+	z-index: -1;
 	top: 0;
 	left: 75%;
 	background-color: #707070;
@@ -321,13 +374,54 @@ a:hover {
 	text-align: center;
 }
 
-.shoppingCart h3 {}
-
 .sc-products-group {
 	padding: 70% 40px;
 	color: white;
 	/* justify-content: center; */
 	display: grid;
+}
+
+.card-content {
+	display: block;
+	text-align: left;
+}
+
+.card-title {
+	margin: 0;
+}
+
+.cardHeader {
+	margin: 0;
+	display: flow-root;
+}
+
+.cardHeader h5 {
+	float: left !important;
+}
+
+.cardHeader label {
+	float: right !important;
+}
+
+.entregasModal h4 {
+	padding-bottom: 30px;
+	color: #707070;
+}
+
+.entregasModal h6 {
+	font-size: 15px;
+	color: #707070;
+}
+
+.driverOptions .material-icons {
+	font-size: 15px;
+	float: right;
+	padding-left: 10px;
+	color: #707070;
+}
+
+.entregasModal .row {
+	margin-bottom: 0 !important;
 }
 
 /*@media screen and (max-height: 450px) {
